@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+        .content {
+            font-family: Arial;
+        }
+
+        .table_layout {
+            margin-left: 10px;
+            border: 1px solid #eee;
+        }
+
+        .table_heading {
+            border: 1px solid #eee;
+        }
+
+        .header_column {
+            font-family: Arial;
+            border: 1px solid #eee;
+            background: #414141;
+            color: #fff;
+            text-align: left;
+            padding: 5px;
+        }
+        .row {
+            font-family: Arial;
+            text-align: left;
+            padding: 5px;
+            border: 1px solid #eee;
+        }
+        .task_column{
+            width: 250px;
+        }
+        .agent_column {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+		Dear All,
+        <br /><br /><br />
+		No of outstanding requests: {RequestCount}
+		<br />
+		No of outstanding urgent requests (within {UrgentRequestCutoff} days): {UrgentRequestCount}
+        <br /><br />
+		Please refer to the outstanding requests below.
+        <br /><br />
+        <table id='onboard' cellpadding='0' cellspacing='0' class="table_layout">
+            <tr class="">
+                <th class="header_column">Request ID</th>
+                <th class="header_column">First Name</th>
+                <th class="header_column">Last Name</th>
+                <th class="header_column" width="15%">Cost Centre</th>
+                <th class="header_column">Work Start Date</th>
+                <th class="header_column">Requestor</th>
+                <th class="header_column">Request Date</th>
+				<th class="header_column task_column">Task</th>
+				<th class="header_column agent_column">Agent</th>
+            </tr>
+			{RequestListTable}
+        </table>
+        <br /><br /><br />
+        Thank you.
+        <br /><br />
+        NOTE: THIS IS A SYSTEM GENERATED EMAIL. PLEASE DO NOT REPLY TO THIS EMAIL.
+    </div>
+</body>
+</html>

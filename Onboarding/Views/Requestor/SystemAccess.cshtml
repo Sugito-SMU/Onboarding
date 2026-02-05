@@ -1,0 +1,622 @@
+﻿@model Onboarding.Models.SystemAccess
+@{
+
+    Layout = "~/Views/Shared/RequestFormLayout.cshtml";
+    string url = Url.Action("EmployeeInfo", "onboarding", new { @id = 0 });
+}
+@section head
+{
+    <link href="~/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/assets/vendor/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+
+
+    <style>
+        .table tr th {
+            background: rgb(228, 234, 236);
+            color: rgb(118, 131, 143) !important;
+            font-weight: 100 !important;
+        }
+
+        .table tr td a {
+            text-decoration: underline;
+        }
+
+
+        .table tr td a:hover {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .tst {
+            color: rgb(118, 131, 143) !important;
+            cursor: pointer !important;
+            display: inline-block !important;
+            font-family: Roboto,sans-serif !important;
+            font-size: 14px !important;
+            font-weight: 300 !important;
+            text-decoration: underline;
+        }
+
+        .panel-default > .panel-heading {
+            background-color: white !important;
+            border-color: white !important;
+            margin-bottom: -30px !important;
+            padding-bottom: -10px !important;
+        }
+
+        .clickable {
+            cursor: pointer;
+        }
+
+        .row_addon {
+            padding-bottom:12px!important;
+        }
+
+        .eisrequest_hint {
+            margin-left:20px;
+            font-size:11px;
+            color:grey;
+        }
+
+        .requestor_remarks {
+            margin-left:20px;
+            margin-bottom:10px;
+        }
+
+        .sysaccess_checkbox {
+            margin-bottom:0px;
+        }
+    </style>
+}
+@section scripts
+{
+
+
+    <script src="~/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/vendor/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="~/assets/js/jquery.validate.min.js"></script>
+    <script src="~/assets/js/jquery.validate.unobtrusive.js"></script>
+
+}
+
+@using (Html.BeginForm("Post", "Requestor/SystemAccess", FormMethod.Post, new { enctype = "multipart/form-data", id = "RequestorForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" id="RedirectTo" name="RedirectTo" value="" />
+
+    <div class="wizard-pane active" id="systemAccess" role="tabpanel">
+
+        <div class="outer_div" id="outer_div">
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" checked="checked" disabled="disabled">
+                                Network ID
+                                <span class="text-danger">*</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(model => model.IsEmailSelected, new { @class = "checkbox-input" })
+                                Email
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsEmailSelected))
+                {
+                    <div>
+                        <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsEmailSelected)</span>
+                    </div>
+                }
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="checkbox">
+                            <label>
+                                @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.IsSAPSelected, Model.Request, false))
+                                {
+                                    @Html.CheckBoxFor(model => model.IsSAPSelected, new { @class = "checkbox-input", @checked = "checked", @disabled = "disabled" });
+                                }
+                                else
+                                {
+                                    @Html.CheckBoxFor(model => model.IsSAPSelected, new { @class = "checkbox-input" });
+                                }
+                                SAP
+                                <span class="eisrequest_hint">(You need to raise <a href="@System.Configuration.ConfigurationManager.AppSettings["EISRequestURL"]" target="_blank">EIS Request</a> to request more access for SAP)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 clsIsSAPSelected" style="@Html.Raw((Model.IsSAPSelected == true ? "display:block" : "display:none"));">
+                        @Html.TextBoxFor(model => model.DARTFund, new { @class = "form-control requestor_remarks textbox-input", @placeholder = "DART Fund Code (Required for Full-Time Faculty)", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.DARTFund) })
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.DARTFund))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.DARTFund)</span>
+                        }
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsSAPSelected))
+                        {
+                            <div>
+                                <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsSAPSelected)</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="checkbox">
+                            <label>
+                                @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.IsISISSelected, Model.Request, false))
+                                {
+                                    @Html.CheckBoxFor(model => model.IsISISSelected, new { @class = "checkbox-input", @checked = "checked", @disabled = "disabled" });
+                                }
+                                else
+                                {
+                                    @Html.CheckBoxFor(model => model.IsISISSelected, new { @class = "checkbox-input" });
+                                }
+                                ISIS
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 clsIsISISSelected" style="@Html.Raw((Model.IsISISSelected == true ? "display:block" : "display:none"));">
+                        @Html.TextBoxFor(model => model.ISISRemarks, new { @class = "form-control requestor_remarks textbox-input", @placeholder = "ISIS Remarks", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.ISISRemarks) })
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.ISISRemarks))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.ISISRemarks)</span>
+                        }
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsISISSelected))
+                        {
+                            <div>
+                                <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsISISSelected)</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(model => model.IsELearnSelected, new { @class = "checkbox-input" })
+                                eLearn Early Access
+                            </label>
+                        </div>
+                    </div>
+                    <div id="diviselearnselected" class="clsiselearnselected" style="@Html.Raw((Model.IsELearnSelected == true ? "display:block" : "display:none"));">
+                        <div class="col-md-2 requestor_remarks">
+                            <div class="input-append date form_date" id="datePicker" data-date-format="dd MMM yyyy">
+                                @Html.TextBoxFor(x => x.ELearnStartDate, "{0:dd MMM yyyy}", new { @placeholder = "dd MMM yyyy*", @class = "form-control textbox-input" })
+                                <span class="add-on"><i class="icon-th"></i></span>
+                                @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.ELearnStartDate))
+                                {
+                                    <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.ELearnStartDate)</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.ELearnRemarks, new { @class = "form-control textbox-input", @placeholder = "eLearn Remarks", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.ELearnRemarks) })
+                            @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.ELearnRemarks))
+                            {
+                                <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.ELearnRemarks)</span>
+                            }
+                         </div>
+                    </div>
+                </div>
+                @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsELearnSelected))
+                {
+                    <div>
+                        <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsELearnSelected)</span>
+                    </div>
+                }
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(model => model.IsMtgRoomSelected, new { @class = "checkbox-input" })
+                                Additional Meeting Room Booking Access
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 clsIsMtgRoomSelected" style="@Html.Raw((Model.IsMtgRoomSelected == true ? "display:block" : "display:none"));">
+                        @Html.TextBoxFor(model => model.MtgRoomDetails, new { @class = "form-control requestor_remarks textbox-input", @placeholder = "Meeting Room Detail*", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.MtgRoomDetails) })
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.MtgRoomDetails))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.MtgRoomDetails)</span>
+                        }
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsMtgRoomSelected))
+                        {
+                            <div>
+                                <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsMtgRoomSelected)</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+                
+            <div class="clsIsCMSSelected" style="margin-bottom:2px; display:@if (Model.IsEmailSelected) { @Html.Raw("block") } else { @Html.Raw("none") } ">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(model => model.IsINetSelected, new { @class = "isCMSSelected checkbox-input" })
+                                    Content Management System – iNet (Faculty and Staff Portal).
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsINetSelected))
+                    {
+                        <div>
+                            <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsINetSelected)</span>
+                        </div>
+                    }
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(model => model.IsOasisSelected, new { @class = "isCMSSelected checkbox-input" })
+                                    Content Management System – Oasis (Student Portal).
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsOasisSelected))
+                    {
+                        <div>
+                            <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsOasisSelected)</span>
+                        </div>
+                    }
+                </div>
+
+                <div class="row">
+                    <div class="form-group ">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(model => model.IsNextwebSelected, new { @class = "isCMSSelected checkbox-input" })
+                                    Content Management System – Nextweb.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsNextwebSelected))
+                    {
+                        <div>
+                            <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsNextwebSelected)</span>
+                        </div>
+                    }
+                </div>
+            </div>
+
+                <div class="row">
+                    <div class="form-group ">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(model => model.IsEmailDLSelected, new { @class = "checkbox-input" })
+                                    Email Distribution List
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 clsIsEmailDLSelected" style="@Html.Raw((Model.IsEmailDLSelected == true ? "display:block" : "display:none"));">
+                            @Html.TextBoxFor(model => model.EmailDLDetails, new { @class = "form-control requestor_remarks textbox-input", @placeholder = "Email Distribution List Detail*", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.EmailDLDetails) })
+                            @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.EmailDLDetails))
+                            {
+                                <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.EmailDLDetails)</span>
+                            }
+                            @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsEmailDLSelected))
+                            {
+                                <div>
+                                    <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsEmailDLSelected)</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="SupportingDocument" class="row" style="margin-top:15px; @Html.Raw((((Model.Attachment != null) || ((Model.IsViewMode == false) && (Model.IsINetSelected == true) || (Model.IsOasisSelected == true) || (Model.IsNextwebSelected == true))) ? "display:block" : "display:none"));">
+                    <div class="form-group ">
+                        <div class="col-sm-2">
+                            <label>
+                                Supporting Document<span class="text-danger">*</span>
+                            </label>
+                        </div>
+                        <div class="col-md-10 ">
+                            <div id="AttachmentLabel">
+                                <label style="margin:0;">Please Attach HOD/AO/Assistant Dean approval that specifically mentions: </label>
+                                <ul>
+                                    <li id="ApprovalLabelCMS" style="@Html.Raw((((Model.IsINetSelected == true) || (Model.IsOasisSelected == true) || (Model.IsNextwebSelected == true)) ? "" : "display:none"));">
+                                        Content Management System (iNet/Oasis/Nextweb)
+                                    </li>
+                                </ul>
+                                <div id="divupload" style="@Html.Raw((Model.Attachment == null) ? "" : "display:none");">
+                                    @Html.TextBoxFor(m => m.AttachmentFile, new { @type = "file", @style = "width:100%;" })
+                                </div>
+                            </div>
+                            @if (Model.Attachment != null)
+                            {
+                                @Html.HiddenFor(m => m.IsAttachmentDeleted)
+                                <div id="divDownload">
+                                    <a href="@Request.ApplicationPath.TrimEnd('/')/Requestor/DownloadFile/@Model.Attachment.ReqAttachId" id="lnkDownloadFile">@Model.Attachment.Filename&nbsp;</a>
+                                    &nbsp;<span id="RemoveAtt" class="glyphicon glyphicon-trash clickable" style="color:red;"></span>
+                                </div>
+
+                            }
+                            <div id="AcceptedFileType" style="color:grey;font-style:italic;font-size:11px;">
+                                <p><span class="glyphicon glyphicon-info-sign"></span> Only Outlook MSG, PDF or ZIP file is accepted.Maximum size is 3 MB.</p>
+                            </div>
+                        </div>
+                    </div>
+                    @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.SupportingDocument))
+                {
+                        <div>
+                            <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.SupportingDocument)</span>
+                        </div>
+                    }
+                </div>
+        </div>
+    </div>
+
+    @Html.Partial("RequestButtons")
+
+}
+
+<script type="text/javascript">
+
+    var x = document.getElementsByClassName("step col-md-3");
+    if (x != null) {
+        x[0].className = "step col-md-3 done";
+        x[1].className = "step col-md-3 done";
+        x[2].className = "step col-md-3 done";
+        x[3].className = "step col-md-3 current";
+    }
+
+
+    $(document).ready(function () {
+
+        var disableMode = @Model.IsViewMode.ToString().ToLower();
+        var attachmentExists = @Model.HasAttachment.ToString().ToLower();
+
+        if (attachmentExists == true)
+        {           
+            $("#SupportingDocument").show();
+            $("#ApprovalLabelCMS").show();
+            $("#AttachmentLabel").show();
+        } 
+
+
+        if (($("#IsINetSelected").prop("checked") == true) ||
+                ($("#IsOasisSelected").prop("checked") == true) ||
+                ($("#IsNextwebSelected").prop("checked") == true))
+        {
+            docRequired = true;
+            $("#ApprovalLabelCMS").show();
+            $("#AttachmentLabel").show();
+            $("#AcceptedFileType").show();
+
+        }
+        else
+        {
+            $("#ApprovalLabelCMS").hide();
+            $("#AttachmentLabel").hide();
+            $("#AcceptedFileType").hide();
+        }
+        
+        if(disableMode)
+        {
+            $(".dropdown-input").prop("disabled", "disabled");
+            $(".textbox-input").prop("disabled", "disabled");
+            $(".radiobutton-input").prop("disabled", "disabled");
+            $(".checkbox-input").prop("disabled", "disabled");
+            $("#RemoveAtt").hide();
+            $("#AcceptedFileType").hide();
+        }       
+
+        $("#IsEmailSelected").click(function () {
+            if ($(this).prop("checked") == true) {
+
+                $(".clsIsEmailSelected").show();
+                $(".clsIsCMSSelected").show();
+            }
+            else {                
+                $(".clsIsEmailSelected").hide();                
+                $("#PropEmailDispName").val("");                
+                $("#IsINetSelected").prop('checked', false);
+                $("#IsOasisSelected").prop('checked', false);
+                $("#IsNextwebSelected").prop('checked', false);
+                $(".clsIsCMSSelected").hide();                 
+                checkAttachment();
+            }
+        });
+
+
+        $("#IsSAPSelected").click(function () {
+            if ($(this).prop("checked") == true) {
+                $(".clsIsSAPSelected").show();
+            }
+            else {
+                $(".clsIsSAPSelected").hide();
+                $("#DARTFund").val("");
+            }
+        });
+
+
+        $("#IsISISSelected").click(function () {
+            if ($(this).prop("checked") == true) {
+                $(".clsIsISISSelected").show();
+            }
+            else {
+                $(".clsIsISISSelected").hide();
+                $("#ISISRemarks").val("");
+            }
+        });
+
+
+        $("#IsELearnSelected").click(function () {
+            if ($(this).prop("checked") == true) {
+                $("#diviselearnselected").show();
+            }
+            else {
+                $("#diviselearnselected").hide();
+                $("#ELearnStartDate").val("");
+                $("#ELearnRemarks").val("");
+            }
+        });
+
+
+        $("#IsMtgRoomSelected").click(function () {
+            if ($(this).prop("checked") == true) {
+                $(".clsIsMtgRoomSelected").show();
+            }
+            else {
+                $(".clsIsMtgRoomSelected").hide();
+                $("#MtgRoomDetails").val("");
+            }
+        });
+
+
+        $("#IsEmailDLSelected").click(function () {
+            if ($(this).prop("checked") == true) {
+                $(".clsIsEmailDLSelected").show();
+            }
+            else {
+                $(".clsIsEmailDLSelected").hide();
+                $("#EmailDLDetails").val("");
+            }
+        });
+
+
+        $("#IsCommonMboxSelected").click(function () {
+            if ($(this).prop("checked") == true) {
+                $(".clsIsCommonMboxSelected").show();
+            }
+            else {
+                $(".clsIsCommonMboxSelected").hide();
+                $("#CommonMboxDetails").val("");
+                $("#IsCommonMboxSentAs").attr('checked', false);
+                $("#IsCommonMboxSentonBehalf").attr('checked', false);
+            }
+        });
+
+
+        $("#IsSharedFolderROSelected").click(function () {
+            if ($(this).prop("checked") == true) {
+                $(".clsIsSharedFolderROSelected").show();
+            }
+            else {
+                $(".clsIsSharedFolderROSelected").hide();
+                $("#SharedFolderROPath").val("");
+            }
+        });
+
+
+        $("#IsSharedFolderRWSelected").click(function () {
+            if ($(this).prop("checked") == true) {
+                $(".clsIsSharedFolderRWSelected").show();
+            }
+            else {
+                $(".clsIsSharedFolderRWSelected").hide();
+                $("#SharedFolderRWPath").val("");
+            }
+        });
+
+
+        $("#IsINetSelected").click(function () {
+            checkAttachment();
+        });
+
+
+        $("#IsOasisSelected").click(function () {
+            checkAttachment();
+        });
+
+        $("#IsNextwebSelected").click(function () {
+            checkAttachment();
+        });
+
+        $("#RemoveAtt").click(function () {
+            removeAttachment();
+        });
+
+
+
+        function checkAttachment() {
+            var docRequired = false;
+
+            if (($("#IsINetSelected").prop("checked") == true) ||
+                ($("#IsOasisSelected").prop("checked") == true) ||
+                ($("#IsNextwebSelected").prop("checked") == true))
+            {
+                docRequired = true;
+                $("#ApprovalLabelCMS").show();
+                $("#AttachmentLabel").show();
+                $("#AcceptedFileType").show();
+
+            }
+            else
+            {
+                $("#ApprovalLabelCMS").hide();
+                $("#AttachmentLabel").hide();
+                $("#AcceptedFileType").hide();
+            }
+            if ((typeof($("#lnkDownloadFile").prop("href")) != "undefined") && ($("#lnkDownloadFile").prop("href") != ""))
+            {
+                docRequired = true;
+            }
+            if (docRequired == true) {
+                $("#SupportingDocument").show();
+            }
+            else {
+                $("#SupportingDocument").hide();
+            }
+        }
+
+        function removeAttachment()
+        {
+            $("#IsAttachmentDeleted").val("True");
+            $("#divupload").show();
+            $("#divDownload").hide();
+        }
+
+    });
+
+
+    $(function () {
+        $('#datePicker').datepicker(
+        {
+            format: 'dd M yyyy',
+
+            autoclose: true,
+            validate: false
+        });
+    });
+
+</script>

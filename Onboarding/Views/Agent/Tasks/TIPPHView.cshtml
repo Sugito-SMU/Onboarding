@@ -1,0 +1,58 @@
+﻿@model Onboarding.Models.AgentRequestModel
+
+
+@{
+    Onboarding.Entity.Task task = Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.AssignPhone);
+    <p>
+        <label>Phone Model</label>
+        @if ((task.TaskStsCd != Onboarding.Entity.Constant.TaskStatusCode.Pending) || (!task.IsMyTask) || (Model.ViewOnly == true))
+        {
+            @Html.EditorFor(m => m.PhoneModel, new { htmlAttributes = new { @class = "form-control input_" + task.TaskCd + task.TaskId.ToString(), @autocomplete = "off", @readonly = "readonly", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.PhoneModel) } })
+        }
+        else
+        {
+            @Html.EditorFor(m => m.PhoneModel, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.PhoneModel) } })
+        }
+        @if ((task.ValidationError != null) && task.ValidationError.HasError(Onboarding.Entity.Constant.TaskAttributeCode.PhoneModel))
+        {
+            <div>
+                <span class="help-block text-danger checkbox_error_message">@task.ValidationError.GetErrorMessage(Onboarding.Entity.Constant.TaskAttributeCode.PhoneModel)</span>
+            </div>
+        }
+    </p>
+    <p>
+        <label>Phone MAC Address</label>
+        @if ((task.TaskStsCd != Onboarding.Entity.Constant.TaskStatusCode.Pending) || (!task.IsMyTask) || (Model.ViewOnly == true))
+        {
+            @Html.EditorFor(m => m.PhoneMACAddr, new { htmlAttributes = new { @class = "form-control input_" + task.TaskCd + task.TaskId.ToString(), @autocomplete = "off", @readonly = "readonly", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.PhoneMACAddr) } })
+        }
+        else
+        {
+            @Html.EditorFor(m => m.PhoneMACAddr, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.PhoneMACAddr) } })
+        }
+        @if ((task.ValidationError != null) && task.ValidationError.HasError(Onboarding.Entity.Constant.TaskAttributeCode.PhoneMACAddr))
+        {
+            <div>
+                <span class="help-block text-danger checkbox_error_message">@task.ValidationError.GetErrorMessage(Onboarding.Entity.Constant.TaskAttributeCode.PhoneMACAddr)</span>
+            </div>
+        }
+    </p>
+    <p>
+        <label>Additional Phone Information</label>
+        @if ((task.TaskStsCd != Onboarding.Entity.Constant.TaskStatusCode.Pending) || (!task.IsMyTask) || (Model.ViewOnly == true))
+        {
+            @Html.EditorFor(m => m.PhoneAddInfo, new { htmlAttributes = new { @class = "form-control input_" + task.TaskCd + task.TaskId.ToString(), @autocomplete = "off", @readonly = "readonly", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.PhoneAddInfo) } })
+        }
+        else
+        {
+            @Html.EditorFor(m => m.PhoneAddInfo, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.PhoneAddInfo) } })
+        }
+        @if ((task.ValidationError != null) && task.ValidationError.HasError(Onboarding.Entity.Constant.TaskAttributeCode.PhoneAddInfo))
+        {
+            <div>
+                <span class="help-block text-danger checkbox_error_message">@task.ValidationError.GetErrorMessage(Onboarding.Entity.Constant.TaskAttributeCode.PhoneAddInfo)</span>
+            </div>
+        }
+    </p>
+
+}

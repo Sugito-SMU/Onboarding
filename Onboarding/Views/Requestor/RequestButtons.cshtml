@@ -1,0 +1,123 @@
+﻿<br />
+@if (ViewBag.ShowSaveSuccessful)
+{
+    <div class="row">
+        <div class="col-sm-13">
+            <span class="text-success">
+                Request has been saved successfully.
+            </span>
+        </div>
+    </div>
+    <br />
+}
+
+<div class="row">
+    <div class="col-sm-6" align="left">
+        @if (ViewBag.IsPrevButtonAllowed)
+        {
+            <input type="submit" id="BtnPrev" value="Previous" name="Command" class="btn btn-default" />
+        }
+    </div>
+
+    <div class="col-sm-6" align="right">
+
+        @if (ViewBag.IsCancelAllowed)
+        {
+            <input type="button" id="BtnCancel" value="Cancel Request" name="Command" class="btn btn-default" /> @Html.Raw("&nbsp; &nbsp;")
+        }
+        @if (ViewBag.IsDeleteAllowed)
+        {
+            <input type="button" id="BtnDelete" value="Delete Request" name="Command" class="btn btn-default" /> @Html.Raw("&nbsp; &nbsp;")
+        }
+        @if (ViewBag.IsAmendAllowed)
+        {
+            <input type="button" id="BtnAmend" value="Amend" name="Command" class="btn btn-default" /> @Html.Raw("&nbsp; &nbsp;")
+        }
+        @if (ViewBag.IsSaveAllowed)
+        {
+            <input type="submit" id="BtnSave" value="Save" name="Command" class="btn btn-default" /> @Html.Raw("&nbsp; &nbsp;")
+        }
+        @if (ViewBag.IsSubmitAllowed)
+        {
+            <input type="button" id="BtnSubmit" value="Submit" name="Command" class="btn btn-primary" /> @Html.Raw("&nbsp; &nbsp;")
+        }
+        @if (ViewBag.IsNextButtonAllowed)
+        {
+            <input type="submit" id="BtnNext" value="Next" name="Command" class="btn btn-primary" />
+        }
+        @Html.Hidden("FormCommand")
+    </div>
+</div>
+
+<div style="display:none">
+    <div id="ConfirmDialog" style="text-align:center">
+        <label id="lblConfirmMsg">Are you sure?</label>
+        <br />
+        <br />
+        <input id="btnConfirmDialogNo" type="button" name="Command" value="Cancel" style="width:100px;" onclick="btnConfirmDialogNoClicked();" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input id="btnConfirmDialogYes" type="submit" name="Command" value="Confirm" style="width:100px;" onclick="btnConfirmDialogYesClicked();" />
+        <br />
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#FormCommand").val("");
+
+        $("#BtnAmend").on('click', function () {
+            btnConfirmClick("Please confirm to amend your request.", "Amend");
+        });
+
+        $("#BtnCancel").on('click', function () {
+            btnConfirmClick("Please confirm to cancel your request.", "Cancel Request");
+        });
+
+        $("#BtnDelete").on('click', function () {
+            btnConfirmClick("Please confirm to delete your request.", "Delete Request");
+        });
+
+        $("#BtnSave").on('click', function () {
+            $("#FormCommand").val("Save");
+        });
+
+        $("#BtnSubmit").on('click', function () {
+            btnConfirmClick("Please confirm to submit your request.", "Submit");
+        });
+
+        $("#BtnPrev").on('click', function () {
+            $("#FormCommand").val("Previous");
+        });
+
+        $("#BtnNext").on('click', function () {
+            $("#FormCommand").val("Next");
+        });
+
+    });
+
+    function btnConfirmClick(msg, cmd) {
+        $("#lblConfirmMsg").text(msg);
+        $("#FormCommand").val(cmd);
+        $("#ConfirmDialog").ejDialog(
+           {
+               enableModal: true,
+               actionButtons: ["close"],
+               title: "Confirmation",
+               containment: ".cols-sample-area"
+           });
+        $("#ConfirmDialog").ejDialog("open");
+    }
+
+    function btnConfirmDialogYesClicked() {
+        $("#RequestorForm").submit();
+    }
+
+    function btnConfirmDialogNoClicked() {
+        $("#FormCommand").val("");
+        $("#ConfirmDialog").ejDialog("close");
+    }
+</script>
+
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfTaskAlertConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TaskAlertConfig>
+    <TaskCd>TPHCF</TaskCd>
+    <Remark>Configure Phone Sets and Assign Number</Remark>
+    <TaskStsCd>CMP</TaskStsCd>
+    <EmailList>hendryw@smu.edu.sg,stanhwang@smu.edu.sg,test_GO@test.example.com</EmailList>
+    <EmailSubject>On-boarding System UAT [Request ID: {RequestId}] - For your information</EmailSubject>
+    <RequestUrl>http://localhost:51544/Agent/AgentRequest/{RequestId}</RequestUrl>
+  </TaskAlertConfig>  
+</ArrayOfTaskAlertConfig>

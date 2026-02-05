@@ -1,0 +1,80 @@
+﻿@model Onboarding.Entity.Request
+
+<style>
+
+    
+.step-title a {    color: #000000;
+    font-size: 16px;
+    margin: 2em 0 0;
+    /*line-height: 53px;*/
+}
+
+
+ .numberIcon{
+                float: left;
+                width: 12%;
+        }
+
+        .numberText{
+                    float: left;
+                    /*top: 26% !important;*/
+                    width: 88%;
+                    position: relative;
+        }
+        .step {
+            height:54px !important;
+        }
+</style>
+
+
+<script type="text/javascript">
+
+        function moveToTab(tabName)
+        {
+            $('#RedirectTo').val(tabName);
+            $('form').submit();
+            return false;
+        }
+
+</script>
+
+<div class="steps steps-sm row" data-plugin="matchHeight" data-by-row="true" role="tablist">
+    
+
+    <div class="step col-md-3 current" data-target="#personalInformation" role="tab">
+        <span class="step-number numberIcon">1</span>
+        <div class="step-desc numberText">
+            <span class="step-title">
+                <a href="#" onclick="return moveToTab('PersonalInfo');">Personal Information</a>
+            </span>
+        </div>
+    </div>
+
+    <div class="step col-md-3" data-target="#employmentInformation" role="tab">
+        <span class="step-number numberIcon">2</span>
+        <div class="step-desc numberText">
+            <span class="step-title">
+                <a href="#" onclick="return moveToTab('EmployeeInfo');">Employment Information</a>
+            </span>
+        </div>
+    </div>
+
+    <div class="step col-md-3" data-target="#officeLogistics" role="tab">
+        <span class="step-number numberIcon">3</span>
+        <div class="step-desc numberText">
+            <span class="step-title">
+                <a href="#" onclick="return moveToTab('OfficeLog');">Office Logistics</a>
+            </span>
+        </div>
+    </div>
+
+    <div class="step col-md-3" data-target="#systemAccess" role="tab">
+        <span class="step-number numberIcon">4</span>
+        <div class="step-desc numberText">
+            <span class="step-title">
+                <a href="#" onclick="return moveToTab('SystemAccess');">System Access</a>
+            </span>
+        </div>
+    </div>
+
+</div>

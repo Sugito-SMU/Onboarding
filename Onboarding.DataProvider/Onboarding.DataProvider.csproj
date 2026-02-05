@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C5493E87-19A2-4ADD-B947-63AB59179E7F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Onboarding.DataProvider</RootNamespace>
+    <AssemblyName>Onboarding.DataProvider</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\BuildOutput\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\BuildOutput\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common.cs" />
+    <Compile Include="CostCentreProvider.cs" />
+    <Compile Include="EmailAlertProvider.cs" />
+    <Compile Include="Mapper\TaskFlowMapToEntity.cs" />
+    <Compile Include="Model\OnboardingModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnboardingModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\OnboardingModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\OnboardingModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnboardingModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SecAccModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecAccModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SecAccModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecAccModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SecAccModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SecAccModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_CostCtrCd.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_GenderCd.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_GetSysUserProg.cs">
+      <DependentUpon>SecAccModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_GetSysUserProgData.cs">
+      <DependentUpon>SecAccModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_OffTask.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_OffTaskAttrb.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_OffTaskLog.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_OnboardingCostCtrCd.cs">
+      <DependentUpon>PatronModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_OnboardingGenderCd.cs">
+      <DependentUpon>PatronModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_OnboardingRaceCd.cs">
+      <DependentUpon>PatronModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_OnboardingSalutCd.cs">
+      <DependentUpon>PatronModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_RaceCd.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_Req.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_ReqAtt.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_ReqAttrbCd.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_ReqEmp.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_ReqLog.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_ReqOffAttrb.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_ReqStsCd.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_ReqSysAccAttrb.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_ReqTypeCd.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_SalutCd.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_SysAccTask.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_SysAccTaskAttrb.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_SysAccTaskLog.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_TaskAgent.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_TaskAttrbCd.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_TaskCd.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_TaskDep.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_TaskStsCd.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_UserSubTypeCd.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_UserTypeCd.cs">
+      <DependentUpon>OnboardingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RequestCountForAgentProvider.cs" />
+    <Compile Include="RequestListForAgentProvider.cs" />
+    <Compile Include="RequestListForRequestorProvider.cs" />
+    <Compile Include="SearchRequestProvider.cs" />
+    <Compile Include="Mapper\ChangeLogMapToDb.cs" />
+    <Compile Include="Mapper\TaskChangeLogMapToEntity.cs" />
+    <Compile Include="Mapper\RequestChangeLogMapToEntity.cs" />
+    <Compile Include="Mapper\TaskChangeLogMapToDb.cs" />
+    <Compile Include="Mapper\RequestChangeLogMapToDb.cs" />
+    <Compile Include="Mapper\RequestAttributeCodeMapToEntity.cs" />
+    <Compile Include="MCache.cs" />
+    <Compile Include="RaceProvider.cs" />
+    <Compile Include="Mapper\UserSubTypeMapToEntity.cs" />
+    <Compile Include="Mapper\UserTypeMapToEntity.cs" />
+    <Compile Include="Mapper\CostCentreMapToEntity.cs" />
+    <Compile Include="Mapper\RaceMapToEntity.cs" />
+    <Compile Include="Mapper\GenderMapToEntity.cs" />
+    <Compile Include="Mapper\SalutationMapToEntity.cs" />
+    <Compile Include="Mapper\RequestTypeMapToEntity.cs" />
+    <Compile Include="Mapper\RequestStatusMapToEntity.cs" />
+    <Compile Include="Mapper\TaskStatusMapToEntity.cs" />
+    <Compile Include="Mapper\TaskMapToEntity.cs" />
+    <Compile Include="Mapper\TaskMapToDb.cs" />
+    <Compile Include="Mapper\RequestMapToDb.cs" />
+    <Compile Include="Mapper\TaskAttributeCodeMapToEntity.cs" />
+    <Compile Include="Mapper\TaskCodeMapToEntity.cs" />
+    <Compile Include="Mapper\RequestMapToEntity.cs" />
+    <Compile Include="Model\PatronModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PatronModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PatronModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PatronModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PatronModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PatronModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\V_OnboardingPerInfo.cs">
+      <DependentUpon>PatronModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GenderProvider.cs" />
+    <Compile Include="RequestAttrributeCodeProvider.cs" />
+    <Compile Include="GeneralReportProvider.cs" />
+    <Compile Include="TaskFlowProvider.cs" />
+    <Compile Include="TaskProvider.cs" />
+    <Compile Include="AgentProvider.cs" />
+    <Compile Include="UserSubTypeProvide.cs" />
+    <Compile Include="RequestorProvider.cs" />
+    <Compile Include="UserProfileProvider.cs" />
+    <Compile Include="RequestCountForRequestorProvider.cs" />
+    <Compile Include="UserTypeProvider.cs" />
+    <Compile Include="SalutationProvider.cs" />
+    <Compile Include="TaskAttrributeCodeProvider.cs" />
+    <Compile Include="RequestStatusProvider.cs" />
+    <Compile Include="RequestTypeProvider.cs" />
+    <Compile Include="TaskStatusProvider.cs" />
+    <Compile Include="TaskCodeProvider.cs" />
+    <Compile Include="RequestProvider.cs" />
+    <Compile Include="Utility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="Model\PatronModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PatronModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <EntityDeploy Include="Model\OnboardingModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OnboardingModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\OnboardingModel.edmx.diagram">
+      <DependentUpon>OnboardingModel.edmx</DependentUpon>
+    </None>
+    <None Include="Model\PatronModel.edmx.diagram">
+      <DependentUpon>PatronModel.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="Model\SecAccModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SecAccModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\SecAccModel.edmx.diagram">
+      <DependentUpon>SecAccModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="0_README_BEFORE_EDITING_EDMX_FILE.txt" />
+    <Content Include="Model\OnboardingModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OnboardingModel.edmx</DependentUpon>
+      <LastGenOutput>OnboardingModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\OnboardingModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OnboardingModel.edmx</DependentUpon>
+      <LastGenOutput>OnboardingModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\PatronModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PatronModel.edmx</DependentUpon>
+      <LastGenOutput>PatronModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\PatronModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PatronModel.edmx</DependentUpon>
+      <LastGenOutput>PatronModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\SecAccModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SecAccModel.edmx</DependentUpon>
+      <LastGenOutput>SecAccModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\SecAccModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SecAccModel.edmx</DependentUpon>
+      <LastGenOutput>SecAccModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Onboarding.Common\Onboarding.Common.csproj">
+      <Project>{8ee2f183-6d68-448b-a8c2-d0e67d7992b5}</Project>
+      <Name>Onboarding.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Onboarding.Entity\Onboarding.Entity.csproj">
+      <Project>{9e28503f-05af-452c-b184-343a80b2fe01}</Project>
+      <Name>Onboarding.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,280 @@
+    @model Onboarding.Models.PersonalInfo
+
+@{
+
+    Layout = "~/Views/Shared/RequestFormLayout.cshtml";
+    string url = string.Empty;
+
+}
+@section head
+{
+    <link href="~/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/assets/vendor/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+}
+
+@section scripts
+{
+    <script src="~/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/vendor/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="~/assets/js/jquery.validate.min.js"></script>
+    <script src="~/assets/js/jquery.validate.unobtrusive.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var disableMode = @Model.IsViewMode.ToString().ToLower();
+            if(disableMode)
+            {
+                $(".dropdown-input").prop("disabled", "disabled");
+                $(".textbox-input").prop("disabled", "disabled");
+                $(".radiobutton-input").prop("disabled", "disabled");
+                $(".checkbox-input").prop("disabled", "disabled");
+            }
+            if ($(".selectpicker")[0]) {
+                $(".selectpicker").selectpicker();
+                $('.selectpicker').parents('form:first').validate().settings.ignore = ':not(select:hidden, input:visible, textarea:visible)';
+            }
+        });
+
+
+        $(".form_date").datepicker({
+            format: "dd-M-yyyy",
+            autoclose: true
+        });
+
+
+        var x = document.getElementsByClassName("step col-md-3");
+        x[0].className = "step col-md-3 current";
+        x[1].className = "step col-md-3";
+        x[2].className = "step col-md-3";
+        x[3].className = "step col-md-3";
+
+    </script>
+}
+
+@using (Html.BeginForm("Post", "Requestor/PersonalInfo", FormMethod.Post, new { id = "RequestorForm" }))
+{
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" id="RedirectTo" name="RedirectTo" value="" />
+
+    <div class="wizard-pane active" id="personalInformation" role="tabpanel">
+
+        @Html.ValidationSummary(true)
+        <div class="row" id="divMain">
+            <div class="col-sm-6">
+                <div class="border_div">
+
+                    <div class="form-group">
+                        <label for="inputBasicSalutation" class="input_label">
+                            Salutation
+                            @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.SalutCd, Model.Request, false))
+                            {
+                                <span class="text-danger input_mandatory_field">*</span>
+                            }
+                        </label>
+                        @if (Model.IsViewMode == true)
+                        {
+                            @Html.EditorFor(m => m.SalutDesc, new { htmlAttributes = new { @class = "form-control textbox-input dropdown_list_override", @placeholder = "", @autocomplete = "off"} })
+                        }
+                        else
+                        {
+                            <div>
+                                @Html.DropDownListFor(m => m.SalutCd, new SelectList(Model.SalutationList, "SalutCd", "SalutDesc"), "- Select -",
+                           new { @class = "selectpicker dropdown-input dropdown_list_override" })
+                            </div>
+                        }
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.SalutCd))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.SalutCd)</span>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputBasicFirstName" class="input_label">
+                            First Name
+                            @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.FirstName, Model.Request, false))
+                            {
+                                <span class="text-danger input_mandatory_field">*</span>
+                            }
+                        </label>
+                        @Html.EditorFor(m => m.FirstName, new { htmlAttributes = new { @class = "form-control textbox-input", @placeholder = "", @autocomplete = "off", @style = "width: 80%", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.FirstName) } })
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.FirstName))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.FirstName)</span>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputBasicLastName" class="input_label">
+                            Last Name
+                            @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.LastName, Model.Request, false))
+                            {
+                                <span class="text-danger input_mandatory_field">*</span>
+                            }
+                        </label>
+                        @Html.EditorFor(m => m.LastName, new { htmlAttributes = new { @class = "form-control textbox-input", @placeholder = "", @autocomplete = "off", @style = "width: 80%", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.LastName) } })
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.LastName))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.LastName)</span>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputBasicPrefNm" class="input_label">
+                            Known As
+                            @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.PrefNm, Model.Request, false))
+                            {
+                                <span class="text-danger input_mandatory_field">*</span>
+                            }
+                        </label>
+                        @Html.EditorFor(m => m.PrefNm, new { htmlAttributes = new { @class = "form-control textbox-input", @placeholder = "", @autocomplete = "off", @style = "width: 80%", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.PrefNm) } })
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.PrefNm))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.PrefNm)</span>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputBasicGender" class="input_label">
+                            Gender
+                            @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.GenderCd, Model.Request, false))
+                            {
+                                <span class="text-danger input_mandatory_field">*</span>
+                            }
+                        </label>
+                        <div class="form-control-static" style="width:300px">
+                            @for (int i = 0; i < Model.GenderList.Count; i++)
+                            {
+                                @Html.RadioButtonFor(m => m.GenderCd, Model.GenderList[i].GenderCd, new { @class = "radiobutton-input" })
+                                @Html.Raw(Model.GenderList[i].GenderDesc + " &nbsp;&nbsp;")
+                            }
+                        </div>
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.GenderCd))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.GenderCd)</span>
+                        }
+                    </div>
+
+                 </div>
+            </div>
+
+            <div class="col-sm-6">
+                <!-- Example Basic Form -->
+
+                <div class="form-group">
+                    <label for="inputBasicEthnicOrigin" class="input_label">
+                        Ethnic Origin
+                        @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.RaceCd, Model.Request, false))
+                        {
+                        <span class="text-danger input_mandatory_field">*</span>
+                        }
+                    </label>
+                    @if (Model.IsViewMode == true)
+                    {
+                        @Html.EditorFor(m => m.RaceDesc, new { htmlAttributes = new { @class = "form-control textbox-input dropdown_list_override", @placeholder = "", @autocomplete = "off" } })
+                    }
+                    else
+                    {
+                        <div>
+                            @{
+                                Html.EJ()
+                                .Autocomplete("RaceDesc")
+                                .Width("80%")
+                                .Datasource((IEnumerable<Onboarding.Entity.Race>)ViewBag.RaceList)
+                                .AutocompleteFields(f => f.Key("RaceCd").Text("RaceDesc"))
+                                .WatermarkText("Please type in ethnic origin")
+                                .FilterType(FilterOperatorType.Contains)
+                                .Value(Model.RaceDesc)
+                                .Render();
+                            }
+                        </div>
+
+                    }
+                    @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.RaceCd))
+                    {
+                        <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.RaceCd)</span>
+                    }
+                </div>
+
+
+                <div class="form-group">
+                    <label for="inputBasicMobileNo" class="input_label">
+                        Personal Mobile No
+                        @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.MobileNo, Model.Request, false))
+                        {
+                            <span class="text-danger input_mandatory_field">*</span>
+                        }
+                    </label>
+                    @Html.EditorFor(m => m.MobileNo, new { htmlAttributes = new { @class = "form-control textbox-input", @placeholder = "E.g. 9XXXXXXX or +1212XXXXXXX", @style = "width: 80%", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.MobileNo) } })
+                    @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.MobileNo))
+                    {
+                        <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.MobileNo)</span>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="inputBasicPersonalEmail" class="input_label">
+                        Personal Email
+                        @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.PrsnEmail, Model.Request, false))
+                        {
+                            <span class="text-danger input_mandatory_field">*</span>
+                        }
+                    </label>
+                    @Html.EditorFor(m => m.PrsnEmail, new { htmlAttributes = new { @class = "form-control textbox-input", @placeholder = "", @style = "width: 80%", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.PrsnEmail) } })
+                    @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.PrsnEmail))
+                    {
+                        <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.PrsnEmail)</span>
+                    }
+                </div>
+
+
+                
+
+                <div class="form-group">
+                    <label for="inputBasicExistingStaff" class="input_label">
+                        Existing SMU Faculty/Staff
+                        @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.IsExistingStaff, Model.Request, false))
+                        {
+                            <span class="text-danger input_mandatory_field">*</span>
+                        }
+                    </label>
+                    <div>
+                        @Html.RadioButtonFor(m => m.IsExistingStaff, "True", new { @class = "radiobutton-input" })@Html.Raw("&nbsp; Yes &nbsp;")  @Html.RadioButtonFor(m => m.IsExistingStaff, "False", new { @class = "radiobutton-input" }) @Html.Raw(" &nbsp; No")
+                    </div>
+                    @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsExistingStaff))
+                    {
+                        <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsExistingStaff)</span>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="inputBasicEx-SMUstudent" class="input_label">
+                        Existing SMU/Ex-SMU Student
+                        @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.IsExSmuStd, Model.Request, false))
+                        {
+                            <span class="text-danger input_mandatory_field">*</span>
+                        }
+                    </label>
+                    <div>
+                        @Html.RadioButtonFor(m => m.ExSmuStd, "True", new { @class = "radiobutton-input" }) @Html.Raw("&nbsp; Yes&nbsp;") @Html.RadioButtonFor(m => m.ExSmuStd, "False", new { @class = "radiobutton-input" })@Html.Raw("&nbsp; No")
+                    </div>
+                    @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsExSmuStd))
+                    {
+                        <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsExSmuStd)</span>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+        @Html.Partial("RequestButtons")
+
+    </div>
+
+  
+}
+

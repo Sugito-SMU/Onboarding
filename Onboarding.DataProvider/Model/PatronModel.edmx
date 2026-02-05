@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SMUDAPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SMUDAP.dbo.V_OnboardingCostCtrCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_OnboardingCostCtrCd">
+          <Key>
+            <PropertyRef Name="CostCtrCd" />
+          </Key>
+          <Property Name="CostCtrCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CostCtrDesc" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SMUDAP.dbo.V_OnboardingGenderCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_OnboardingGenderCd">
+          <Key>
+            <PropertyRef Name="GenderCd" />
+          </Key>
+          <Property Name="GenderCd" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="GenderDesc" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'SMUDAP.dbo.V_OnboardingPerInfo' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.-->
+        <EntityType Name="V_OnboardingPerInfo">
+          <Key>
+            <PropertyRef Name="UniqueKey" />
+          </Key>
+          <Property Name="UniqueKey" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="NtLoginId" Type="varchar" MaxLength="30" />
+          <Property Name="PrefName" Type="varchar" MaxLength="50" />
+          <Property Name="SmuEmail" Type="varchar" MaxLength="40" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SMUDAP.dbo.V_OnboardingRaceCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_OnboardingRaceCd">
+          <Key>
+            <PropertyRef Name="RaceCd" />
+          </Key>
+          <Property Name="RaceCd" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="RaceDesc" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SMUDAP.dbo.V_OnboardingSalutCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_OnboardingSalutCd">
+          <Key>
+            <PropertyRef Name="SalutCd" />
+          </Key>
+          <Property Name="SalutCd" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="SalutDesc" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="SMUDAPModelStoreContainer">
+          <EntitySet Name="V_OnboardingCostCtrCd" EntityType="Self.V_OnboardingCostCtrCd" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_OnboardingCostCtrCd].[CostCtrCd] AS [CostCtrCd], 
+    [V_OnboardingCostCtrCd].[CostCtrDesc] AS [CostCtrDesc]
+    FROM [dbo].[V_OnboardingCostCtrCd] AS [V_OnboardingCostCtrCd]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_OnboardingPerInfo" EntityType="Self.V_OnboardingPerInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    CONVERT(VARCHAR(40), NEWID()) AS [UniqueKey],
+    [V_OnboardingPerInfo].[NtLoginId] AS [NtLoginId], 
+    [V_OnboardingPerInfo].[PrefName] AS [PrefName], 
+    [V_OnboardingPerInfo].[SmuEmail] AS [SmuEmail], 
+    [V_OnboardingPerInfo].[IsActive] AS [IsActive]
+    FROM [dbo].[V_OnboardingPerInfo] AS [V_OnboardingPerInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_OnboardingGenderCd" EntityType="Self.V_OnboardingGenderCd" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_OnboardingGenderCd].[GenderCd] AS [GenderCd], 
+    [V_OnboardingGenderCd].[GenderDesc] AS [GenderDesc]
+    FROM [dbo].[V_OnboardingGenderCd] AS [V_OnboardingGenderCd]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_OnboardingRaceCd" EntityType="Self.V_OnboardingRaceCd" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_OnboardingRaceCd].[RaceCd] AS [RaceCd], 
+    [V_OnboardingRaceCd].[RaceDesc] AS [RaceDesc]
+    FROM [dbo].[V_OnboardingRaceCd] AS [V_OnboardingRaceCd]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_OnboardingSalutCd" EntityType="Self.V_OnboardingSalutCd" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_OnboardingSalutCd].[SalutCd] AS [SalutCd], 
+    [V_OnboardingSalutCd].[SalutDesc] AS [SalutDesc]
+    FROM [dbo].[V_OnboardingSalutCd] AS [V_OnboardingSalutCd]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SMUDAPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="V_OnboardingPerInfo">
+          <Key>
+            <PropertyRef Name="UniqueKey" />
+          </Key>
+          <Property Name="UniqueKey" Type="String" MaxLength="40" Nullable="false" Unicode="false" />
+          <Property Name="NtLoginId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PrefName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SmuEmail" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="PATRONEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="V_OnboardingPerInfo" EntityType="Self.V_OnboardingPerInfo" />
+          <EntitySet Name="V_OnboardingCostCtrCd" EntityType="SMUDAPModel.V_OnboardingCostCtrCd" />
+          <EntitySet Name="V_OnboardingGenderCd" EntityType="SMUDAPModel.V_OnboardingGenderCd" />
+          <EntitySet Name="V_OnboardingRaceCd" EntityType="SMUDAPModel.V_OnboardingRaceCd" />
+          <EntitySet Name="V_OnboardingSalutCd" EntityType="SMUDAPModel.V_OnboardingSalutCd" />
+        </EntityContainer>
+        <EntityType Name="V_OnboardingCostCtrCd">
+          <Key>
+            <PropertyRef Name="CostCtrCd" />
+          </Key>
+          <Property Name="CostCtrCd" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CostCtrDesc" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="V_OnboardingGenderCd">
+          <Key>
+            <PropertyRef Name="GenderCd" />
+          </Key>
+          <Property Name="GenderCd" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="GenderDesc" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="V_OnboardingRaceCd">
+          <Key>
+            <PropertyRef Name="RaceCd" />
+          </Key>
+          <Property Name="RaceCd" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="RaceDesc" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="V_OnboardingSalutCd">
+          <Key>
+            <PropertyRef Name="SalutCd" />
+          </Key>
+          <Property Name="SalutCd" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="SalutDesc" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SMUDAPModelStoreContainer" CdmEntityContainer="PATRONEntities">
+        <EntitySetMapping Name="V_OnboardingCostCtrCd">
+            <EntityTypeMapping TypeName="SMUDAPModel.V_OnboardingCostCtrCd">
+              <MappingFragment StoreEntitySet="V_OnboardingCostCtrCd">
+                <ScalarProperty Name="CostCtrDesc" ColumnName="CostCtrDesc" />
+                <ScalarProperty Name="CostCtrCd" ColumnName="CostCtrCd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_OnboardingPerInfo">
+            <EntityTypeMapping TypeName="SMUDAPModel.V_OnboardingPerInfo">
+              <MappingFragment StoreEntitySet="V_OnboardingPerInfo">
+                <ScalarProperty Name="UniqueKey" ColumnName="UniqueKey" />
+                <ScalarProperty Name="NtLoginId" ColumnName="NtLoginId" />
+                <ScalarProperty Name="PrefName" ColumnName="PrefName" />
+                <ScalarProperty Name="SmuEmail" ColumnName="SmuEmail" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_OnboardingGenderCd">
+            <EntityTypeMapping TypeName="SMUDAPModel.V_OnboardingGenderCd">
+              <MappingFragment StoreEntitySet="V_OnboardingGenderCd">
+                <ScalarProperty Name="GenderDesc" ColumnName="GenderDesc" />
+                <ScalarProperty Name="GenderCd" ColumnName="GenderCd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_OnboardingRaceCd">
+            <EntityTypeMapping TypeName="SMUDAPModel.V_OnboardingRaceCd">
+              <MappingFragment StoreEntitySet="V_OnboardingRaceCd">
+                <ScalarProperty Name="RaceDesc" ColumnName="RaceDesc" />
+                <ScalarProperty Name="RaceCd" ColumnName="RaceCd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_OnboardingSalutCd">
+            <EntityTypeMapping TypeName="SMUDAPModel.V_OnboardingSalutCd">
+              <MappingFragment StoreEntitySet="V_OnboardingSalutCd">
+                <ScalarProperty Name="SalutDesc" ColumnName="SalutDesc" />
+                <ScalarProperty Name="SalutCd" ColumnName="SalutCd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

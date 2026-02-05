@@ -1,0 +1,38 @@
+﻿@using MVCGrid.Web
+@model Onboarding.Models.RequestCount
+@{
+    ViewBag.Title = @ViewBag.StatusName + " Requests";
+    Layout = "~/Views/Shared/CommonMaster.cshtml";
+}
+
+@*<div class="row">
+    <div class="col-md-12">
+        <div class="form-inline pull-right">
+            <div class="btn-group">
+                <button class="btn btn-default" data-mvcgrid-type="export" data-mvcgrid-name="MyRequest" >
+                    <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span><img src="~/assets/images/exel_icon.png" alt="" /> EXPORT
+                </button>
+            </div>
+            <span>&nbsp;</span>
+        </div>
+    </div>
+</div>*@
+@Html.MVCGrid("MyRequest", new { StatusCode = @Model.ReqStsCd })
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-inline">
+            <div class="form-group">
+                <label>
+                    Page Size: <select class="form-control" data-mvcgrid-type="pageSize" data-mvcgrid-name="MyRequest">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+    </div>
+
+</div>
+

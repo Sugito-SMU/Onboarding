@@ -1,0 +1,282 @@
+﻿@model Onboarding.Models.EmployeeInfo
+@{
+
+    Layout = "~/Views/Shared/RequestFormLayout.cshtml";
+    string url = string.Empty;
+}
+@section head
+{
+    <link href="~/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/assets/vendor/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+
+}
+@section scripts
+{
+    <script src="~/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/vendor/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="~/assets/js/jquery.validate.min.js"></script>
+    <script src="~/assets/js/jquery.validate.unobtrusive.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var disableMode = @Model.IsViewMode.ToString().ToLower();
+            if(disableMode)
+            {
+                $(".dropdown-input").prop("disabled", "disabled");
+                $(".textbox-input").prop("disabled", "disabled");
+                $(".radiobutton-input").prop("disabled", "disabled");
+                $(".checkbox-input").prop("disabled", "disabled");
+            }
+            if ($(".selectpicker")[0]) {
+                $(".selectpicker").selectpicker();
+                $('.selectpicker').parents('form:first').validate().settings.ignore = ':not(select:hidden, input:visible, textarea:visible)';
+            }
+
+        });
+        $(function () {
+            $('#datePicker1').datepicker(
+                {
+                    format: "dd M yyyy",
+                    autoclose: true,
+                    validate:false
+                });
+            $('#datePicker2').datepicker(
+               {
+                   format: "dd M yyyy",
+                   autoclose: true,
+                   validate:false
+               });
+        });
+
+        var x = document.getElementsByClassName("step col-md-3");
+        if (x != null) {
+            x[0].className = "step col-md-3 done";
+            x[1].className = "step col-md-3 current";
+            x[2].className = "step col-md-3";
+            x[3].className = "step col-md-3";
+        }
+
+    </script>
+}
+
+@using (Html.BeginForm("Post", "Requestor/EmployeeInfo", FormMethod.Post, new { id = "RequestorForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" id="RedirectTo" name="RedirectTo" value="" />
+
+    <!-- EMPLOYMENT INFORMATION -->
+    <div class="wizard-pane active" id="employmentInformation" role="tabpanel">
+        <div class="row" id="divMain">
+
+            <div class="col-sm-6">
+                <div class="border_div">
+                    <div class="form-group">
+
+                        <div class="form-group">
+                            <label for="inputBasicStaffType" class="input_label">
+                                Staff Type
+                                @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.UserTypeCd, Model.Request, false))
+                                {
+                                    <span class="text-danger input_mandatory_field">*</span>
+                                }
+                            </label>
+                            @if (Model.IsViewMode == true)
+                            {
+                                @Html.EditorFor(m => m.UserTypeDesc, new { htmlAttributes = new { @class = "form-control textbox-input dropdown_list_override", @placeholder = "", @autocomplete = "off" } })
+                            }
+                            else
+                            {
+                                <div>
+                                    @Html.DropDownListFor(m => m.UserTypeCd, new SelectList(Model.UserTypeList, "UserTypeCd", "UserTypeDesc"), "- Select -",
+                                                     new { @class = "selectpicker dropdown-input dropdown_list_override", @onchange = "form.submit();" })
+                                </div>
+                            }
+                            @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.UserTypeCd))
+                            {
+                                <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.UserTypeCd)</span>
+                            }
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputBasicUserSubTypeCd" class="input_label">
+                                Staff Subtype
+                                @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.UserSubTypeCd, Model.Request, false))
+                                {
+                                    <span class="text-danger input_mandatory_field">*</span>
+                                }
+                            </label>
+                            @if (Model.IsViewMode == true)
+                            {
+                                @Html.EditorFor(m => m.UserSubTypeDesc, new { htmlAttributes = new { @class = "form-control textbox-input dropdown_list_override", @placeholder = "", @disabled = "disabled", @autocomplete = "off" } })
+                            }
+                            else
+                            {
+                                if (string.IsNullOrEmpty(Model.UserTypeCd))
+                                {
+                                    <div>
+                                        <input type="text" class="form-control textbox-input dropdown_list_override" placeholder="Please select Staff Type first" disabled="disabled" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>
+                                        @Html.DropDownListFor(m => m.UserSubTypeCd, new SelectList(Model.UserSubTypeList, "UserSubTypeCd", "UserSubTypeDesc"), "- Select -",
+                                                                      new { @class = "selectpicker dropdown-input dropdown_list_override", @onchange = "form.submit();" })
+                                    </div>
+                                }
+                            }
+                            @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.UserSubTypeCd))
+                            {
+                                <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.UserSubTypeCd)</span>
+                            }
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputBasicCostCentre(Department)" class="input_label">
+                                Cost Centre (Department)
+                                @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.CostCtrCd, Model.Request, false))
+                                {
+                                    <span class="text-danger input_mandatory_field">*</span>
+                                }
+                            </label>
+                            @if (Model.IsViewMode == true)
+                            {
+                                @Html.EditorFor(m => m.CostCtrDesc, new { htmlAttributes = new { @class = "form-control textbox-input dropdown_list_override", @placeholder = "", @autocomplete = "off" } })
+                            }
+                            else
+                            {
+                                <div>
+                                    @{
+                                        Html.EJ()
+                                        .Autocomplete("CostCtrDesc")
+                                        .Width("80%")
+                                        .Datasource((IEnumerable<Onboarding.Entity.CostCentre>)ViewBag.CostCentreList)
+                                        .AutocompleteFields(f => f.Key("CostCtrCd").Text("CostCtrDesc"))
+                                        .WatermarkText("Please type in cost centre code or description")
+                                        .FilterType(FilterOperatorType.Contains)
+                                        .Value(Model.CostCtrDesc)
+                                        .Render();
+                                    }
+                                </div>
+                                        }
+                            @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.CostCtrCd))
+                            {
+                                <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.CostCtrCd)</span>
+                            }
+                        </div>
+                    </div><!--/ col-sm-6-->
+
+                </div>
+            </div><!--/col-sm-6"-->
+
+            <div class="col-sm-6">
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="inputBasiceEmploymentStartDate" class="input_label">
+                            Employment Start Date
+                            @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.EmplStartDt, Model.Request, false))
+                            {
+                                <span class="text-danger input_mandatory_field">*</span>
+                            }
+                        </label>
+                        <div class="input-append date form_date" id="datePicker1" data-date-format="dd MMM yyyy">
+                            @Html.TextBoxFor(x => x.StrEmplStartDt, new { @placeholder = "dd MMM yyyy", @class = "form-control textbox-input", @style = "width: 180px" })
+                            <span class="add-on"><i class="icon-th"></i></span>
+                        </div>
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.EmplStartDt))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.EmplStartDt)</span>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="inputBasiceEmploymentEndDate" class="input_label">
+                            Employment End Date
+                            @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.EmplEndDt, Model.Request, false))
+                            {
+                                <span class="text-danger input_mandatory_field">*</span>
+                            }
+                        </label>
+                        @if (Onboarding.Common.Validation.IsPermStaff(Model.UserSubTypeCd))
+                        {
+                            <div class="input-append date form_date" id="datePicker2" data-date-format="dd MMM yyyy">
+                                @Html.TextBoxFor(x => x.StrEmplEndDt, new { @class = "form-control textbox-input", @style = "width:180px", @disabled = "disabled" })
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="input-append date form_date" id="datePicker2" data-date-format="dd MMM yyyy">
+                                @Html.TextBoxFor(x => x.StrEmplEndDt, new { @placeholder = "dd MMM yyyy", @class = "form-control textbox-input", @style = "width:180px" })
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        }
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.EmplEndDt))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.EmplEndDt)</span>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="inputBasicBusinessTitle" class="input_label">
+                            Business Title
+                            @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.JobTitle, Model.Request, false))
+                            {
+                                <span class="text-danger input_mandatory_field">*</span>
+                            }
+                        </label>
+                        @Html.EditorFor(model => model.JobTitle, new { htmlAttributes = new { @class = "form-control textbox-input", @placeholder = "", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.JobTitle) } })
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.JobTitle))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.JobTitle)</span>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="inputRemarks" class="input_label">
+                            Remarks
+                            @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.Remarks, Model.Request, false))
+                            {
+                                <span class="text-danger input_mandatory_field">*</span>
+                            }
+                        </label>
+                        @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control textbox-input", @placeholder = "Predecessor's name, Predecessor's Ext, Hiring Dept Contact etc.", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.Remarks) } })
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.Remarks))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.Remarks)</span>
+                        }
+                    </div>
+                </div>
+
+            </div><!--/col-sm-6"-->
+
+        </div>
+        
+        @if (ViewBag.ShowChangeUserType == true)
+        {
+            <div class="row">
+                <div class="col-sm-13">
+                    <span class="text-warning" style="padding-left:15px;">
+                        The staff types has been updated, please review the form before submission.
+                    </span>
+                </div>
+            </div>
+            <br />
+        }
+
+        @Html.Partial("RequestButtons")
+
+    </div>
+
+
+}

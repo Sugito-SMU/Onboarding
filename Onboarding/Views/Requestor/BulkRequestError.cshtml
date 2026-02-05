@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Bulk Request Submission Result";
+    Layout = "~/Views/Shared/CommonMaster.cshtml";
+}
+
+@model Onboarding.Entity.BulkRequestSubmitResult
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Row #</th>
+            <th>Request Type</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Staff Type</th>
+            <th>Start Date</th>
+            <th>Error Detail</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int i = 1; }
+
+        @foreach (var item in Model.Rows)
+        {
+            <tr @Html.Raw(item.IsResultPass == false ? "class='bg_red'" : "")>
+                <th>
+                    @if (item.IsResultPass)
+                    {
+                        <span class="glyphicon glyphicon-ok" style="color:green"></span>
+                    }
+                    else
+                    {
+                        <span class="glyphicon glyphicon-warning-sign" style="color:red"></span>
+                    }
+                </th>
+                <th scope="row">@item.RowNum.ToString()</th>
+                <td>@item.ReqTypeDesc</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.UserTypeDesc</td>
+                @if (item.EmplStartDt.HasValue)
+                {
+                    <td>@item.EmplStartDt.Value.ToString("d MMM yyyy")</td>
+                }
+                else
+                {
+                    <td>&nbsp;</td>
+                }
+                <td>
+                    @if (item.Errors != null)
+                    {
+                        foreach (var Eitem in item.Errors)
+                        {
+                            <span>@Html.Raw("-") @Eitem </span><br/>
+                        }
+                    }
+                </td>
+            </tr>
+                    i++;
+        }
+    </tbody>
+</table>

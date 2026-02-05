@@ -1,0 +1,73 @@
+﻿@model List<Onboarding.Models.AgentList>
+@{
+
+    ViewBag.Title = "Pending Tasks";
+    Layout = "~/Views/Shared/CommonMaster.cshtml";
+}
+
+<style>
+
+    .table tr th {
+       background: rgb(228, 234, 236);
+     
+    }
+    .table tr td a { text-decoration:underline; 
+    }
+
+
+      .table tr td a:hover { text-decoration:none;  color:#333;
+    }
+</style>
+<div class="row">
+
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Request Id</th>
+                    <th>Request Type</th>
+                    <th>Email Display Name</th>
+                    <th>Staff Type</th>
+                    <th>Staff Subtype</th>
+                    <th>Requested By</th>
+                    <th>Requested Date</th>                  
+                    <th>Employment Start Date</th>               
+                    <th style="width:100px">Task Status</th>
+                </tr>
+            </thead>
+            <tbody>           
+                @foreach (Onboarding.Models.AgentList oTask in Model)
+                {
+                    <tr>  
+                        <td><a href="~/Agent/AgentRequest?ReqId=@oTask.ReqId">@oTask.ReqId</a></td>
+                        <td>@oTask.ReqTypeDesc</td>
+                        <td>@oTask.PrefName</td>
+                        <td>@oTask.UserTypeDesc</td>
+                        <td>@oTask.UserSubTypeDesc</td>
+                        <td>@oTask.CreatedBy</td>
+                        <td>@Html.DateFormat(oTask.CreatedDt)</td>
+                        <td>@Html.DateFormat(oTask.EmplStartDt)</td>
+                        <td>@oTask.TaskStsDesc <font color="red" style="font-weight:bold">@oTask.Urgent</font></td>                     
+
+                    </tr>
+
+                }
+            </tbody>
+
+
+
+        </table>
+
+        </div>
+
+
+
+
+
+
+
+
+
+          
+    </div>

@@ -1,0 +1,177 @@
+﻿@model Onboarding.Models.BulkRequestModel
+
+@{
+    ViewBag.Title = "Bulk Request";
+    Layout = "~/Views/Shared/CommonMaster.cshtml";
+}
+
+@using (Html.BeginForm("SubmitBulkRequest", "Requestor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-sm-12">
+        <div class="" id="div_content">
+            <table>
+                <tr>
+                    <td>
+                        <a href="@Request.ApplicationPath.TrimEnd('/')/Templates/sample_bulk_request.xlsx"><img src="~/assets/images/exel_icon.png" alt="" />Sample Bulk Request</a>
+                    </td>
+                    <td>
+                        <a href="@Request.ApplicationPath.TrimEnd('/')/Templates/bulk_request_template.xlsx"><img src="~/assets/images/exel_icon.png" alt="" />Bulk Request Template</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="color:grey;font-style:italic;">
+                        <span class="glyphicon glyphicon-info-sign"></span>Please see Sample Bulk Request to familiarize, then prepare your request using Bulk Request Template.
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+                @if (!Model.IsSubmitSuccessful)
+                {
+                    <tr>
+                        <td colspan="2">
+                            @Html.TextBoxFor(m => m.BulkRequestFile, new { type = "file" })
+                            <p style="color:grey;font-style:italic;"><span class="glyphicon glyphicon-info-sign"></span>Only Excel file (version 2007 & above) is accepted.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <tr>
+                            <td colspan="2" style="color:red;">
+                                <span class="glyphicon glyphicon-warning-sign"></span>
+                                @Model.ErrorMessage
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                    }
+                    if (Model.IsRowValidationError)
+                    {
+                        <tr>
+                            <td colspan="2">
+                                <span class="glyphicon glyphicon-warning-sign" style="color:red"></span>
+                                <span style="color:red">Bulk request has some error(s). </span>
+                                 <a href="@Request.ApplicationPath.TrimEnd('/')/Requestor/BulkRequestError" target="_blank" style="text-decoration:underline;">Error Details.</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td colspan="2">
+                            <div style="text-align:center;">
+                                @if (Model.IsUploadSuccessful)
+                                {
+                                    <input type="submit" name="Command" value="Upload" class="btn  btn-default" />
+                                }
+                                else
+                                {
+                                    <input type="submit" name="Command" value="Upload" class="btn  btn-primary" />
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    if (Model.IsUploadSuccessful)
+                    {
+                        <tr>
+                            <td colspan="2">
+                                <span class="glyphicon glyphicon-ok" style="color:green"></span>
+                                <span style="color:green">Bulk request file is verified successfully. You can proceed to submit. <br /></span>
+                                <span style="color:grey;">
+                                    File name: @Model.UploadedFilename<br />
+                                    Total number of records: @Model.RowCount
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div style="text-align:center;">
+                                    <input type="submit" name="Command" value="Submit" class="btn btn-primary" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2">
+                            <span class="glyphicon glyphicon-ok" style="color:green"></span>
+                            <span style="color:green">Bulk request is submitted successfully.<br /></span>
+                            <span style="color:grey;">
+                                Total number of records: @Model.RowCount
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div style="text-align:center;">
+                                <input id="btnBack" type="button" name="Command" value="Back" class="btn btn-default" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                }
+            </table>
+
+
+
+
+            <div class="col-md-8 col-xs-offset-3 hideAll" id="divSubmit" style="display:none;">
+                <button type="button" class="btn btn-default" id="btnCancel">CANCEL</button>
+                <button type="button" class="btn btn-default" id="btnSubmit">SUBMIT</button>
+            </div>
+            <div class="col-md-8 col-xs-offset-3 hideAll" id="divSubmitSuccess" style="display:none;">
+                <button type="button" class="btn btn-default" id="btnBack">Back</button>
+            </div>
+        </div>
+        <!--closing well-->
+
+    </div>
+  <!--closing col-md-8-->
+}
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+        $("#btnBack").click(function () {
+            window.location.href = "@Request.ApplicationPath.TrimEnd('/')/Requestor/Dashboard";
+        });
+
+    });
+
+
+
+</script>
+
+
+
+

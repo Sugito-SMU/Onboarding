@@ -1,0 +1,24 @@
+﻿@model Onboarding.Models.AgentRequestModel
+
+<p>
+    <label>Network ID:</label>
+    @if ((Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateNTID) != null) && (Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateNTID).GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.AssignedNTID) != null))
+    {
+        string AssignedNTID = Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateNTID).GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.AssignedNTID).TaskAttrbVal;
+        <span>@AssignedNTID</span>
+    }
+</p>
+
+<hr />
+<p>
+    <label>Email Distribution List:</label>
+    @if (Model.Request.Resources.IsEmailSelected != null)
+    {
+        @Html.Raw(Model.Request.Resources.IsEmailSelected == true ? "Yes" : "No")
+    }
+
+</p>
+<p><label>Email Distribution List Details:</label>  @Model.Request.Resources.EmailDLDetails </p>
+
+<hr />
+

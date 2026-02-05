@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Singapore Management University">
+    <meta name="author" content="">
+    <title>Onboarding System</title>
+ 
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap-3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/bootstrap-extend.min.css">
+    <link rel="stylesheet" href="~/assets/css/site.css">
+    <link rel="stylesheet" href="~/assets/vendor/ashoverscroll/jquery-asHoverScroll.min.js">
+    <link rel="stylesheet" href="~/assets/vendor/asscrollable/jquery.asScrollable.all.min.js">
+    <link rel="stylesheet" href="~/assets/vendor/jquery-wizard/jquery-wizard.css">
+    <link rel="stylesheet" href="~/assets/vendor/formvalidation/formValidation.css">
+    <link rel="stylesheet" href="~/assets/vendor/ej/ej.widgets.core.min.css" />
+    <link rel="stylesheet" href="~/assets/vendor/ej/default-theme/ej.theme.min.css" />
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="~/assets/fonts/web-icons/web-icons.min.css">
+    <link rel="stylesheet" href="~/assets/fonts/brand-icons/brand-icons.min.css">
+
+    <script src="~/assets/js/jquery-3.1.1.min.js"></script>
+    <script src="~/assets/vendor/breakpoints/breakpoints.js"></script>
+    <script src="~/assets/vendor/ej/ej.web.all.min.js"></script>
+    
+    @RenderSection("head", required: false)
+
+    <script>Breakpoints();</script>
+
+    <style>
+        .input_label {
+            margin-bottom: 0px;
+            font-size: 12px;
+            color: grey;
+        }
+        .input_mandatory_field {
+            margin-bottom: 3px;
+            font-size: 12px;
+        }
+        .input_box_override {
+            padding-left: 0px;
+        }
+        .dropdown_list_override {
+            width:80%!important;
+        }
+        .error_message{
+            margin-top:3px;
+            font-size: 12px;
+        }
+        .checkbox_error_message {
+            margin-left:15px;
+            margin-top:3px;
+            font-size: 12px;
+        }
+    </style>
+
+</head>
+<body>
+    @Html.Partial("_LeftMenu")
+
+    @(Html.EJ().ScriptManager())
+
+    <!-- START PAGE -->
+    <div class="page">
+        <div class="page-content container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Panel Wizard Form -->
+                    <div class="panel" id="exampleWizardForm">
+                        <div class="panel-body">
+                            <h3>@ViewBag.Title</h3>
+                            <h4>Status: @ViewBag.RequestStatus
+                                @if ((ViewBag.IsCancelled != true) && (ViewBag.IsAmended == true))
+                                {
+                                    <span style="color:blue;">&nbsp;(with amendment)</span>
+                                }
+                            </h4>
+
+                            <!-- START STEPS -->
+                          @Html.Action("Taber")
+                            <!-- /steps steps-sm row End Steps -->
+                            <!-- REQUEST FORM CONTENTS -->
+                            <div>@RenderBody()</div>
+
+                            <!-- End Wizard Content -->
+
+                        </div><!--/panel-body-->
+                    </div><!-- /exampleWizardForm End Panel Wizard One Form -->
+                </div><!--/col-md-12"-->
+            </div> <!--/row-->
+        </div><!--/page-content container-fluid-->
+    </div>
+
+    <!-- Scripts -->
+
+
+
+    <!-- Core  -->
+    <script src="~/assets/vendor/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <!-- Plugins -->
+    <script src="~/assets/vendor/formvalidation/framework/bootstrap.js"></script>
+    <script src="~/assets/vendor/matchheight/jquery.matchHeight-min.js"></script>
+    <script src="~/assets/vendor/jquery-wizard/jquery-wizard.js"></script>
+    <script src="~/assets/vendor/asscrollable/jquery.asScrollable.all.min.js"></script>
+    <script src="~/assets/js/core.js"></script>
+    <script src="~/assets/js/site.js"></script>
+    <script src="~/assets/js/sections/menu.js"></script>
+    <script src="~/assets/js/sections/menubar.js"></script>
+    <script src="~/assets/js/sections/gridmenu.js"></script>
+    <script src="~/assets/js/sections/sidebar.js"></script>
+    <script src="~/assets/js/components/jquery-wizard.js"></script>
+    <script src="~/assets/js/components/matchheight.js"></script>
+    <script src="~/assets/js/components/wizard.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

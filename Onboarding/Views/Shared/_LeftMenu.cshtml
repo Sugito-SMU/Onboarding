@@ -1,0 +1,87 @@
+﻿<div class="site-menubar">
+    <div class="" data-toggle="gridmenu">
+@*        <img class="navbar-brand-logo" src="~/assets/images/logo_onboarding.png" title="">*@
+        <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
+            <!-- Navbar Toolbar -->
+            <ul class="" style="padding-top:15px; padding-bottom:10px;">
+                <li class="hidden-float" id="toggleMenubar">
+                    <img class="navbar-brand-logo" src="~/assets/images/logo_onboarding.png" title="" />
+                    <span style="padding-left:10px; padding-right:10px;">Onboarding System</span>
+                    <a data-toggle="menubar" href="#" role="button">
+                        <i class="icon hamburger hamburger-arrow-left" style="padding-left:15x;">
+                            <span class="sr-only">Toggle menubar</span>
+                            <span class="hamburger-bar"></span>
+                        </i>
+                    </a>
+                </li>
+            </ul>
+            <!-- End Navbar Toolbar Right -->
+        </div>
+    </div>
+
+    <div class="site-menubar-body">
+        <ul class="site-menu">
+
+            @if (Onboarding.Helper.Utility.HasPermission(Onboarding.Entity.Constant.AppResource.AppRequestorDashboard))
+            {
+                <li class="site-menu-item has-sub">
+                    <a href="~/Requestor/Dashboard" style="vertical-align:central">
+                        <i class="site-menu-icon wb-grid-4" aria-hidden="true"></i>
+                        <span class="site-menu-title">Requestor Dashboard </span>
+                    </a>
+                </li>
+            }
+
+            @if (Onboarding.Helper.Utility.HasPermission(Onboarding.Entity.Constant.AppResource.AppAgentDashboard))
+            {
+                <li class="site-menu-item has-sub">
+                    <a href="~/Agent/Dashboard" style="vertical-align:central">
+                        <i class="site-menu-icon wb-grid-4" aria-hidden="true"></i>
+                        <span class="site-menu-title">Agent Dashboard</span>&nbsp;
+                    </a>
+                </li>
+            }
+
+            @if (Onboarding.Helper.Utility.HasPermission(Onboarding.Entity.Constant.AppResource.AppCreateRequest))
+            {
+                <li class="site-menu-item has-sub">
+                    <a href="~/Requestor/NewRequest" style="vertical-align:central">
+                        <i class="site-menu-icon wb-grid-4" aria-hidden="true"></i>
+                        <span class="site-menu-title">Create New Request</span>&nbsp;
+                    </a>
+                </li>
+            }
+
+            @if (Onboarding.Helper.Utility.HasPermission(Onboarding.Entity.Constant.AppResource.AppBulkRequest))
+            {
+                <li class="site-menu-item has-sub">
+                    <a href="~/Requestor/BulkRequest" style="vertical-align:central">
+                        <i class="site-menu-icon wb-grid-4" aria-hidden="true"></i>
+                        <span class="site-menu-title">Bulk Request</span>&nbsp;
+                    </a>
+                </li>
+            }
+
+            @if (Onboarding.Helper.Utility.HasPermission(Onboarding.Entity.Constant.AppResource.AppGeneralReport))
+            {
+                <li class="site-menu-item has-sub">
+                    <a href="~/Report/GeneralReport" style="vertical-align:central">
+                        <i class="site-menu-icon wb-grid-4" aria-hidden="true"></i>
+                        <span class="site-menu-title">Report</span>&nbsp;
+                    </a>
+                </li>
+            }
+
+            @if (Onboarding.Helper.Utility.HasPermission(Onboarding.Entity.Constant.AppResource.AppRequestSearch))
+            {
+                <li class="site-menu-item has-sub">
+                    <a href="~/Report/SearchRequest" style="vertical-align:central">
+                        <i class="site-menu-icon wb-grid-4" aria-hidden="true"></i>
+                        <span class="site-menu-title">Search Request</span>&nbsp;
+                    </a>
+                </li>
+            }
+
+        </ul><!--/site-menu-->
+    </div><!--/site-menubar-body-->
+</div> <!--/site-menubar-->

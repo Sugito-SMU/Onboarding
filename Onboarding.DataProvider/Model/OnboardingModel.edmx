@@ -1,0 +1,1294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OnboardingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_CostCtrCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_CostCtrCd">
+          <Key>
+            <PropertyRef Name="CostCtrCd" />
+          </Key>
+          <Property Name="CostCtrCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CostCtrDesc" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_GenderCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_GenderCd">
+          <Key>
+            <PropertyRef Name="GenderCd" />
+          </Key>
+          <Property Name="GenderCd" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="GenderDesc" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_OffTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_OffTask">
+          <Key>
+            <PropertyRef Name="OffTaskId" />
+          </Key>
+          <Property Name="OffTaskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReqId" Type="int" Nullable="false" />
+          <Property Name="TaskCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TaskStsCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CompletedBy" Type="varchar" MaxLength="30" />
+          <Property Name="CompletedDt" Type="datetime" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_OffTaskAttrb' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_OffTaskAttrb">
+          <Key>
+            <PropertyRef Name="OffTaskAttrbId" />
+          </Key>
+          <Property Name="OffTaskAttrbId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OffTaskId" Type="int" Nullable="false" />
+          <Property Name="TaskAttrbCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TaskAttrbVal" Type="nvarchar" MaxLength="600" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_OffTaskLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_OffTaskLog">
+          <Key>
+            <PropertyRef Name="OffTaskLogId" />
+          </Key>
+          <Property Name="OffTaskLogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OffTaskId" Type="int" Nullable="false" />
+          <Property Name="ChangeBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ChangeDt" Type="datetime" Nullable="false" />
+          <Property Name="FieldNm" Type="nvarchar" MaxLength="600" />
+          <Property Name="FromVal" Type="nvarchar" MaxLength="600" />
+          <Property Name="ToVal" Type="nvarchar" MaxLength="600" />
+        </EntityType>
+		
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_RaceCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_RaceCd">
+          <Key>
+            <PropertyRef Name="RaceCd" />
+          </Key>
+          <Property Name="RaceCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="RaceDesc" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_Req' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_Req">
+          <Key>
+            <PropertyRef Name="ReqId" />
+          </Key>
+          <Property Name="ReqId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReqTypeCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="FirstNm" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="LastNm" Type="nvarchar" MaxLength="40" />
+          <Property Name="SalutCd" Type="varchar" MaxLength="10" />
+          <Property Name="GenderCd" Type="varchar" MaxLength="1" />
+          <Property Name="RaceCd" Type="varchar" MaxLength="10" />
+          <Property Name="PrsnEmail" Type="nvarchar" MaxLength="600" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsExistingStaff" Type="bit" />
+          <Property Name="IsExSmuStd" Type="bit" />
+          <Property Name="ReqStsCd" Type="varchar" MaxLength="10" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="IsAmended" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="SubmittedBy" Type="varchar" MaxLength="30" />
+          <Property Name="SubmittedDt" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+          <Property Name="PrefNm" Type="nvarchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_ReqAtt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_ReqAtt">
+          <Key>
+            <PropertyRef Name="ReqAttId" />
+          </Key>
+          <Property Name="ReqAttId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReqId" Type="int" Nullable="false" />
+          <Property Name="FileNm" Type="nvarchar" MaxLength="260" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_ReqAttrbCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_ReqAttrbCd">
+          <Key>
+            <PropertyRef Name="ReqAttrbCd" />
+          </Key>
+          <Property Name="ReqAttrbCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ReqAttrbDesc" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_ReqEmp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_ReqEmp">
+          <Key>
+            <PropertyRef Name="ReqEmpId" />
+          </Key>
+          <Property Name="ReqEmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReqId" Type="int" Nullable="false" />
+          <Property Name="UserTypeCd" Type="varchar" MaxLength="10" />
+          <Property Name="UserSubTypeCd" Type="varchar" MaxLength="10" />
+          <Property Name="CostCtrCd" Type="varchar" MaxLength="10" />
+          <Property Name="JobTitle" Type="nvarchar" MaxLength="128" />
+          <Property Name="EmpStartDt" Type="datetime" />
+          <Property Name="EmpEndDt" Type="datetime" />
+          <Property Name="IsPrimary" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_ReqLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_ReqLog">
+          <Key>
+            <PropertyRef Name="ReqLogId" />
+          </Key>
+          <Property Name="ReqLogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReqId" Type="int" Nullable="false" />
+          <Property Name="ChangeBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ChangeDt" Type="datetime" Nullable="false" />
+          <Property Name="FieldNm" Type="nvarchar" MaxLength="600" />
+          <Property Name="FromVal" Type="nvarchar" MaxLength="600" />
+          <Property Name="ToVal" Type="nvarchar" MaxLength="600" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_ReqOffAttrb' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_ReqOffAttrb">
+          <Key>
+            <PropertyRef Name="ReqOffAttrbId" />
+          </Key>
+          <Property Name="ReqOffAttrbId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReqId" Type="int" Nullable="false" />
+          <Property Name="ReqAttrbCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ReqAttrbVal" Type="nvarchar" MaxLength="600" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_ReqStsCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_ReqStsCd">
+          <Key>
+            <PropertyRef Name="ReqStsCd" />
+          </Key>
+          <Property Name="ReqStsCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ReqStsDesc" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_ReqSysAccAttrb' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_ReqSysAccAttrb">
+          <Key>
+            <PropertyRef Name="ReqSysAccAttrbId" />
+          </Key>
+          <Property Name="ReqSysAccAttrbId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReqId" Type="int" Nullable="false" />
+          <Property Name="ReqAttrbCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ReqAttrbVal" Type="nvarchar" MaxLength="600" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_ReqTypeCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_ReqTypeCd">
+          <Key>
+            <PropertyRef Name="ReqTypeCd" />
+          </Key>
+          <Property Name="ReqTypeCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ReqTypeDesc" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Seq" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_SalutCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_SalutCd">
+          <Key>
+            <PropertyRef Name="SalutCd" />
+          </Key>
+          <Property Name="SalutCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SalutDesc" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_SysAccTask' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_SysAccTask">
+          <Key>
+            <PropertyRef Name="SysAccTaskId" />
+          </Key>
+          <Property Name="SysAccTaskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReqId" Type="int" Nullable="false" />
+          <Property Name="TaskCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TaskStsCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CompletedBy" Type="varchar" MaxLength="30" />
+          <Property Name="CompletedDt" Type="datetime" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_SysAccTaskAttrb' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_SysAccTaskAttrb">
+          <Key>
+            <PropertyRef Name="SysAccTaskAttrbId" />
+          </Key>
+          <Property Name="SysAccTaskAttrbId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SysAccTaskId" Type="int" Nullable="false" />
+          <Property Name="TaskAttrbCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TaskAttrbVal" Type="nvarchar" MaxLength="600" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_SysAccTaskLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_SysAccTaskLog">
+          <Key>
+            <PropertyRef Name="SysAccTaskLogId" />
+          </Key>
+          <Property Name="SysAccTaskLogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SysAccTaskId" Type="int" Nullable="false" />
+          <Property Name="ChangeBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ChangeDt" Type="datetime" Nullable="false" />
+          <Property Name="FieldNm" Type="nvarchar" MaxLength="600" />
+          <Property Name="FromVal" Type="nvarchar" MaxLength="600" />
+          <Property Name="ToVal" Type="nvarchar" MaxLength="600" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_TaskAgent' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_TaskAgent">
+          <Key>
+            <PropertyRef Name="TaskCd" />
+            <PropertyRef Name="AgentId" />
+          </Key>
+          <Property Name="TaskCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="AgentId" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="IsPrimary" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_TaskAttrbCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_TaskAttrbCd">
+          <Key>
+            <PropertyRef Name="TaskAttrbCd" />
+          </Key>
+          <Property Name="TaskAttrbCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TaskAttrbDesc" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="TaskCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_TaskCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_TaskCd">
+          <Key>
+            <PropertyRef Name="TaskCd" />
+          </Key>
+          <Property Name="TaskCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TaskDesc" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_TaskDep' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_TaskDep">
+          <Key>
+            <PropertyRef Name="TaskCd" />
+            <PropertyRef Name="DepTaskCd" />
+          </Key>
+          <Property Name="TaskCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="DepTaskCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_TaskStsCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_TaskStsCd">
+          <Key>
+            <PropertyRef Name="TaskStsCd" />
+          </Key>
+          <Property Name="TaskStsCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="TaskStsDesc" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_UserSubTypeCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_UserSubTypeCd">
+          <Key>
+            <PropertyRef Name="UserSubTypeCd" />
+          </Key>
+          <Property Name="UserSubTypeCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="UserSubTypeDesc" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserTypeCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Seq" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ONBOARDING.dbo.V_UserTypeCd' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_UserTypeCd">
+          <Key>
+            <PropertyRef Name="UserTypeCd" />
+          </Key>
+          <Property Name="UserTypeCd" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="UserTypeDesc" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Seq" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreatedDt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="30" />
+          <Property Name="ModifiedDt" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="OnboardingModelStoreContainer">
+         <EntitySet Name="V_CostCtrCd" EntityType="Self.V_CostCtrCd" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_GenderCd" EntityType="Self.V_GenderCd" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_OffTask" EntityType="Self.V_OffTask" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_OffTaskAttrb" EntityType="Self.V_OffTaskAttrb" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_OffTaskLog" EntityType="Self.V_OffTaskLog" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_RaceCd" EntityType="Self.V_RaceCd" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_Req" EntityType="Self.V_Req" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_ReqAtt" EntityType="Self.V_ReqAtt" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_ReqAttrbCd" EntityType="Self.V_ReqAttrbCd" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_ReqEmp" EntityType="Self.V_ReqEmp" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_ReqLog" EntityType="Self.V_ReqLog" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_ReqOffAttrb" EntityType="Self.V_ReqOffAttrb" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_ReqStsCd" EntityType="Self.V_ReqStsCd" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_ReqSysAccAttrb" EntityType="Self.V_ReqSysAccAttrb" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_ReqTypeCd" EntityType="Self.V_ReqTypeCd" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_SalutCd" EntityType="Self.V_SalutCd" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_SysAccTask" EntityType="Self.V_SysAccTask" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_SysAccTaskAttrb" EntityType="Self.V_SysAccTaskAttrb" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_SysAccTaskLog" EntityType="Self.V_SysAccTaskLog" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_TaskAgent" EntityType="Self.V_TaskAgent" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_TaskAttrbCd" EntityType="Self.V_TaskAttrbCd" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_TaskCd" EntityType="Self.V_TaskCd" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_TaskDep" EntityType="Self.V_TaskDep" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_TaskStsCd" EntityType="Self.V_TaskStsCd" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_UserSubTypeCd" EntityType="Self.V_UserSubTypeCd" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+          <EntitySet Name="V_UserTypeCd" EntityType="Self.V_UserTypeCd" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnboardingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="V_CostCtrCd">
+          <Key>
+            <PropertyRef Name="CostCtrCd" />
+          </Key>
+          <Property Name="CostCtrCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CostCtrDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_GenderCd">
+          <Key>
+            <PropertyRef Name="GenderCd" />
+          </Key>
+          <Property Name="GenderCd" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GenderDesc" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_OffTask">
+          <Key>
+            <PropertyRef Name="OffTaskId" />
+          </Key>
+          <Property Name="OffTaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReqId" Type="Int32" Nullable="false" />
+          <Property Name="TaskCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaskStsCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompletedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CompletedDt" Type="DateTime" Precision="3" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_OffTaskAttrb">
+          <Key>
+            <PropertyRef Name="OffTaskAttrbId" />
+          </Key>
+          <Property Name="OffTaskAttrbId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OffTaskId" Type="Int32" Nullable="false" />
+          <Property Name="TaskAttrbCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaskAttrbVal" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_OffTaskLog">
+          <Key>
+            <PropertyRef Name="OffTaskLogId" />
+          </Key>
+          <Property Name="OffTaskLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OffTaskId" Type="Int32" Nullable="false" />
+          <Property Name="ChangeBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ChangeDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FieldNm" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="FromVal" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="ToVal" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+        </EntityType>
+        
+        <EntityType Name="V_RaceCd">
+          <Key>
+            <PropertyRef Name="RaceCd" />
+          </Key>
+          <Property Name="RaceCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RaceDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_Req">
+          <Key>
+            <PropertyRef Name="ReqId" />
+          </Key>
+          <Property Name="ReqId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReqTypeCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstNm" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastNm" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="SalutCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="GenderCd" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="RaceCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PrsnEmail" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsExistingStaff" Type="Boolean" />
+          <Property Name="IsExSmuStd" Type="Boolean" />
+          <Property Name="ReqStsCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsAmended" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="SubmittedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SubmittedDt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+          <Property Name="PrefNm" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="V_ReqAtt">
+          <Key>
+            <PropertyRef Name="ReqAttId" />
+          </Key>
+          <Property Name="ReqAttId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReqId" Type="Int32" Nullable="false" />
+          <Property Name="FileNm" Type="String" MaxLength="260" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_ReqAttrbCd">
+          <Key>
+            <PropertyRef Name="ReqAttrbCd" />
+          </Key>
+          <Property Name="ReqAttrbCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReqAttrbDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_ReqEmp">
+          <Key>
+            <PropertyRef Name="ReqEmpId" />
+          </Key>
+          <Property Name="ReqEmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReqId" Type="Int32" Nullable="false" />
+          <Property Name="UserTypeCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UserSubTypeCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CostCtrCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="JobTitle" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="EmpStartDt" Type="DateTime" Precision="3" />
+          <Property Name="EmpEndDt" Type="DateTime" Precision="3" />
+          <Property Name="IsPrimary" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_ReqLog">
+          <Key>
+            <PropertyRef Name="ReqLogId" />
+          </Key>
+          <Property Name="ReqLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReqId" Type="Int32" Nullable="false" />
+          <Property Name="ChangeBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ChangeDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FieldNm" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="FromVal" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="ToVal" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="V_ReqOffAttrb">
+          <Key>
+            <PropertyRef Name="ReqOffAttrbId" />
+          </Key>
+          <Property Name="ReqOffAttrbId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReqId" Type="Int32" Nullable="false" />
+          <Property Name="ReqAttrbCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReqAttrbVal" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_ReqStsCd">
+          <Key>
+            <PropertyRef Name="ReqStsCd" />
+          </Key>
+          <Property Name="ReqStsCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReqStsDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_ReqSysAccAttrb">
+          <Key>
+            <PropertyRef Name="ReqSysAccAttrbId" />
+          </Key>
+          <Property Name="ReqSysAccAttrbId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReqId" Type="Int32" Nullable="false" />
+          <Property Name="ReqAttrbCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReqAttrbVal" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_ReqTypeCd">
+          <Key>
+            <PropertyRef Name="ReqTypeCd" />
+          </Key>
+          <Property Name="ReqTypeCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReqTypeDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Seq" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_SalutCd">
+          <Key>
+            <PropertyRef Name="SalutCd" />
+          </Key>
+          <Property Name="SalutCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SalutDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_SysAccTask">
+          <Key>
+            <PropertyRef Name="SysAccTaskId" />
+          </Key>
+          <Property Name="SysAccTaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReqId" Type="Int32" Nullable="false" />
+          <Property Name="TaskCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaskStsCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompletedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CompletedDt" Type="DateTime" Precision="3" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_SysAccTaskAttrb">
+          <Key>
+            <PropertyRef Name="SysAccTaskAttrbId" />
+          </Key>
+          <Property Name="SysAccTaskAttrbId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SysAccTaskId" Type="Int32" Nullable="false" />
+          <Property Name="TaskAttrbCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaskAttrbVal" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_SysAccTaskLog">
+          <Key>
+            <PropertyRef Name="SysAccTaskLogId" />
+          </Key>
+          <Property Name="SysAccTaskLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SysAccTaskId" Type="Int32" Nullable="false" />
+          <Property Name="ChangeBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ChangeDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FieldNm" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="FromVal" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="ToVal" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="V_TaskAgent">
+          <Key>
+            <PropertyRef Name="TaskCd" />
+            <PropertyRef Name="AgentId" />
+          </Key>
+          <Property Name="TaskCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AgentId" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsPrimary" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_TaskAttrbCd">
+          <Key>
+            <PropertyRef Name="TaskAttrbCd" />
+          </Key>
+          <Property Name="TaskAttrbCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaskAttrbDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TaskCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_TaskCd">
+          <Key>
+            <PropertyRef Name="TaskCd" />
+          </Key>
+          <Property Name="TaskCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaskDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_TaskDep">
+          <Key>
+            <PropertyRef Name="TaskCd" />
+            <PropertyRef Name="DepTaskCd" />
+          </Key>
+          <Property Name="TaskCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DepTaskCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_TaskStsCd">
+          <Key>
+            <PropertyRef Name="TaskStsCd" />
+          </Key>
+          <Property Name="TaskStsCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaskStsDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_UserSubTypeCd">
+          <Key>
+            <PropertyRef Name="UserSubTypeCd" />
+          </Key>
+          <Property Name="UserSubTypeCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserSubTypeDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserTypeCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Seq" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_UserTypeCd">
+          <Key>
+            <PropertyRef Name="UserTypeCd" />
+          </Key>
+          <Property Name="UserTypeCd" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserTypeDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Seq" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedDt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="OnboardingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="V_CostCtrCd" EntityType="Self.V_CostCtrCd" />
+          <EntitySet Name="V_GenderCd" EntityType="Self.V_GenderCd" />
+          <EntitySet Name="V_OffTask" EntityType="Self.V_OffTask" />
+          <EntitySet Name="V_OffTaskAttrb" EntityType="Self.V_OffTaskAttrb" />
+          <EntitySet Name="V_OffTaskLog" EntityType="Self.V_OffTaskLog" />          
+          <EntitySet Name="V_RaceCd" EntityType="Self.V_RaceCd" />
+          <EntitySet Name="V_Req" EntityType="Self.V_Req" />
+          <EntitySet Name="V_ReqAtt" EntityType="Self.V_ReqAtt" />
+          <EntitySet Name="V_ReqAttrbCd" EntityType="Self.V_ReqAttrbCd" />
+          <EntitySet Name="V_ReqEmp" EntityType="Self.V_ReqEmp" />
+          <EntitySet Name="V_ReqLog" EntityType="Self.V_ReqLog" />
+          <EntitySet Name="V_ReqOffAttrb" EntityType="Self.V_ReqOffAttrb" />
+          <EntitySet Name="V_ReqStsCd" EntityType="Self.V_ReqStsCd" />
+          <EntitySet Name="V_ReqSysAccAttrb" EntityType="Self.V_ReqSysAccAttrb" />
+          <EntitySet Name="V_ReqTypeCd" EntityType="Self.V_ReqTypeCd" />
+          <EntitySet Name="V_SalutCd" EntityType="Self.V_SalutCd" />
+          <EntitySet Name="V_SysAccTask" EntityType="Self.V_SysAccTask" />
+          <EntitySet Name="V_SysAccTaskAttrb" EntityType="Self.V_SysAccTaskAttrb" />
+          <EntitySet Name="V_SysAccTaskLog" EntityType="Self.V_SysAccTaskLog" />
+          <EntitySet Name="V_TaskAgent" EntityType="Self.V_TaskAgent" />
+          <EntitySet Name="V_TaskAttrbCd" EntityType="Self.V_TaskAttrbCd" />
+          <EntitySet Name="V_TaskCd" EntityType="Self.V_TaskCd" />
+          <EntitySet Name="V_TaskDep" EntityType="Self.V_TaskDep" />
+          <EntitySet Name="V_TaskStsCd" EntityType="Self.V_TaskStsCd" />
+          <EntitySet Name="V_UserSubTypeCd" EntityType="Self.V_UserSubTypeCd" />
+          <EntitySet Name="V_UserTypeCd" EntityType="Self.V_UserTypeCd" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OnboardingModelStoreContainer" CdmEntityContainer="OnboardingEntities">
+          <EntitySetMapping Name="V_CostCtrCd">
+            <EntityTypeMapping TypeName="OnboardingModel.V_CostCtrCd">
+              <MappingFragment StoreEntitySet="V_CostCtrCd">
+                <ScalarProperty Name="CostCtrCd" ColumnName="CostCtrCd" />
+                <ScalarProperty Name="CostCtrDesc" ColumnName="CostCtrDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_GenderCd">
+            <EntityTypeMapping TypeName="OnboardingModel.V_GenderCd">
+              <MappingFragment StoreEntitySet="V_GenderCd">
+                <ScalarProperty Name="GenderCd" ColumnName="GenderCd" />
+                <ScalarProperty Name="GenderDesc" ColumnName="GenderDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_OffTask">
+            <EntityTypeMapping TypeName="OnboardingModel.V_OffTask">
+              <MappingFragment StoreEntitySet="V_OffTask">
+                <ScalarProperty Name="OffTaskId" ColumnName="OffTaskId" />
+                <ScalarProperty Name="ReqId" ColumnName="ReqId" />
+                <ScalarProperty Name="TaskCd" ColumnName="TaskCd" />
+                <ScalarProperty Name="TaskStsCd" ColumnName="TaskStsCd" />
+                <ScalarProperty Name="CompletedBy" ColumnName="CompletedBy" />
+                <ScalarProperty Name="CompletedDt" ColumnName="CompletedDt" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_OffTaskAttrb">
+            <EntityTypeMapping TypeName="OnboardingModel.V_OffTaskAttrb">
+              <MappingFragment StoreEntitySet="V_OffTaskAttrb">
+                <ScalarProperty Name="OffTaskAttrbId" ColumnName="OffTaskAttrbId" />
+                <ScalarProperty Name="OffTaskId" ColumnName="OffTaskId" />
+                <ScalarProperty Name="TaskAttrbCd" ColumnName="TaskAttrbCd" />
+                <ScalarProperty Name="TaskAttrbVal" ColumnName="TaskAttrbVal" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_OffTaskLog">
+            <EntityTypeMapping TypeName="OnboardingModel.V_OffTaskLog">
+              <MappingFragment StoreEntitySet="V_OffTaskLog">
+                <ScalarProperty Name="OffTaskLogId" ColumnName="OffTaskLogId" />
+                <ScalarProperty Name="OffTaskId" ColumnName="OffTaskId" />
+                <ScalarProperty Name="ChangeBy" ColumnName="ChangeBy" />
+                <ScalarProperty Name="ChangeDt" ColumnName="ChangeDt" />
+                <ScalarProperty Name="FieldNm" ColumnName="FieldNm" />
+                <ScalarProperty Name="FromVal" ColumnName="FromVal" />
+                <ScalarProperty Name="ToVal" ColumnName="ToVal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          
+          <EntitySetMapping Name="V_RaceCd">
+            <EntityTypeMapping TypeName="OnboardingModel.V_RaceCd">
+              <MappingFragment StoreEntitySet="V_RaceCd">
+                <ScalarProperty Name="RaceCd" ColumnName="RaceCd" />
+                <ScalarProperty Name="RaceDesc" ColumnName="RaceDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_Req">
+            <EntityTypeMapping TypeName="OnboardingModel.V_Req">
+              <MappingFragment StoreEntitySet="V_Req">
+                <ScalarProperty Name="ReqId" ColumnName="ReqId" />
+                <ScalarProperty Name="ReqTypeCd" ColumnName="ReqTypeCd" />
+                <ScalarProperty Name="FirstNm" ColumnName="FirstNm" />
+                <ScalarProperty Name="LastNm" ColumnName="LastNm" />
+                <ScalarProperty Name="SalutCd" ColumnName="SalutCd" />
+                <ScalarProperty Name="GenderCd" ColumnName="GenderCd" />
+                <ScalarProperty Name="RaceCd" ColumnName="RaceCd" />
+                <ScalarProperty Name="PrsnEmail" ColumnName="PrsnEmail" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="IsExistingStaff" ColumnName="IsExistingStaff" />
+                <ScalarProperty Name="IsExSmuStd" ColumnName="IsExSmuStd" />
+                <ScalarProperty Name="ReqStsCd" ColumnName="ReqStsCd" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsAmended" ColumnName="IsAmended" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="SubmittedBy" ColumnName="SubmittedBy" />
+                <ScalarProperty Name="SubmittedDt" ColumnName="SubmittedDt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+                <ScalarProperty Name="PrefNm" ColumnName="PrefNm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ReqAtt">
+            <EntityTypeMapping TypeName="OnboardingModel.V_ReqAtt">
+              <MappingFragment StoreEntitySet="V_ReqAtt">
+                <ScalarProperty Name="ReqAttId" ColumnName="ReqAttId" />
+                <ScalarProperty Name="ReqId" ColumnName="ReqId" />
+                <ScalarProperty Name="FileNm" ColumnName="FileNm" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ReqAttrbCd">
+            <EntityTypeMapping TypeName="OnboardingModel.V_ReqAttrbCd">
+              <MappingFragment StoreEntitySet="V_ReqAttrbCd">
+                <ScalarProperty Name="ReqAttrbCd" ColumnName="ReqAttrbCd" />
+                <ScalarProperty Name="ReqAttrbDesc" ColumnName="ReqAttrbDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ReqEmp">
+            <EntityTypeMapping TypeName="OnboardingModel.V_ReqEmp">
+              <MappingFragment StoreEntitySet="V_ReqEmp">
+                <ScalarProperty Name="ReqEmpId" ColumnName="ReqEmpId" />
+                <ScalarProperty Name="ReqId" ColumnName="ReqId" />
+                <ScalarProperty Name="UserTypeCd" ColumnName="UserTypeCd" />
+                <ScalarProperty Name="UserSubTypeCd" ColumnName="UserSubTypeCd" />
+                <ScalarProperty Name="CostCtrCd" ColumnName="CostCtrCd" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="EmpStartDt" ColumnName="EmpStartDt" />
+                <ScalarProperty Name="EmpEndDt" ColumnName="EmpEndDt" />
+                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ReqLog">
+            <EntityTypeMapping TypeName="OnboardingModel.V_ReqLog">
+              <MappingFragment StoreEntitySet="V_ReqLog">
+                <ScalarProperty Name="ReqLogId" ColumnName="ReqLogId" />
+                <ScalarProperty Name="ReqId" ColumnName="ReqId" />
+                <ScalarProperty Name="ChangeBy" ColumnName="ChangeBy" />
+                <ScalarProperty Name="ChangeDt" ColumnName="ChangeDt" />
+                <ScalarProperty Name="FieldNm" ColumnName="FieldNm" />
+                <ScalarProperty Name="FromVal" ColumnName="FromVal" />
+                <ScalarProperty Name="ToVal" ColumnName="ToVal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ReqOffAttrb">
+            <EntityTypeMapping TypeName="OnboardingModel.V_ReqOffAttrb">
+              <MappingFragment StoreEntitySet="V_ReqOffAttrb">
+                <ScalarProperty Name="ReqOffAttrbId" ColumnName="ReqOffAttrbId" />
+                <ScalarProperty Name="ReqId" ColumnName="ReqId" />
+                <ScalarProperty Name="ReqAttrbCd" ColumnName="ReqAttrbCd" />
+                <ScalarProperty Name="ReqAttrbVal" ColumnName="ReqAttrbVal" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ReqStsCd">
+            <EntityTypeMapping TypeName="OnboardingModel.V_ReqStsCd">
+              <MappingFragment StoreEntitySet="V_ReqStsCd">
+                <ScalarProperty Name="ReqStsCd" ColumnName="ReqStsCd" />
+                <ScalarProperty Name="ReqStsDesc" ColumnName="ReqStsDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ReqSysAccAttrb">
+            <EntityTypeMapping TypeName="OnboardingModel.V_ReqSysAccAttrb">
+              <MappingFragment StoreEntitySet="V_ReqSysAccAttrb">
+                <ScalarProperty Name="ReqSysAccAttrbId" ColumnName="ReqSysAccAttrbId" />
+                <ScalarProperty Name="ReqId" ColumnName="ReqId" />
+                <ScalarProperty Name="ReqAttrbCd" ColumnName="ReqAttrbCd" />
+                <ScalarProperty Name="ReqAttrbVal" ColumnName="ReqAttrbVal" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ReqTypeCd">
+            <EntityTypeMapping TypeName="OnboardingModel.V_ReqTypeCd">
+              <MappingFragment StoreEntitySet="V_ReqTypeCd">
+                <ScalarProperty Name="ReqTypeCd" ColumnName="ReqTypeCd" />
+                <ScalarProperty Name="ReqTypeDesc" ColumnName="ReqTypeDesc" />
+                <ScalarProperty Name="Seq" ColumnName="Seq" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_SalutCd">
+            <EntityTypeMapping TypeName="OnboardingModel.V_SalutCd">
+              <MappingFragment StoreEntitySet="V_SalutCd">
+                <ScalarProperty Name="SalutCd" ColumnName="SalutCd" />
+                <ScalarProperty Name="SalutDesc" ColumnName="SalutDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_SysAccTask">
+            <EntityTypeMapping TypeName="OnboardingModel.V_SysAccTask">
+              <MappingFragment StoreEntitySet="V_SysAccTask">
+                <ScalarProperty Name="SysAccTaskId" ColumnName="SysAccTaskId" />
+                <ScalarProperty Name="ReqId" ColumnName="ReqId" />
+                <ScalarProperty Name="TaskCd" ColumnName="TaskCd" />
+                <ScalarProperty Name="TaskStsCd" ColumnName="TaskStsCd" />
+                <ScalarProperty Name="CompletedBy" ColumnName="CompletedBy" />
+                <ScalarProperty Name="CompletedDt" ColumnName="CompletedDt" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_SysAccTaskAttrb">
+            <EntityTypeMapping TypeName="OnboardingModel.V_SysAccTaskAttrb">
+              <MappingFragment StoreEntitySet="V_SysAccTaskAttrb">
+                <ScalarProperty Name="SysAccTaskAttrbId" ColumnName="SysAccTaskAttrbId" />
+                <ScalarProperty Name="SysAccTaskId" ColumnName="SysAccTaskId" />
+                <ScalarProperty Name="TaskAttrbCd" ColumnName="TaskAttrbCd" />
+                <ScalarProperty Name="TaskAttrbVal" ColumnName="TaskAttrbVal" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_SysAccTaskLog">
+            <EntityTypeMapping TypeName="OnboardingModel.V_SysAccTaskLog">
+              <MappingFragment StoreEntitySet="V_SysAccTaskLog">
+                <ScalarProperty Name="SysAccTaskLogId" ColumnName="SysAccTaskLogId" />
+                <ScalarProperty Name="SysAccTaskId" ColumnName="SysAccTaskId" />
+                <ScalarProperty Name="ChangeBy" ColumnName="ChangeBy" />
+                <ScalarProperty Name="ChangeDt" ColumnName="ChangeDt" />
+                <ScalarProperty Name="FieldNm" ColumnName="FieldNm" />
+                <ScalarProperty Name="FromVal" ColumnName="FromVal" />
+                <ScalarProperty Name="ToVal" ColumnName="ToVal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_TaskAgent">
+            <EntityTypeMapping TypeName="OnboardingModel.V_TaskAgent">
+              <MappingFragment StoreEntitySet="V_TaskAgent">
+                <ScalarProperty Name="TaskCd" ColumnName="TaskCd" />
+                <ScalarProperty Name="AgentId" ColumnName="AgentId" />
+                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_TaskAttrbCd">
+            <EntityTypeMapping TypeName="OnboardingModel.V_TaskAttrbCd">
+              <MappingFragment StoreEntitySet="V_TaskAttrbCd">
+                <ScalarProperty Name="TaskAttrbCd" ColumnName="TaskAttrbCd" />
+                <ScalarProperty Name="TaskAttrbDesc" ColumnName="TaskAttrbDesc" />
+                <ScalarProperty Name="TaskCd" ColumnName="TaskCd" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_TaskCd">
+            <EntityTypeMapping TypeName="OnboardingModel.V_TaskCd">
+              <MappingFragment StoreEntitySet="V_TaskCd">
+                <ScalarProperty Name="TaskCd" ColumnName="TaskCd" />
+                <ScalarProperty Name="TaskDesc" ColumnName="TaskDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_TaskDep">
+            <EntityTypeMapping TypeName="OnboardingModel.V_TaskDep">
+              <MappingFragment StoreEntitySet="V_TaskDep">
+                <ScalarProperty Name="TaskCd" ColumnName="TaskCd" />
+                <ScalarProperty Name="DepTaskCd" ColumnName="DepTaskCd" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_TaskStsCd">
+            <EntityTypeMapping TypeName="OnboardingModel.V_TaskStsCd">
+              <MappingFragment StoreEntitySet="V_TaskStsCd">
+                <ScalarProperty Name="TaskStsCd" ColumnName="TaskStsCd" />
+                <ScalarProperty Name="TaskStsDesc" ColumnName="TaskStsDesc" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_UserSubTypeCd">
+            <EntityTypeMapping TypeName="OnboardingModel.V_UserSubTypeCd">
+              <MappingFragment StoreEntitySet="V_UserSubTypeCd">
+                <ScalarProperty Name="UserSubTypeCd" ColumnName="UserSubTypeCd" />
+                <ScalarProperty Name="UserSubTypeDesc" ColumnName="UserSubTypeDesc" />
+                <ScalarProperty Name="UserTypeCd" ColumnName="UserTypeCd" />
+                <ScalarProperty Name="Seq" ColumnName="Seq" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_UserTypeCd">
+            <EntityTypeMapping TypeName="OnboardingModel.V_UserTypeCd">
+              <MappingFragment StoreEntitySet="V_UserTypeCd">
+                <ScalarProperty Name="UserTypeCd" ColumnName="UserTypeCd" />
+                <ScalarProperty Name="UserTypeDesc" ColumnName="UserTypeDesc" />
+                <ScalarProperty Name="Seq" ColumnName="Seq" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDt" ColumnName="CreatedDt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDt" ColumnName="ModifiedDt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SecAccModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ODS3.dbo.V_GetSysUserProg' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_GetSysUserProg">
+          <Key>
+            <PropertyRef Name="sys_id" />
+            <PropertyRef Name="prog_id" />
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="sys_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="prog_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="user_id" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="prog_nm" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="user_nm" Type="varchar" MaxLength="76" Nullable="false" />
+          <Property Name="dept_c" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="dept_t" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="active_f" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ODS3.dbo.V_GetSysUserProgData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_GetSysUserProgData">
+          <Key>
+            <PropertyRef Name="sys_id" />
+            <PropertyRef Name="prog_id" />
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="sec_tp_cd" />
+            <PropertyRef Name="data_param" />
+          </Key>
+          <Property Name="sys_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="prog_id" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="user_id" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="sec_tp_cd" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="data_param" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="SecAccModelStoreContainer">
+          <EntitySet Name="V_GetSysUserProg" EntityType="Self.V_GetSysUserProg" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_GetSysUserProg].[sys_id] AS [sys_id], 
+    [V_GetSysUserProg].[prog_id] AS [prog_id], 
+    [V_GetSysUserProg].[user_id] AS [user_id], 
+    [V_GetSysUserProg].[prog_nm] AS [prog_nm], 
+    [V_GetSysUserProg].[user_nm] AS [user_nm], 
+    [V_GetSysUserProg].[dept_c] AS [dept_c], 
+    [V_GetSysUserProg].[dept_t] AS [dept_t], 
+    [V_GetSysUserProg].[active_f] AS [active_f]
+    FROM [dbo].[V_GetSysUserProg] AS [V_GetSysUserProg]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_GetSysUserProgData" EntityType="Self.V_GetSysUserProgData" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_GetSysUserProgData].[sys_id] AS [sys_id], 
+    [V_GetSysUserProgData].[prog_id] AS [prog_id], 
+    [V_GetSysUserProgData].[user_id] AS [user_id], 
+    [V_GetSysUserProgData].[sec_tp_cd] AS [sec_tp_cd], 
+    [V_GetSysUserProgData].[data_param] AS [data_param]
+    FROM [dbo].[V_GetSysUserProgData] AS [V_GetSysUserProgData]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SecAccModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="V_GetSysUserProg">
+          <Key>
+            <PropertyRef Name="sys_id" />
+            <PropertyRef Name="prog_id" />
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="sys_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prog_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_id" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prog_nm" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_nm" Type="String" MaxLength="76" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dept_c" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dept_t" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="active_f" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="V_GetSysUserProgData">
+          <Key>
+            <PropertyRef Name="sys_id" />
+            <PropertyRef Name="prog_id" />
+            <PropertyRef Name="user_id" />
+            <PropertyRef Name="sec_tp_cd" />
+            <PropertyRef Name="data_param" />
+          </Key>
+          <Property Name="sys_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prog_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_id" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sec_tp_cd" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="data_param" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="SecAccEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="V_GetSysUserProg" EntityType="Self.V_GetSysUserProg" />
+          <EntitySet Name="V_GetSysUserProgData" EntityType="Self.V_GetSysUserProgData" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SecAccModelStoreContainer" CdmEntityContainer="SecAccEntities">
+          <EntitySetMapping Name="V_GetSysUserProg">
+            <EntityTypeMapping TypeName="SecAccModel.V_GetSysUserProg">
+              <MappingFragment StoreEntitySet="V_GetSysUserProg">
+                <ScalarProperty Name="sys_id" ColumnName="sys_id" />
+                <ScalarProperty Name="prog_id" ColumnName="prog_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="prog_nm" ColumnName="prog_nm" />
+                <ScalarProperty Name="user_nm" ColumnName="user_nm" />
+                <ScalarProperty Name="dept_c" ColumnName="dept_c" />
+                <ScalarProperty Name="dept_t" ColumnName="dept_t" />
+                <ScalarProperty Name="active_f" ColumnName="active_f" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_GetSysUserProgData">
+            <EntityTypeMapping TypeName="SecAccModel.V_GetSysUserProgData">
+              <MappingFragment StoreEntitySet="V_GetSysUserProgData">
+                <ScalarProperty Name="sys_id" ColumnName="sys_id" />
+                <ScalarProperty Name="prog_id" ColumnName="prog_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="sec_tp_cd" ColumnName="sec_tp_cd" />
+                <ScalarProperty Name="data_param" ColumnName="data_param" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

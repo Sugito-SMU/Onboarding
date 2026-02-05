@@ -1,0 +1,9 @@
+﻿
+@model Onboarding.Entity.Task
+
+@if ((new Onboarding.Entity.Request()).GetTask(Model.TaskCd) != null && (new Onboarding.Entity.Request()).GetTask(Model.TaskCd).IsPending == true)
+{
+    <span>
+        <img src="~/assets/images/penidng.png" /> PENDING
+    </span>
+}

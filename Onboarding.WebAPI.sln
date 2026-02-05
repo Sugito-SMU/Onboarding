@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onboarding.Entity", "Onboarding.Entity\Onboarding.Entity.csproj", "{9E28503F-05AF-452C-B184-343A80B2FE01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onboarding.WebAPI", "Onboarding.WebAPI\Onboarding.WebAPI.csproj", "{16EEA396-5DF8-468B-B049-8B477A63A20E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9E28503F-05AF-452C-B184-343A80B2FE01} = {9E28503F-05AF-452C-B184-343A80B2FE01}
+		{5276A36F-87A5-46BA-B043-9D77219EBA45} = {5276A36F-87A5-46BA-B043-9D77219EBA45}
+		{8EE2F183-6D68-448B-A8C2-D0E67D7992B5} = {8EE2F183-6D68-448B-A8C2-D0E67D7992B5}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onboarding.Common", "Onboarding.Common\Onboarding.Common.csproj", "{8EE2F183-6D68-448B-A8C2-D0E67D7992B5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9E28503F-05AF-452C-B184-343A80B2FE01} = {9E28503F-05AF-452C-B184-343A80B2FE01}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onboarding.ServiceManager", "Onboarding.ServiceManager\Onboarding.ServiceManager.csproj", "{5276A36F-87A5-46BA-B043-9D77219EBA45}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9E28503F-05AF-452C-B184-343A80B2FE01} = {9E28503F-05AF-452C-B184-343A80B2FE01}
+		{8EE2F183-6D68-448B-A8C2-D0E67D7992B5} = {8EE2F183-6D68-448B-A8C2-D0E67D7992B5}
+		{C5493E87-19A2-4ADD-B947-63AB59179E7F} = {C5493E87-19A2-4ADD-B947-63AB59179E7F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onboarding.DataProvider", "Onboarding.DataProvider\Onboarding.DataProvider.csproj", "{C5493E87-19A2-4ADD-B947-63AB59179E7F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9E28503F-05AF-452C-B184-343A80B2FE01} = {9E28503F-05AF-452C-B184-343A80B2FE01}
+		{8EE2F183-6D68-448B-A8C2-D0E67D7992B5} = {8EE2F183-6D68-448B-A8C2-D0E67D7992B5}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E28503F-05AF-452C-B184-343A80B2FE01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E28503F-05AF-452C-B184-343A80B2FE01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E28503F-05AF-452C-B184-343A80B2FE01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E28503F-05AF-452C-B184-343A80B2FE01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16EEA396-5DF8-468B-B049-8B477A63A20E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16EEA396-5DF8-468B-B049-8B477A63A20E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16EEA396-5DF8-468B-B049-8B477A63A20E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16EEA396-5DF8-468B-B049-8B477A63A20E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EE2F183-6D68-448B-A8C2-D0E67D7992B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EE2F183-6D68-448B-A8C2-D0E67D7992B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EE2F183-6D68-448B-A8C2-D0E67D7992B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EE2F183-6D68-448B-A8C2-D0E67D7992B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5276A36F-87A5-46BA-B043-9D77219EBA45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5276A36F-87A5-46BA-B043-9D77219EBA45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5276A36F-87A5-46BA-B043-9D77219EBA45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5276A36F-87A5-46BA-B043-9D77219EBA45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5493E87-19A2-4ADD-B947-63AB59179E7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5493E87-19A2-4ADD-B947-63AB59179E7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5493E87-19A2-4ADD-B947-63AB59179E7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5493E87-19A2-4ADD-B947-63AB59179E7F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

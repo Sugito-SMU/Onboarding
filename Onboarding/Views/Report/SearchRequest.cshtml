@@ -1,0 +1,209 @@
+﻿@using MVCGrid.Web
+@{
+    ViewBag.Title = "Search Request";
+    Layout = "~/Views/Shared/CommonMaster.cshtml";
+}
+
+@model  Onboarding.Entity.RptSearchCriteria
+<link href="~/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+
+<style>
+
+    .line_div {
+        border-top: 1px solid #c4dbe7;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .line_div a {
+            margin: 0;
+            padding: 0;
+    }
+
+    #div_content {
+        border-radius: 0;
+        padding: 10px;
+    }
+
+    label {
+        font-size: 12px;
+        margin-top:8px;
+        margin-bottom:0px;
+    }
+</style>
+
+<div class="col-md-12">
+
+    <div class="line_div">
+        <a class="pull-right clickable" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <span id="searchPanel" class="glyphicon glyphicon-chevron-down"></span>
+        </a>
+    </div>
+
+    <div class="collapse in" id="collapseExample">
+        <div class="well" id="div_content">
+            <div class="row">
+                
+                <div class="col-xs-6 col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-sm-12 control-label text-left">First Name</label>
+                        <div class="col-sm-12">
+                            <input class="form-control input-sm" data-mvcgrid-type="additionalQueryOption" data-mvcgrid-option="firstname1" data-mvcgrid-name="SearchRequest" type="text" placeholder="" value="@Model.FirstName" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-sm-12 control-label text-left">Employment Start Date (From)</label>
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control input-sm" id="datePicker1" data-mvcgrid-type="additionalQueryOption" data-mvcgrid-option="EmplStartDtFrom1" data-mvcgrid-name="SearchRequest" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-sm-12 control-label text-left">Employment Start Date (To)</label>
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control input-sm" id="datePicker2" data-mvcgrid-type="additionalQueryOption" data-mvcgrid-option="EmplStartDtTo1" data-mvcgrid-name="SearchRequest" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-sm-12 control-label text-left">Employment End Date (From)</label>
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control input-sm" id="datePicker3" data-mvcgrid-type="additionalQueryOption" data-mvcgrid-option="EmplEndDtFrom1" data-mvcgrid-name="SearchRequest" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-sm-12 control-label text-left">Employment End Date (To)</label>
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control input-sm" id="datePicker4" data-mvcgrid-type="additionalQueryOption" data-mvcgrid-option="EmplEndDtTo1" data-mvcgrid-name="SearchRequest" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-md-6">
+                    <div class="form-group">
+                        <label for="" class="col-sm-12 control-label text-left">Last Name</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control input-sm" data-mvcgrid-type="additionalQueryOption" data-mvcgrid-option="lastname1" data-mvcgrid-name="SearchRequest" name="lastname1" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="col-sm-12 control-label text-left">Cost Centre (Department)</label>
+                        <div class="col-sm-12">
+                            @{
+                                Html.EJ()
+                                .Autocomplete("CostCtrDesc")
+                                .Width("100%")
+                                .Datasource((IEnumerable<Onboarding.Entity.CostCentre>)ViewBag.CostCentreList)
+                                .AutocompleteFields(f => f.Key("CostCtrCd").Text("CostCtrDesc"))
+                                .WatermarkText("Please type in cost centre code or description")
+                                .FilterType(FilterOperatorType.Contains)
+                                .ClientSideEvents(e => e.Change("onCostCtrDescChanged"))
+                                .Render();
+                            }
+
+                            <input type="hidden" ID="CostCtrDesc1" data-mvcgrid-type="additionalQueryOption" data-mvcgrid-option="CostCtrDesc1" data-mvcgrid-name="SearchRequest" />
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-6 text-right">
+                    <button type="reset" class="btn btn-default" onclick="window.location.href='./SearchRequest'">Reset</button>
+                </div>
+                <div class="col-md-4 text-left">
+                    <button type="search" data-mvcgrid-apply-additional="click" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@Html.MVCGrid("SearchRequest")
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-inline">
+            <div class="form-group">
+                <label>
+                    Page Size: <select class="form-control input-sm" data-mvcgrid-type="pageSize" data-mvcgrid-name="SearchRequest">
+    <option value="10">10</option>
+    <option value="25">25</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
+</select>
+                </label>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    function onCostCtrDescChanged(args) {
+        $("#CostCtrDesc1").val(args.value);
+    }
+
+    $(document).ready(function () {
+
+        $("#searchPanel").click(function () {
+            if ($("#searchPanel").hasClass("glyphicon-chevron-down")) {
+                $("#searchPanel").removeClass("glyphicon-chevron-down");
+                $("#searchPanel").addClass("glyphicon-chevron-up");
+            }
+            else {
+                if ($("#searchPanel").hasClass("glyphicon-chevron-up")) {
+                    $("#searchPanel").removeClass("glyphicon-chevron-up");
+                    $("#searchPanel").addClass("glyphicon-chevron-down");
+                }
+            }
+        });
+
+        $(function () {
+            $('#datePicker1').datepicker(
+                {
+                    format: "dd M yyyy",
+                    autoclose: true,
+                    validate: false
+                });
+            $('#datePicker2').datepicker(
+               {
+                   format: "dd M yyyy",
+                   autoclose: true,
+                   validate: false
+               });
+            $('#datePicker3').datepicker(
+                {
+                    format: "dd M yyyy",
+                    autoclose: true,
+                    validate: false
+                });
+            $('#datePicker4').datepicker(
+               {
+                   format: "dd M yyyy",
+                   autoclose: true,
+                   validate: false
+               });
+        });
+    });
+</script>

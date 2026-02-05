@@ -1,0 +1,23 @@
+﻿@model Onboarding.Models.AgentRequestModel
+
+<p>
+    <label>Assigned Email Address:</label>
+    @if ((Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateEmail) != null) && (Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateEmail).GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.AssignedEmailAddress) != null))
+    {
+        string AssignedEmailAddress = Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateEmail).GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.AssignedEmailAddress).TaskAttrbVal;
+        <span>  @AssignedEmailAddress</span>
+    }
+</p>
+<p>
+    <label>Network ID:</label>
+    @if ((Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateNTID) != null) && (Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateNTID).GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.AssignedNTID) != null))
+    {
+        string AssignedNTID = Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateNTID).GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.AssignedNTID).TaskAttrbVal;
+        <span>@AssignedNTID</span>
+    }
+</p>
+<label>HOD Approval:</label>
+@if (Model.Request.Attachment != null)
+{
+    <a href="@Request.ApplicationPath.TrimEnd('/')/Agent/DownloadFile/@Model.Request.Attachment.ReqAttachId" id="lnkDownloadFile">@Model.Request.Attachment.Filename&nbsp;</a>
+}

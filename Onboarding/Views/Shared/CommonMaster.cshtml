@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Singapore Management University">
+    <meta name="author" content="">
+    <title>Onboarding System</title>
+
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap-3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/bootstrap-extend.min.css">
+    <link rel="stylesheet" href="~/assets/css/site.css">
+    <link rel="stylesheet" href="~/assets/vendor/ashoverscroll/jquery-asHoverScroll.min.js">
+    <link rel="stylesheet" href="~/assets/vendor/asscrollable/jquery.asScrollable.all.min.js">
+    <link rel="stylesheet" href="~/assets/vendor/jquery-wizard/jquery-wizard.css">
+    <link rel="stylesheet" href="~/assets/vendor/formvalidation/formValidation.css">
+    <link rel="stylesheet" href="~/assets/vendor/ej/ej.widgets.core.min.css" />
+    <link rel="stylesheet" href="~/assets/vendor/ej/default-theme/ej.theme.min.css" />
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="~/assets/fonts/web-icons/web-icons.min.css">
+    <link rel="stylesheet" href="~/assets/fonts/brand-icons/brand-icons.min.css">
+
+    <script src="~/assets/js/jquery-3.1.1.min.js"></script>
+    <script src="~/assets/vendor/breakpoints/breakpoints.js"></script>
+    <script src="~/assets/vendor/ej/ej.web.all.min.js"></script>
+    <script src="~/MVCGridHandler.axd/script.js"></script>
+
+    <script>Breakpoints();</script>
+
+</head>
+<body>
+    @Html.Partial("_LeftMenu")
+
+    @(Html.EJ().ScriptManager())
+
+
+    <!-- START PAGE -->
+    <div class="page">
+        <div class="page-header">
+            <h1 class="page-title" style="padding-left:40px!important;">@ViewBag.Title</h1>
+        </div><!--/page-header-->
+
+        <div class="page-content container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Panel Wizard Form -->
+                    <div class="" id="exampleWizardForm">
+                        <div class="panel-body">
+                            <!-- REQUEST FORM CONTENTS -->
+                            @RenderBody()
+                            <!-- End Wizard Content -->
+
+                        </div><!--/panel-body-->
+                    </div><!-- /exampleWizardForm End Panel Wizard One Form -->
+                </div><!--/col-md-12"-->
+            </div> <!--/row-->
+        </div><!--/page-content container-fluid-->
+    </div>
+
+    
+    <!-- Scripts -->
+    <!-- Core  -->
+    <script src="~/assets/vendor/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <!-- Plugins -->
+    <script src="~/assets/vendor/formvalidation/framework/bootstrap.js"></script>
+    <script src="~/assets/vendor/matchheight/jquery.matchHeight-min.js"></script>
+    <script src="~/assets/vendor/jquery-wizard/jquery-wizard.js"></script>
+    <script src="~/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/vendor/asscrollable/jquery.asScrollable.all.min.js"></script>
+    <script src="~/assets/js/core.js"></script>
+    <script src="~/assets/js/site.js"></script>
+    <script src="~/assets/js/sections/menu.js"></script>
+    <script src="~/assets/js/sections/menubar.js"></script>
+    <script src="~/assets/js/sections/gridmenu.js"></script>
+    <script src="~/assets/js/sections/sidebar.js"></script>
+    <script src="~/assets/js/components/jquery-wizard.js"></script>
+    <script src="~/assets/js/components/matchheight.js"></script>
+    <script src="~/assets/js/components/wizard.js"></script>
+  
+</body>
+</html>

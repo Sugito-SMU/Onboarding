@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9E28503F-05AF-452C-B184-343A80B2FE01}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Onboarding.Entity</RootNamespace>
+    <AssemblyName>Onboarding.Entity</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\BuildOutput\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\BuildOutput\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Agent.cs" />
+    <Compile Include="CASEntityADAccount.cs" />
+    <Compile Include="CASEntityAUPUser.cs" />
+    <Compile Include="Constant\ExcelColumnName.cs" />
+    <Compile Include="Constant\PatronOnboardingInterface.cs" />
+    <Compile Include="Constant\RequestFieldLength.cs" />
+    <Compile Include="Constant\TaskAttributeMandatoryError.cs" />
+    <Compile Include="Constant\TaskAttributeLengthError.cs" />
+    <Compile Include="Constant\RequestFieldLengthError.cs" />
+    <Compile Include="Constant\RequestFieldValueError.cs" />
+    <Compile Include="Constant\RequestSection.cs" />
+    <Compile Include="Constant\RequestTypeCode.cs" />
+    <Compile Include="Constant\System.cs" />
+    <Compile Include="Constant\CorpTitle.cs" />
+    <Compile Include="Constant\SystemRole.cs" />
+    <Compile Include="Constant\TaskAttributeLength.cs" />
+    <Compile Include="Constant\UserSubType.cs" />
+    <Compile Include="PatronOnbdIntfRpt.cs" />
+    <Compile Include="RequestAttributeValueMap.cs" />
+    <Compile Include="TaskValidationError.cs" />
+    <Compile Include="RequestValidation.cs" />
+    <Compile Include="OutstandingRequestAlert.cs" />
+    <Compile Include="OutstandingTaskAlert.cs" />
+    <Compile Include="OutstandingRequestAlertRow.cs" />
+    <Compile Include="OutstandingTaskAlertRow.cs" />
+    <Compile Include="RequestListForAgentRow.cs" />
+    <Compile Include="RequestListForAgent.cs" />
+    <Compile Include="RequestListForRequestorRow.cs" />
+    <Compile Include="RequestListForRequestor.cs" />
+    <Compile Include="RequestCountForAgent.cs" />
+    <Compile Include="RequestSearchResultRow.cs" />
+    <Compile Include="RequestSearchResult.cs" />
+    <Compile Include="GenRptSearchResultRow.cs" />
+    <Compile Include="GenRptSearchResult.cs" />
+    <Compile Include="BulkRequestSubmitResult.cs" />
+    <Compile Include="BulkRequest.cs" />
+    <Compile Include="BulkRequestSubmitResultRow.cs" />
+    <Compile Include="Constant\RequestAttributeCode.cs" />
+    <Compile Include="Constant\RequestFieldMandatoryError.cs" />
+    <Compile Include="Constant\RequestField.cs" />
+    <Compile Include="Constant\AppResource.cs" />
+    <Compile Include="Constant\UserType.cs" />
+    <Compile Include="Constant\TaskStatusCode.cs" />
+    <Compile Include="Constant\TaskAttributeCode.cs" />
+    <Compile Include="Constant\RequestStatusCode.cs" />
+    <Compile Include="Constant\TaskCode.cs" />
+    <Compile Include="CostCentre.cs" />
+    <Compile Include="Gender.cs" />
+    <Compile Include="PatronPosition.cs" />
+    <Compile Include="PatronDept.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Race.cs" />
+    <Compile Include="RptSearchCriteria.cs" />
+    <Compile Include="RequestResources.cs" />
+    <Compile Include="RequestEmployment.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="RequestStatus.cs" />
+    <Compile Include="RequestType.cs" />
+    <Compile Include="Requestor.cs" />
+    <Compile Include="Salutation.cs" />
+    <Compile Include="SystemRole.cs" />
+    <Compile Include="SystemRoleUser.cs" />
+    <Compile Include="RequestAttachment.cs" />
+    <Compile Include="TaskAttachment.cs" />
+    <Compile Include="RequestChangeLog.cs" />
+    <Compile Include="RequestCountForRequestor.cs" />
+    <Compile Include="RequestAttributeCode.cs" />
+    <Compile Include="TaskAlertConfig.cs" />
+    <Compile Include="TaskSummary.cs" />
+    <Compile Include="TaskCount.cs" />
+    <Compile Include="TaskChangeLog.cs" />
+    <Compile Include="Task.cs" />
+    <Compile Include="TaskAttribute.cs" />
+    <Compile Include="TaskAttributeCode.cs" />
+    <Compile Include="TaskCode.cs" />
+    <Compile Include="TaskFlow.cs" />
+    <Compile Include="TaskStatus.cs" />
+    <Compile Include="Patron.cs" />
+    <Compile Include="UserProfile.cs" />
+    <Compile Include="UserSubType.cs" />
+    <Compile Include="UserType.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

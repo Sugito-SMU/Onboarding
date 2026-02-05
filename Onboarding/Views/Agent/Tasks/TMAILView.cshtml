@@ -1,0 +1,53 @@
+﻿@model Onboarding.Models.AgentRequestModel
+
+@{ 
+    Onboarding.Entity.Task createNTIDtask = Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateNTID);
+    Onboarding.Entity.Task createEmailtask = Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateEmail);
+
+<p>
+    <label>Network ID:</label>
+    @if ((createNTIDtask != null) && (createNTIDtask.GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.AssignedNTID) != null))
+    {
+        string AssignedNTID = createNTIDtask.GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.AssignedNTID).TaskAttrbVal;
+        <span>@AssignedNTID</span>
+    }
+</p>
+<p>
+    <label>Known As:</label>
+    <span>@Model.Request.PrefNm</span>
+</p>
+<p>
+    <label>Assigned Email Address <span style="color:red">*</span></label>
+    @if ((createEmailtask.TaskStsCd != Onboarding.Entity.Constant.TaskStatusCode.Pending) || (!createEmailtask.IsMyTask) || (Model.ViewOnly == true))
+    {
+        @Html.EditorFor(m => m.AssignedEmailAddress, new { htmlAttributes = new { @class = "form-control input_" + createEmailtask.TaskCd + createEmailtask.TaskId.ToString(), @autocomplete = "off", @readonly = "readonly", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.AssignedEmailAddress) } })
+    }
+    else
+    {
+        @Html.EditorFor(m => m.AssignedEmailAddress, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.AssignedEmailAddress) } })
+    }
+    @if ((createEmailtask.ValidationError != null) && createEmailtask.ValidationError.HasError(Onboarding.Entity.Constant.TaskAttributeCode.AssignedEmailAddress))
+    {
+        <div>
+            <span class="help-block text-danger checkbox_error_message">@createEmailtask.ValidationError.GetErrorMessage(Onboarding.Entity.Constant.TaskAttributeCode.AssignedEmailAddress)</span>
+        </div>
+    }
+</p>
+<p>
+    <label>Assigned Email Display Name <span style="color:red">*</span></label>
+    @if ((createEmailtask.TaskStsCd != Onboarding.Entity.Constant.TaskStatusCode.Pending) || (!createEmailtask.IsMyTask) || (Model.ViewOnly == true))
+    {
+        @Html.EditorFor(m => m.AssignedEmailDispNm, new { htmlAttributes = new { @class = "form-control input_" + createEmailtask.TaskCd + createEmailtask.TaskId.ToString(), @autocomplete = "off", @readonly = "readonly", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.AssignedEmailDispNm) } })
+    }
+    else
+    {
+        @Html.EditorFor(m => m.AssignedEmailDispNm, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.AssignedEmailDispNm) } })
+    }
+    @if ((createEmailtask.ValidationError != null) && createEmailtask.ValidationError.HasError(Onboarding.Entity.Constant.TaskAttributeCode.AssignedEmailDispNm))
+    {
+        <div>
+            <span class="help-block text-danger checkbox_error_message">@createEmailtask.ValidationError.GetErrorMessage(Onboarding.Entity.Constant.TaskAttributeCode.AssignedEmailDispNm)</span>
+        </div>
+    }
+</p>
+}

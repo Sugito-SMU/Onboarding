@@ -1,0 +1,47 @@
+﻿@model Onboarding.Models.NewRequest
+@{
+
+    ViewBag.Title = "New Request";
+    Layout = "~/Views/Shared/CommonMaster.cshtml";
+}
+<script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker({
+                size: 'auto',
+                height:'100px'
+            });
+            if ($(".selectpicker")[0]) {
+                $(".selectpicker").selectpicker();
+                $('.selectpicker').parents('form:first').validate().settings.ignore = ':not(select:hidden, input:visible, textarea:visible)';
+            }
+        });
+  
+ </script>
+@using (Html.BeginForm("Post", "Requestor/NewRequest", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="col-sm-6">
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <div class="form-group">
+                    <label class="control-label"><font color="red"><b>*</b></font>Request Type</label>
+                    <div>
+                        @Html.DropDownListFor(m => m.SelectedReqTypeCd, new SelectList(Model.RequestTypes, "ReqTypeCd", "ReqTypeDesc"), "- Select -",
+                     new { @class = "form-control selectpicker" })
+                        @Html.ValidationMessageFor(m => m.SelectedReqTypeCd, "", new { @class = "text-danger" })                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+   <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" style="width:80%" align="left">
+                 <input type="submit" value="Next" class="btn btn-primary" />
+                </div>
+   </div>
+
+}

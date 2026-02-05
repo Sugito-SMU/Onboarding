@@ -1,0 +1,244 @@
+﻿@model Onboarding.Models.OfficeLog
+@{
+
+    Layout = "~/Views/Shared/RequestFormLayout.cshtml";
+    string url = Url.Action("EmployeeInfo", "onboarding", new { @id = 0 });
+}
+
+@section head
+{
+    <link href="~/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/assets/vendor/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+    <style>
+
+        .checkbox label, .radio label {
+            float: left;
+        }
+
+        .table tr th {
+            background: rgb(228, 234, 236) !important;
+            color: rgb(118, 131, 143) !important;
+            font-weight: 100 !important;
+        }
+
+        .table tr td a {
+            text-decoration: underline;
+        }
+
+        .table tr td a:hover {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .officeLog1 > div.form-group {
+            float: left;
+            width: 70%;
+        }
+
+
+        .officeLog1 > div.form-group:last-child {
+            float: left;
+            width: 30%;
+         }
+
+        .officeLog2 > div.form-group:first-child {
+            float: left;
+            width: 45%;
+        }
+
+        .officeLog2 > div.form-group {
+            float: left;
+            width: 25%;
+        }
+
+        .officeLog2 > div.form-group:last-child {
+            float: left;
+            width: 30%;
+        }
+
+    </style>
+}
+@section scripts
+{
+
+    <script src="~/assets/vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/vendor/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="~/assets/js/jquery.validate.min.js"></script>
+    <script src="~/assets/js/jquery.validate.unobtrusive.js"></script>
+    <script>
+ 
+        $("#checkboxPCNBF").click(function () {
+            if ($(this).prop("checked") == true) {
+                $(".clsIsPCSelected").show();
+            }
+            else {
+                $(".clsIsPCSelected").hide();
+            }
+        });
+
+        $(document).ready(function (e) {
+            var disableMode = @Model.IsViewMode.ToString().ToLower();
+            if(disableMode)
+            {
+                $(".dropdown-input").prop("disabled", "disabled");
+                $(".textbox-input").prop("disabled", "disabled");
+                $(".radiobutton-input").prop("disabled", "disabled");
+                $(".checkbox-input").prop("disabled", "disabled");
+            }
+            $('.selectpicker').selectpicker({
+                size: 'auto',
+                height: '100px',
+                width:'auto'
+            });
+            if ($(".selectpicker")[0]) {
+                $(".selectpicker").selectpicker();
+                $('.selectpicker').parents('form:first').validate().settings.ignore = ':not(select:hidden, input:visible, textarea:visible)';
+            }
+        });
+
+        $(".form_date").datepicker({
+            format: "dd MMM yyyy",
+            autoclose: true,
+            validate: true
+        });
+
+    </script>
+}
+
+<script type="text/javascript">
+
+    var x = document.getElementsByClassName("step col-md-3");
+    if (x != null) {
+        x[0].className = "step col-md-3 done";
+        x[1].className = "step col-md-3 done";
+        x[2].className = "step col-md-3 current";
+        x[3].className = "step col-md-3 ";
+    }
+
+</script>
+
+@using (Html.BeginForm("Post", "Requestor/OfficeLog", FormMethod.Post, new { enctype = "multipart/form-data", id = "RequestorForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" id="RedirectTo" name="RedirectTo" value="" />
+
+    <div class="wizard-pane active" id="officeLogistics" role="tabpanel">
+        <div class="col-sm-12" style="" id="divMain">
+
+            <div class="row" style="border-bottom-color:rgb(228, 234, 236); margin-bottom:2px;">
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(model => model.IsPCSelected, new { id = "checkboxPCNBF", @class = "checkbox-input" }) PC / NoteBook
+                                @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.IsPCSelected, Model.Request, false))
+                                {
+                                    <span class="text-danger">*</span>
+                                }
+                            </label>
+                        </div>
+                        <div class="col-md-12 clsIsPCSelected" style="@Html.Raw((Model.IsPCSelected == true ? "display:block" : "display:none"));">
+                            @Html.RadioButtonFor(m => m.CorpTitleLevelCd, "SR_MGR_BLO", new { @class = "radiobutton-input" })
+                            Senior Manager and below &nbsp;&nbsp;
+                            @Html.RadioButtonFor(m => m.CorpTitleLevelCd, "ASST_DIR_ABV_FAC_INSTR", new { @class = "radiobutton-input" })
+                            Assistant Director and above/Faculty/Instructors &nbsp;&nbsp;
+                            @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.CorpTitleLevel))
+                            {
+                                <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.CorpTitleLevel)</span>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+                @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsPCSelected))
+                {
+                    <div>
+                        <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsPCSelected)</span>
+                    </div>
+                }
+            </div>
+
+            <div class="row" style="border-bottom-color:rgb(228, 234, 236); margin-bottom:2px">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(model => model.IsIPPhoneSelected, new { id = "checkboxIPPHF", @class = "checkbox-input" })IP Phone
+                            </label>
+                            @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.IsIPPhoneSelected, Model.Request, false))
+                            {
+                                <span class="text-danger">*</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsIPPhoneSelected))
+                {
+                    <div>
+                        <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsIPPhoneSelected)</span>
+                    </div>
+                }
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12" >
+
+                    <div class="form-group col-sm-6" style="margin-left:-15px">
+                        <label for="inputBuilding" class="input_label">
+                            Building
+                            @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.Building, Model.Request, false))
+                            {
+                                <span class="text-danger input_mandatory_field">*</span>
+                            }
+                        </label>
+                        @Html.EditorFor(m => m.Building, new { htmlAttributes = new { @class = "form-control textbox-input", @autocomplete = "off", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.Building) } })
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.Building))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.Building)</span>
+                        }
+                    </div>
+                    
+                    <div class="form-group col-sm-3">
+                        <label for="inputFloor" class="input_label">
+                            Floor
+                            @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.Floor, Model.Request, false))
+                            {
+                                <span class="text-danger input_mandatory_field">*</span>
+                            }
+                        </label>
+                        @Html.EditorFor(m => m.Floor, new { htmlAttributes = new { @class = "form-control textbox-input", @placeholder = "", @autocomplete = "off", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.Floor) } })
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.Floor))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.Floor)</span>
+                        }
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                        <label for="inputRoom" class="input_label">
+                            Room
+                            @if (Onboarding.Common.RequestValidation.IsMandatoryField(Onboarding.Entity.Constant.RequestField.Room, Model.Request, false))
+                            {
+                                <span class="text-danger input_mandatory_field">*</span>
+                            }
+                        </label>
+                        @Html.EditorFor(m => m.Room, new { htmlAttributes = new { @class = "form-control textbox-input", @placeholder = "", @autocomplete = "off", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.Room) } })
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.Room))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.Room)</span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            @Html.Partial("RequestButtons")
+
+        </div>
+
+    </div>
+
+   
+
+}
