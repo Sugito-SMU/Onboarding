@@ -217,6 +217,10 @@ namespace Onboarding.ServiceManager
                                 tattrb.TaskAttrbCd = tacd.TaskAttrbCd;
                                 tattrb.CreatedBy = req.CreatedBy;
                                 tattrb.CreatedDt = req.CreatedDt;
+                                if (taskCd == Entity.Constant.TaskCode.CreateNTID && !string.IsNullOrEmpty(req.Resources.NetworkID))
+                                {
+                                    tattrb.TaskAttrbVal = req.Resources.NetworkID;
+                                }
                                 tsk.Attributes.Add(tattrb);
                             }
                         }

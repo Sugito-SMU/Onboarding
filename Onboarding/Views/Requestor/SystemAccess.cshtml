@@ -92,14 +92,27 @@
 
             <div class="row">
                 <div class="form-group">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="col-xs-12 col-sm-6 col-md-2">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" checked="checked" disabled="disabled">
+                                <input type="checkbox" id="chkNetworkId" checked="checked" disabled>
                                 Network ID
                                 <span class="text-danger">*</span>
                             </label>
                         </div>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        @if (Model.IsHRAdmin)
+                        {
+                            @Html.TextBoxFor(model => model.NetworkID, new
+                            {
+                                @class = "form-control requestor_remarks textbox-input",
+                                @placeholder = "Network ID",
+                                @maxlength = Onboarding.Entity.Constant.RequestFieldLength
+                                    .GetLength(Onboarding.Entity.Constant.RequestField.ISISRemarks)
+                            })
+                        }
                     </div>
                 </div>
             </div>
@@ -218,7 +231,7 @@
                             {
                                 <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.ELearnRemarks)</span>
                             }
-                         </div>
+                        </div>
                     </div>
                 </div>
                 @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsELearnSelected))
@@ -255,7 +268,7 @@
                 </div>
 
             </div>
-                
+
             <div class="clsIsCMSSelected" style="margin-bottom:2px; display:@if (Model.IsEmailSelected) { @Html.Raw("block") } else { @Html.Raw("none") } ">
                 <div class="row">
                     <div class="form-group">
@@ -315,73 +328,73 @@
                 </div>
             </div>
 
-                <div class="row">
-                    <div class="form-group ">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="checkbox">
-                                <label>
-                                    @Html.CheckBoxFor(model => model.IsEmailDLSelected, new { @class = "checkbox-input" })
-                                    Email Distribution List
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-6 clsIsEmailDLSelected" style="@Html.Raw((Model.IsEmailDLSelected == true ? "display:block" : "display:none"));">
-                            @Html.TextBoxFor(model => model.EmailDLDetails, new { @class = "form-control requestor_remarks textbox-input", @placeholder = "Email Distribution List Detail*", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.EmailDLDetails) })
-                            @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.EmailDLDetails))
-                            {
-                                <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.EmailDLDetails)</span>
-                            }
-                            @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsEmailDLSelected))
-                            {
-                                <div>
-                                    <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsEmailDLSelected)</span>
-                                </div>
-                            }
-                        </div>
-                    </div>
-
-                </div>
-
-                <div id="SupportingDocument" class="row" style="margin-top:15px; @Html.Raw((((Model.Attachment != null) || ((Model.IsViewMode == false) && (Model.IsINetSelected == true) || (Model.IsOasisSelected == true) || (Model.IsNextwebSelected == true))) ? "display:block" : "display:none"));">
-                    <div class="form-group ">
-                        <div class="col-sm-2">
+            <div class="row">
+                <div class="form-group ">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="checkbox">
                             <label>
-                                Supporting Document<span class="text-danger">*</span>
+                                @Html.CheckBoxFor(model => model.IsEmailDLSelected, new { @class = "checkbox-input" })
+                                Email Distribution List
                             </label>
                         </div>
-                        <div class="col-md-10 ">
-                            <div id="AttachmentLabel">
-                                <label style="margin:0;">Please Attach HOD/AO/Assistant Dean approval that specifically mentions: </label>
-                                <ul>
-                                    <li id="ApprovalLabelCMS" style="@Html.Raw((((Model.IsINetSelected == true) || (Model.IsOasisSelected == true) || (Model.IsNextwebSelected == true)) ? "" : "display:none"));">
-                                        Content Management System (iNet/Oasis/Nextweb)
-                                    </li>
-                                </ul>
-                                <div id="divupload" style="@Html.Raw((Model.Attachment == null) ? "" : "display:none");">
-                                    @Html.TextBoxFor(m => m.AttachmentFile, new { @type = "file", @style = "width:100%;" })
-                                </div>
+                    </div>
+                    <div class="col-md-6 clsIsEmailDLSelected" style="@Html.Raw((Model.IsEmailDLSelected == true ? "display:block" : "display:none"));">
+                        @Html.TextBoxFor(model => model.EmailDLDetails, new { @class = "form-control requestor_remarks textbox-input", @placeholder = "Email Distribution List Detail*", @maxlength = @Onboarding.Entity.Constant.RequestFieldLength.GetLength(Onboarding.Entity.Constant.RequestField.EmailDLDetails) })
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.EmailDLDetails))
+                        {
+                            <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.EmailDLDetails)</span>
+                        }
+                        @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.IsEmailDLSelected))
+                        {
+                            <div>
+                                <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.IsEmailDLSelected)</span>
                             </div>
-                            @if (Model.Attachment != null)
-                            {
-                                @Html.HiddenFor(m => m.IsAttachmentDeleted)
-                                <div id="divDownload">
-                                    <a href="@Request.ApplicationPath.TrimEnd('/')/Requestor/DownloadFile/@Model.Attachment.ReqAttachId" id="lnkDownloadFile">@Model.Attachment.Filename&nbsp;</a>
-                                    &nbsp;<span id="RemoveAtt" class="glyphicon glyphicon-trash clickable" style="color:red;"></span>
-                                </div>
+                        }
+                    </div>
+                </div>
 
-                            }
-                            <div id="AcceptedFileType" style="color:grey;font-style:italic;font-size:11px;">
-                                <p><span class="glyphicon glyphicon-info-sign"></span> Only Outlook MSG, PDF or ZIP file is accepted.Maximum size is 3 MB.</p>
+            </div>
+
+            <div id="SupportingDocument" class="row" style="margin-top:15px; @Html.Raw((((Model.Attachment != null) || ((Model.IsViewMode == false) && (Model.IsINetSelected == true) || (Model.IsOasisSelected == true) || (Model.IsNextwebSelected == true))) ? "display:block" : "display:none"));">
+                <div class="form-group ">
+                    <div class="col-sm-2">
+                        <label>
+                            Supporting Document<span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-md-10 ">
+                        <div id="AttachmentLabel">
+                            <label style="margin:0;">Please Attach HOD/AO/Assistant Dean approval that specifically mentions: </label>
+                            <ul>
+                                <li id="ApprovalLabelCMS" style="@Html.Raw((((Model.IsINetSelected == true) || (Model.IsOasisSelected == true) || (Model.IsNextwebSelected == true)) ? "" : "display:none"));">
+                                    Content Management System (iNet/Oasis/Nextweb)
+                                </li>
+                            </ul>
+                            <div id="divupload" style="@Html.Raw((Model.Attachment == null) ? "" : "display:none");">
+                                @Html.TextBoxFor(m => m.AttachmentFile, new { @type = "file", @style = "width:100%;" })
                             </div>
+                        </div>
+                        @if (Model.Attachment != null)
+                        {
+                            @Html.HiddenFor(m => m.IsAttachmentDeleted)
+                            <div id="divDownload">
+                                <a href="@Request.ApplicationPath.TrimEnd('/')/Requestor/DownloadFile/@Model.Attachment.ReqAttachId" id="lnkDownloadFile">@Model.Attachment.Filename&nbsp;</a>
+                                &nbsp;<span id="RemoveAtt" class="glyphicon glyphicon-trash clickable" style="color:red;"></span>
+                            </div>
+
+                        }
+                        <div id="AcceptedFileType" style="color:grey;font-style:italic;font-size:11px;">
+                            <p><span class="glyphicon glyphicon-info-sign"></span> Only Outlook MSG, PDF or ZIP file is accepted.Maximum size is 3 MB.</p>
                         </div>
                     </div>
-                    @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.SupportingDocument))
-                {
-                        <div>
-                            <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.SupportingDocument)</span>
-                        </div>
-                    }
                 </div>
+                @if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.SupportingDocument))
+                {
+                    <div>
+                        <span class="help-block text-danger checkbox_error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.SupportingDocument)</span>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 

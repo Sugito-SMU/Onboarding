@@ -23,6 +23,7 @@ namespace Onboarding.Entity.Constant
         public const string Room = "RROOM";
 
         public const string IsNetworkIDSelected = "RNTIDF";
+        public const string NetworkID = "RNTIDF";
 
         public const string NetworkIDRemarks = "RNTIDRMK";
 

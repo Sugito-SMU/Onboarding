@@ -199,6 +199,7 @@ namespace Onboarding.DataProvider.Mapper
                 MapReqOffAttrb(reqRes.Floor, Entity.Constant.RequestAttributeCode.Floor, userId, sqlDateTime, dbReq, obCtx);
                 MapReqOffAttrb(reqRes.Room, Entity.Constant.RequestAttributeCode.Room, userId, sqlDateTime, dbReq, obCtx);                
                 MapReqSysAccAttrb(reqRes.IsNetworkIDSelected, Entity.Constant.RequestAttributeCode.IsNetworkIDSelected, userId, sqlDateTime, dbReq, obCtx);
+                MapReqSysAccAttrb(reqRes.NetworkID, Entity.Constant.RequestAttributeCode.NetworkID, userId, sqlDateTime, dbReq, obCtx);
                 MapReqSysAccAttrb(reqRes.NetworkIDRemarks, Entity.Constant.RequestAttributeCode.NetworkIDRemarks, userId, sqlDateTime, dbReq, obCtx);
                 MapReqSysAccAttrb(reqRes.IsEmailSelected, Entity.Constant.RequestAttributeCode.IsEmailSelected, userId, sqlDateTime, dbReq, obCtx);
                 MapReqSysAccAttrb(reqRes.IsSAPSelected, Entity.Constant.RequestAttributeCode.IsSAPSelected, userId, sqlDateTime, dbReq, obCtx);

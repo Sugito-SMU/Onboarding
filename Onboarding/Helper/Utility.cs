@@ -35,6 +35,10 @@ namespace Onboarding.Helper
         {
             return Common.AccessControl.HasPermission(GetUserProfile(), resourceCd);
         }
+        public static bool HasRole(string Role)
+        {
+            return Common.AccessControl.HasUserRole(GetUserProfile(), Role);
+        }
 
         public static string RemoveUserDomain(string input)
         {

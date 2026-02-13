@@ -34,6 +34,7 @@ namespace Onboarding.Controllers
             }
             BindEntityToModel(request, sysAccess);
             ViewBag.ShowSaveSuccessful = false;
+            sysAccess.IsHRAdmin = Helper.Utility.HasRole(Entity.Constant.SystemRole.HRAdmin) || Helper.Utility.HasRole(Entity.Constant.SystemRole.SuperUser);
             return View("SystemAccess", sysAccess);
         }
 
@@ -75,6 +76,10 @@ namespace Onboarding.Controllers
                         request.Attachment = null;
                         deleteAttachment = true;
                     }
+                }
+                if(!string.IsNullOrEmpty(sysAccess.NetworkID))
+                {
+                    request.Resources.NetworkID = sysAccess.NetworkID;
                 }
 
                 if (FormCommand == "Submit")
@@ -125,7 +130,7 @@ namespace Onboarding.Controllers
                     BindEntityToModel(req, sysAccess);
                     ViewBag.ShowSaveSuccessful = true;
                     return View("SystemAccess", sysAccess);
-                }
+                } 
             }
             else if (FormCommand == "Amend")
             {
@@ -251,6 +256,8 @@ namespace Onboarding.Controllers
             Helper.Utility.SetMandatoryValues(request, false);
             if (request.Resources != null)
             {
+                if (request.Resources.NetworkID != null)
+                    sysAccess.NetworkID = request.Resources.NetworkID;
                 if (request.Resources.IsEmailSelected != null)
                     sysAccess.IsEmailSelected = request.Resources.IsEmailSelected.Value;
 

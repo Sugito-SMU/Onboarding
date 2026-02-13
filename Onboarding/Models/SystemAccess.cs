@@ -9,6 +9,7 @@ namespace Onboarding.Models
     {
         public Entity.Request Request { get; set; }
         public bool IsNetworkIDSelected { get; set; }
+        public string NetworkID { get; set; }
         public string NetworkIDRemarks { get; set; }
         public bool IsEmailSelected { get; set; }
         public bool IsSAPSelected { get; set; }
@@ -38,6 +39,7 @@ namespace Onboarding.Models
         public bool IsCancelAllowed { get; set; }
         public bool IsSubmitAllowed { get; set; }
         public bool IsDeleteAllowed { get; set; }
+        public bool IsHRAdmin { get; set; }
 
     }
     public class RequestAttachmentModel

@@ -23,6 +23,7 @@ namespace Onboarding.Entity
         public string Room { get; set; }
 
         public bool? IsNetworkIDSelected { get; set; }
+        public string NetworkID { get; set; }
 
         public string NetworkIDRemarks { get; set; }
 

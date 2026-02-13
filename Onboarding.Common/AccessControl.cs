@@ -9,6 +9,18 @@ namespace Onboarding.Common
 {
     public class AccessControl
     {
+        public static bool HasUserRole(Entity.UserProfile userProf, string UserRole)
+        {
+            bool hasPermission = false;
+            if (userProf != null)
+            {
+                if (userProf.HasSystemRole(UserRole))
+                {
+                    hasPermission = true;
+                }
+            }
+            return hasPermission;
+        }
 
         public static bool HasPermission(Entity.UserProfile userProf, Entity.Request req)
         {

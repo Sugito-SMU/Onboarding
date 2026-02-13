@@ -4,7 +4,7 @@
     Onboarding.Entity.Task task = Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateNTID);
     <p>
         <label>Assigned Network ID <span style="color:red">*</span></label>
-        @if ((task.TaskStsCd != Onboarding.Entity.Constant.TaskStatusCode.Pending) || (!task.IsMyTask) || (Model.ViewOnly == true))
+        @if ((task.TaskStsCd != Onboarding.Entity.Constant.TaskStatusCode.Pending) || (!task.IsMyTask) || (Model.ViewOnly == true)|| !string.IsNullOrEmpty(Model.AssignedNTID))
         {
             @Html.EditorFor(m => m.AssignedNTID, new { htmlAttributes = new { @class = "form-control input_" + task.TaskCd + task.TaskId.ToString(), @autocomplete = "off", @readonly = "readonly", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.AssignedNTID) } })
         }
