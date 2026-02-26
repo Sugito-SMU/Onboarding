@@ -16,7 +16,7 @@ namespace Onboarding.Controllers
     public class HRAdminController : Controller
     {
 
-        //[Authorize]
+        [Authorize]
         public ActionResult Index()
         {
             if (!Helper.Utility.HasPermission(Entity.Constant.AppResource.AppHRAdminDashboard))
@@ -27,7 +27,7 @@ namespace Onboarding.Controllers
             return View();
         }
 
-        //[Authorize]
+        [Authorize]
         public ActionResult Dashboard()
         {
             if (!Helper.Utility.HasPermission(Entity.Constant.AppResource.AppHRAdminDashboard))
