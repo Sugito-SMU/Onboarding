@@ -16,6 +16,8 @@ namespace Onboarding.Entity.Constant
 
         public const string AppAgentDashboard = "APPAGNTDASH";
 
+        public const string AppHRAdminDashboard = "APPHRADMDASH";
+
         public const string AppRequestListForRequestor = "APPREQLISTRQTR";
 
         public const string AppRequestListForAgent = "APPREQLISTAGNT";
@@ -41,6 +43,8 @@ namespace Onboarding.Entity.Constant
         public const string ApiRequestListForRequestor = "APIREQLISTRQTR";
 
         public const string ApiRequestListForAgent = "APIREQLISTAGNT";
+
+        public const string ApiRequestListForHRAdmin = "APIREQLISTHRADM";
 
         public const string ApiRequestorList = "APIRQTRLIST";
 

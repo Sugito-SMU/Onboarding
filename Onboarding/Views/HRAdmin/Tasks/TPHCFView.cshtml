@@ -1,0 +1,48 @@
+﻿@model Onboarding.Models.AgentRequestModel
+
+@{
+    Onboarding.Entity.Task assignPhoneTask = Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.AssignPhone);
+    Onboarding.Entity.Task configPhoneTask = Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.ConfigurePhone);
+
+    <p>
+        <label>Phone Model:</label>
+        @if ((assignPhoneTask != null) && (assignPhoneTask.GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.PhoneModel) != null))
+        {
+            string Phoneval = assignPhoneTask.GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.PhoneModel).TaskAttrbVal;
+            <span>@Phoneval</span>
+        }
+    </p>
+    <p>
+        <label>Phone MAC Address:</label>
+        @if ((assignPhoneTask != null) && (assignPhoneTask.GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.PhoneMACAddr) != null))
+        {
+            string PhoneMACAddr = assignPhoneTask.GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.PhoneMACAddr).TaskAttrbVal;
+            <span>@PhoneMACAddr</span>
+        }
+    </p>
+    <p>
+        <label>Additional Phone Information:</label>
+        @if ((assignPhoneTask != null) && (assignPhoneTask.GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.PhoneAddInfo) != null))
+        {
+            string PhoneAddInfo = assignPhoneTask.GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.PhoneAddInfo).TaskAttrbVal;
+            <span>@PhoneAddInfo</span>
+        }
+    </p>
+    <p>
+        <label>Full Assigned Number</label>
+        @if ((configPhoneTask.TaskStsCd != Onboarding.Entity.Constant.TaskStatusCode.Pending) || (!configPhoneTask.IsMyTask) || (Model.ViewOnly == true))
+        {
+            @Html.EditorFor(m => m.AssignedPhoneExt, new { htmlAttributes = new { @class = "form-control input_" + configPhoneTask.TaskCd + configPhoneTask.TaskId.ToString(), @autocomplete = "off", @readonly = "readonly", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.AssignedPhoneExt) } })
+        }
+        else
+        {
+            @Html.EditorFor(m => m.AssignedPhoneExt, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.AssignedPhoneExt) } })
+        }
+        @if ((configPhoneTask.ValidationError != null) && configPhoneTask.ValidationError.HasError(Onboarding.Entity.Constant.TaskAttributeCode.AssignedPhoneExt))
+        {
+            <div>
+                <span class="help-block text-danger checkbox_error_message">@configPhoneTask.ValidationError.GetErrorMessage(Onboarding.Entity.Constant.TaskAttributeCode.AssignedPhoneExt)</span>
+            </div>
+        }
+    </p>
+}

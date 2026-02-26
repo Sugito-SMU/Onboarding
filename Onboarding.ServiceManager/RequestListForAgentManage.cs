@@ -16,6 +16,13 @@ namespace Onboarding.ServiceManager
             Entity.RequestListForAgent reqList = reqListProv.GetRequestListForAgent(taskStatusCd, userId);
             return reqList;
         }
-        
+
+        public Entity.RequestListForAgent GetRequestListForHRAdmin(string taskStatusCd, string userId)
+        {
+            RequestListForAgentProvider reqListProv = new RequestListForAgentProvider();
+            Entity.RequestListForAgent reqList = reqListProv.GetRequestListForHRAdmin(taskStatusCd, userId);
+            return reqList;
+        }
+
     }
 }

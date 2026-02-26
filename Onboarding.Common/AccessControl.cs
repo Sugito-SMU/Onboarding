@@ -101,6 +101,10 @@ namespace Onboarding.Common
                         hasPermission = (userProf.HasSystemRole(Entity.Constant.SystemRole.SuperUser)) ||
                                         (userProf.HasSystemRole(Entity.Constant.SystemRole.Agent));
                         break;
+                    case Entity.Constant.AppResource.AppHRAdminDashboard:
+                        hasPermission = (userProf.HasSystemRole(Entity.Constant.SystemRole.SuperUser)) ||
+                                        (userProf.HasSystemRole(Entity.Constant.SystemRole.HRAdmin));
+                        break;
                     case Entity.Constant.AppResource.AppRequestListForRequestor:
                         hasPermission = (userProf.HasSystemRole(Entity.Constant.SystemRole.SuperUser)) ||
                                         (userProf.HasSystemRole(Entity.Constant.SystemRole.SchoolAmin)) ||
@@ -186,6 +190,10 @@ namespace Onboarding.Common
                         hasPermission = (userProf.HasSystemRole(Entity.Constant.SystemRole.SuperUser)) ||
                                         (userProf.HasSystemRole(Entity.Constant.SystemRole.Agent));
                         break;
+                    case Entity.Constant.AppResource.ApiRequestListForHRAdmin:
+                        hasPermission = (userProf.HasSystemRole(Entity.Constant.SystemRole.SuperUser)) ||
+                                        (userProf.HasSystemRole(Entity.Constant.SystemRole.HRAdmin));
+                        break;
                     case Entity.Constant.AppResource.ApiRequestorList:
                         hasPermission = (userProf.HasSystemRole(Entity.Constant.SystemRole.SuperUser)) ||
                                         (userProf.HasSystemRole(Entity.Constant.SystemRole.SchoolAmin)) ||
@@ -204,7 +212,8 @@ namespace Onboarding.Common
                         break;
                     case Entity.Constant.AppResource.ApiTask:
                         hasPermission = (userProf.HasSystemRole(Entity.Constant.SystemRole.SuperUser)) ||
-                                        (userProf.HasSystemRole(Entity.Constant.SystemRole.Agent));
+                                        (userProf.HasSystemRole(Entity.Constant.SystemRole.Agent)) ||
+                                        (userProf.HasSystemRole(Entity.Constant.SystemRole.HRAdmin));
                         break;
 
                     default:

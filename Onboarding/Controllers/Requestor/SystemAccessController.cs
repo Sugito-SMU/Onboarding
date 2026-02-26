@@ -77,9 +77,13 @@ namespace Onboarding.Controllers
                         deleteAttachment = true;
                     }
                 }
-                if(!string.IsNullOrEmpty(sysAccess.NetworkID))
+                if(Helper.Utility.HasRole(Entity.Constant.SystemRole.HRAdmin))
                 {
-                    request.Resources.NetworkID = sysAccess.NetworkID;
+                    request.Resources.IsNetworkIdMandatory = true;
+                    if (!string.IsNullOrEmpty(sysAccess.NetworkID))
+                    {
+                        request.Resources.NetworkID = sysAccess.NetworkID;
+                    }
                 }
 
                 if (FormCommand == "Submit")

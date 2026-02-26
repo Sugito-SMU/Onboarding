@@ -26,6 +26,8 @@ namespace Onboarding
                 MVCGridConfig.RegisterMyRequestGrid();
                 MVCGridConfig.RegisterRequestListForAgentGrid();
                 MVCGridConfig.RegisterRequestListForAgentGridCompleted();
+                MVCGridConfig.RegisterRequestListForHRAdminGrid();
+                MVCGridConfig.RegisterRequestListForHRAdminGridCompleted();
                 MVCGridConfig.RegisterSearchRequestGrid();
 
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;

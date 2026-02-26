@@ -18,6 +18,7 @@ namespace Onboarding.Models
         public string PhoneAddInfo { get; set; }
         public string AssignedPhoneExt { get; set; }
         public string AssignedNTID { get; set; }
+        public bool CanModifyAssignedNTID { get; set; }
         public string AssignedEmailDispNm { get; set; }
         public string AssignedEmailAddress { get; set; }
         public bool ViewOnly { get; set; }

@@ -45,6 +45,7 @@ namespace Onboarding.Entity.Constant
         public const string IsMtgRoomSelected = "Additional Meeting Room Booking Access is required";
         public const string MtgRoomDetails = "Additional Meeting Room Booking Details is required";
         public const string IsINetSelected = "CMS – iNet is required";
+        public const string NetworkId = "Network Id is required";
         public const string IsOasisSelected = "CMS – Oasis is required";
         public const string IsNextwebSelected = "CMS – Nextweb is required";
         public const string IsEmailDLSelected = "Email Distribution List is required";

@@ -13,13 +13,13 @@ using Onboarding.Entity;
 
 namespace Onboarding.Controllers
 {
-    public class AgentController : Controller
+    public class HRAdminController : Controller
     {
 
-        [Authorize]
+        //[Authorize]
         public ActionResult Index()
         {
-            if (!Helper.Utility.HasPermission(Entity.Constant.AppResource.AppAgentDashboard))
+            if (!Helper.Utility.HasPermission(Entity.Constant.AppResource.AppHRAdminDashboard))
             {
                 return View("Unauthorized");
             }
@@ -27,10 +27,10 @@ namespace Onboarding.Controllers
             return View();
         }
 
-        [Authorize]
+        //[Authorize]
         public ActionResult Dashboard()
         {
-            if (!Helper.Utility.HasPermission(Entity.Constant.AppResource.AppAgentDashboard))
+            if (!Helper.Utility.HasPermission(Entity.Constant.AppResource.AppHRAdminDashboard))
             {
                 return View("Unauthorized");
             }
@@ -42,21 +42,21 @@ namespace Onboarding.Controllers
                 return View("Unauthorized");
             }
 
-            List<Onboarding.Entity.RequestCountForAgent> olstAgent = api.GetAgentTaskCount(userid);
+            List<Onboarding.Entity.RequestCountForHRAdmin> olstAgent = api.GetHRAdminTaskCount(userid);
             return View(olstAgent);
         }
 
         [HttpGet]
-        public ActionResult AgentRequest(int id = 0, int ViewOnly = 0)
+        public ActionResult HRAdminRequest(int id = 0, int ViewOnly = 0)
         {
-            if (!Helper.Utility.HasPermission(Entity.Constant.AppResource.AppAgentForm))
+            if (!Helper.Utility.HasPermission(Entity.Constant.AppResource.AppHRAdminDashboard))
             {
                 return View("Unauthorized");
             }
 
             if (id == 0)
             {
-                return RedirectToAction("Dashboard", "Agent");
+                return RedirectToAction("Dashboard", "HRAdmin");
             }
             Onboarding.WebAPIManager.WebAPIManager api = new Onboarding.WebAPIManager.WebAPIManager();
             if (string.IsNullOrEmpty(Helper.Utility.GetCurrentUserId()))
@@ -89,7 +89,6 @@ namespace Onboarding.Controllers
                         case Entity.Constant.TaskCode.CreateNTID:
                             Entity.TaskAttribute tAtt = task.GetTaskAttribute(Entity.Constant.TaskAttributeCode.AssignedNTID);
                             agentRequest.AssignedNTID = tAtt.TaskAttrbVal;
-                            agentRequest.CanModifyAssignedNTID = (!string.IsNullOrEmpty(tAtt.ModifiedBy) && Helper.Utility.GetUserProfile().NtLoginId == tAtt.ModifiedBy) || string.IsNullOrEmpty(tAtt.TaskAttrbVal);
                             break;
                         case Entity.Constant.TaskCode.CreateEmail:
                             Entity.TaskAttribute tEmailAddress = task.GetTaskAttribute(Entity.Constant.TaskAttributeCode.AssignedEmailAddress);
@@ -117,7 +116,7 @@ namespace Onboarding.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult AgentRequest(AgentRequestModel agentReqParam)
+        public ActionResult HRAdminRequest(AgentRequestModel agentReqParam)
         {
             if (!Helper.Utility.HasPermission(Entity.Constant.AppResource.AppAgentForm))
             {
@@ -296,9 +295,9 @@ namespace Onboarding.Controllers
         }
 
 
-        public ActionResult RequestListForAgent(string id)
+        public ActionResult RequestListForHRAdmin(string id)
         {
-            if ((!Helper.Utility.HasPermission(Entity.Constant.AppResource.AppRequestListForAgent)) ||
+            if ((!Helper.Utility.HasPermission(Entity.Constant.AppResource.AppHRAdminDashboard)) ||
                 (!Common.Security.IsValidAlphaNum(id)))
             {
                 return View("Unauthorized");

@@ -361,6 +361,39 @@ namespace Onboarding.WebAPIManager
             }
         }
 
+        public List<RequestCountForHRAdmin> GetHRAdminTaskCount(string HRAdminLoginID)
+        {
+            var handler = new HttpClientHandler
+            {
+                UseDefaultCredentials = true
+            };
+
+            if (ConfigurationManager.AppSettings["Debug_User"] != null && ConfigurationManager.AppSettings["Debug_User"].ToString().Length > 0)
+            {
+                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            }
+
+            using (HttpClient client = new HttpClient(handler))
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["WebAPIUri"]);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync("api/RequestCountForHRAdmin/" + Helper.Utility.RemoveUserDomain(HRAdminLoginID)).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseData = response.Content.ReadAsStringAsync().Result;
+                    var requestObject = JsonConvert.DeserializeObject<List<RequestCountForHRAdmin>>(responseData);
+                    return requestObject.ToList();
+                }
+                else
+                {
+                    HtmlHelpers.HandleApiResponse(response);
+                    return null;
+                }
+            }
+        }
+
         public List<Models.AgentList> GetAgentTaskList(string AgentLoginID, string TaskCD)
         {
             var handler = new HttpClientHandler
@@ -638,10 +671,11 @@ namespace Onboarding.WebAPIManager
             using (HttpClient client = new HttpClient(handler))
             {
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["WebAPIUri"]);
+                client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage response = client.PutAsJsonAsync("api/Task/" + Helper.Utility.RemoveUserDomain(userId) + "/", oTask).Result;
+                HttpResponseMessage response = client.PutAsJsonAsync("api/Task/" + Helper.Utility.RemoveUserDomain(userId), oTask).Result;
                 if (response.IsSuccessStatusCode)
                 {                   
                     var responseData = response.Content.ReadAsStringAsync().Result;
@@ -995,7 +1029,38 @@ namespace Onboarding.WebAPIManager
                 }
             }
         }
+        public RequestListForAgent GetRequestListForHRAdmin(string taskStatusCd, string userId)
+        {
+            var handler = new HttpClientHandler
+            {
+                UseDefaultCredentials = true
+            };
 
+            if (ConfigurationManager.AppSettings["Debug_User"] != null && ConfigurationManager.AppSettings["Debug_User"].ToString().Length > 0)
+            {
+                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            }
+
+            using (HttpClient client = new HttpClient(handler))
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["WebAPIUri"]);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync("api/RequestListForHRAdmin/" + taskStatusCd + "/" + Helper.Utility.RemoveUserDomain(userId)).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseData = response.Content.ReadAsStringAsync().Result;
+                    var requestObject = JsonConvert.DeserializeObject<Entity.RequestListForAgent>(responseData);
+                    return requestObject;
+                }
+                else
+                {
+                    HtmlHelpers.HandleApiResponse(response);
+                    return null;
+                }
+            }
+        }
         public UserProfile GetuserProfile(string userId)
         {
             var handler = new HttpClientHandler

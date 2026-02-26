@@ -16,5 +16,11 @@ namespace Onboarding.ServiceManager
             List<Entity.RequestCountForAgent> reqCountList = reqCountProvider.GetRequestCountForAgent(userId);
             return reqCountList;
         }
+        public List<Entity.RequestCountForHRAdmin> GetRequestCountForHRAdmin(string userId)
+        {
+            RequestCountForAgentProvider reqCountProvider = new RequestCountForAgentProvider();
+            List<Entity.RequestCountForHRAdmin> reqCountList = reqCountProvider.GetRequestCountForHRAdmin(userId);
+            return reqCountList;
+        }
     }
 }

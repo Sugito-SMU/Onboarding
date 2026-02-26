@@ -1,16 +1,18 @@
-﻿using System;
+﻿using Onboarding.Entity;
+using Onboarding.ServiceManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Onboarding.ServiceManager;
-using Onboarding.Entity;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 
 
 namespace Onboarding.WebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class TaskController : ApiController
     {
 
@@ -33,7 +35,7 @@ namespace Onboarding.WebAPI.Controllers
         [HttpPut]
         [Route("api/Task/{userId}")]
         [ResponseType(typeof(Task))]
-        public IHttpActionResult Put([FromBody]Task task, string userId)
+        public IHttpActionResult Put(string userId, [FromBody] Task task)
         {
             if (Utility.HasPermission(userId, Entity.Constant.AppResource.ApiTask))
             {
@@ -44,6 +46,13 @@ namespace Onboarding.WebAPI.Controllers
             {
                 return Unauthorized();
             }
+        }
+
+        [HttpOptions]
+        [Route("api/Task/{userId}")]
+        public IHttpActionResult Options()
+        {
+            return Ok();
         }
     }
 }

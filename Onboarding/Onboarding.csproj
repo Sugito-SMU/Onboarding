@@ -291,7 +291,7 @@
     </Reference>
     <Reference Include="Onboarding.Entity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BuildOutput\Onboarding.Entity.dll</HintPath>
+      <HintPath>..\Onboarding.Entity\obj\Debug\Onboarding.Entity.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -472,9 +472,27 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="error.htm" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="MSAL.txt" />
-    <None Include="packages.config" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\web.config">
@@ -512,6 +530,26 @@
     <Content Include="Views\Shared\CommonMaster.cshtml" />
     <Content Include="Views\Shared\_LeftMenu.cshtml" />
     <Content Include="Views\Requestor\RequestButtons.cshtml" />
+    <Content Include="Views\HRAdmin\Dashboard.cshtml" />
+    <Content Include="Views\HRAdmin\RequestListForHRAdmin.cshtml" />
+    <Content Include="Views\HRAdmin\HRAdminRequest.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TAMSAView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TCMINView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TCMNXView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TCMOAView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TCMPLView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TELRNView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TINFAView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TIPPHView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TISISView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TMAILView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TMTGRView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TNTIDView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TPCNBView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TPHCFView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TPHOLView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TSAPAView.cshtml" />
+    <Content Include="Views\HRAdmin\Tasks\TSAPUView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -530,6 +568,7 @@
     <Compile Include="App_Start\MVCGridConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\HRAdmin\HRAdminController.cs" />
     <Compile Include="Controllers\Requestor\BulkRequestController.cs" />
     <Compile Include="Controllers\Requestor\DashboardController.cs" />
     <Compile Include="Controllers\Requestor\EmployeeInfoController.cs" />
@@ -565,7 +604,9 @@
     <Content Include="Views\Default\DefaultRedirect.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Onboarding.ExcelReader\Onboarding.ExcelReader.csproj">
@@ -610,13 +651,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -624,4 +658,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
 </Project>

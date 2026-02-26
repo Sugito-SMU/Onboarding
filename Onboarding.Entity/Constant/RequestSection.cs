@@ -58,7 +58,8 @@ namespace Onboarding.Entity.Constant
             { "RIsNextwebSelected", "SystemAccess" },
             { "RIsEmailDLSelected", "SystemAccess" },
             { "REmailDLDetails", "SystemAccess" },
-            { "RSupportingDocument", "SystemAccess" }
+            { "RSupportingDocument", "SystemAccess" },
+            { "RNetworkId", "SystemAccess" }
         };
 
         public static string GetSection(string field)

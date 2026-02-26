@@ -50,6 +50,7 @@ namespace Onboarding.Entity.Constant
         public const string EmailDLDetails = "REmailDLDetails";
         public const string SupportingDocument = "RSupportingDocument";        
         public const string Remarks = "RRemark";
+        public const string NetworkId = "RNetworkId";
 
     }
 }

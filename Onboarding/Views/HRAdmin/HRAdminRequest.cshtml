@@ -1,0 +1,502 @@
+﻿@model Onboarding.Models.AgentRequestModel
+@{
+    ViewBag.Title = "Request";
+    Layout = "~/Views/Shared/CommonMaster.cshtml";
+}
+<style>
+    .panel_form .form-group {
+        display: inline-block;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .panel_form .panel-group .panel-heading + .panel-collapse {
+        margin: 10px 0;
+    }
+
+    .well-lg {
+        display: inline-block;
+        padding: 24px;
+        width: 100%;
+    }
+
+
+    .panel_form.panel-collapse.panel_form.collapse.in {
+        border: 1px solid #f3f7f9;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .table tr th {
+        background: rgb(228, 234, 236) !important;
+        color: rgb(118, 131, 143) !important;
+        font-weight: 100 !important;
+    }
+
+    .table tr td a {
+        text-decoration: underline;
+    }
+
+
+        .table tr td a:hover {
+            text-decoration: none;
+            color: #333;
+        }
+
+    .panel-group .panel-title::after {
+        content: "";
+    }
+
+    .panel-group .panel-title::before {
+        content: "";
+    }
+
+    .gray_bg {
+        background: #ddd;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .clickable {
+        cursor: pointer;
+    }
+
+    .amendment_span {
+        color:blue;
+        font-weight:bold;
+        padding-top:12px;
+        padding-bottom:12px;
+    }
+
+    .amendment_show {
+        display:block;
+    }
+
+    .amendment_hide {
+        display:none;
+    }
+
+    .admendment_table {
+        font-size:11px!important;
+    }
+
+    .mytask_buttons {
+        padding-top:18px;
+        padding-bottom:18px;
+    }
+
+    .task_section {
+        background-color:white!important;
+    }
+
+</style>
+
+@using (Html.BeginForm(Model.ReqId.ToString(), "HRAdmin/HRAdminRequest", FormMethod.Post, new { id = "AgentRequestForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.SubmitCommand)
+    @Html.HiddenFor(m => m.ReqId)
+    @Html.HiddenFor(m => m.TaskCd)
+    @Html.HiddenFor(m => m.TaskId)
+
+    <div class="col-sm-12">
+        <div class="">
+            <div class="col-md-12">
+                <h3>
+                    Request #@Model.Request.ReqId  (@Model.Request.ReqTypeDesc)
+                    @if ((Onboarding.Common.Validation.IsUrgentRequest(Model.Request.ReqStsCd, Model.Request.EmploymentInfo.EmplStartDt)) && (Model.Request.IsClosed == false))
+                    {
+                        <span>&nbsp;&nbsp;</span>
+                        <span class="glyphicon glyphicon-warning-sign" style="color:red;"></span>
+                        <span style="color:red;">&nbsp;URGENT</span>
+                    }
+                </h3>
+                <h4>
+                    <label>Status:&nbsp;</label>@Model.Request.ReqStsDesc
+                    @if ((Model.Request.IsCancelled == false) && (Model.Request.IsAmended == true))
+                    {
+                        <span style="color:blue;">&nbsp;(with amendment)</span>
+                    }
+                </h4>
+                <div class="col-md-6">
+                    <div class="info_div border_div" style="">
+                        <h4>Personal Information</h4>
+                        <p><label>Salutation:</label> @Model.Request.SalutDesc</p>
+                        <p><label>First Name:</label> @Model.Request.FirstName</p>
+                        <p><label>Last Name:</label> @Model.Request.LastName</p>
+                        <p><label>Known As:</label> @Model.Request.PrefNm</p>
+                        <p><label>Gender:</label> @Model.Request.GenderDesc </p>
+                        <p><label>Personal Email:</label> @Model.Request.PrsnEmail </p>
+                        <p><label>Ethnic Origin:</label> @Model.Request.RaceDesc </p>
+                        <p><label>Existing SMU Faculty/Staff:</label> @Html.Raw(Model.Request.IsExistingStaff == true ? "Yes" : "No") </p>
+                        <p><label>Existing SMU/Ex-SMU Student:</label> @Html.Raw(Model.Request.IsExSmuStd == true ? "Yes" : "No") </p>
+                    </div><!--closing info div-->
+
+                </div><!--closing col-md-6-->
+                <div class="col-md-6">
+                    <div class="info_div">
+                        <h4>Employment Information</h4>
+                        <p><label>Staff Type:</label> @Model.Request.EmploymentInfo.UserTypeDesc</p>
+                        <p><label>Staff Subtype:</label> @Model.Request.EmploymentInfo.UserSubTypeDesc</p>
+                        <p><label>Cost Centre (Department):</label> @Model.Request.EmploymentInfo.CostCtrDesc</p>
+                        <p><label>Employment Start Date:</label> @Model.Request.EmploymentInfo.EmplStartDt.Value.ToString("d MMM yyyy")</p>
+                        <p>
+                            <label>Employment End Date:</label> @if (Model.Request.EmploymentInfo.EmplEndDt != null)
+                            {
+                                @Model.Request.EmploymentInfo.EmplEndDt.Value.ToString("d MMM yyyy")
+                            }
+                        </p>
+                        <p><label>Business Title:</label> @Model.Request.EmploymentInfo.JobTitle </p>
+                        <p><label>Remarks:</label> @Model.Request.Remark</p>
+
+                    </div><!--closing info div-->
+                </div><!--closing col-md-6-->
+                <div class="clearfix"></div>
+                @if (Model.Request.Attachment != null)
+                {
+                    <p>
+                        <label>Supporting Document:</label>
+                        <a href="@Request.ApplicationPath.TrimEnd('/')/Agent/DownloadFile/@Model.Request.Attachment.ReqAttachId" id="lnkDownloadFile">@Model.Request.Attachment.Filename&nbsp;</a>
+                    </p>
+                }
+                <p style="font-size:12px; font-style:italic; margin:0; padding-bottom:18px;">
+                    Request raised by @Model.Request.SubmittedByName on  @if (Model.Request.SubmittedDt != null)
+                    {  @Model.Request.SubmittedDt.Value.ToString("dd MMM yyyy")}
+                </p>
+            </div><!--clsoing col-md-12-->
+        </div><!--closing gray bg-->
+        <br />
+        <br />
+
+        @if ((Model.Request.ReqChangeList != null) && (Model.Request.ReqChangeList.Count > 0))
+        {
+            <p></p>
+            <div class="row">
+                <div class="form-group" style="display:normal">
+                    <div class="col-sm-12">
+                        <span id="ReqAmendedSpan" class="clickable amendment_span">
+                            <b>Request has been amended</b>
+                            &nbsp;
+                            <i id="ReqAmendedIcon" class="glyphicon glyphicon-chevron-up"></i>
+                        </span>
+                        <div id="ReqAmendedDiv" class="table-responsive admendment_table amendment_hide">
+                            <table class="table table-hover" style="width:100%; background:#fff">
+                                <thead>
+                                    <tr>
+                                        <th>Modified On</th>
+                                        <th>Modified By</th>
+                                        <th>Field Name</th>
+                                        <th>From Value</th>
+                                        <th>To Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Request.ReqChangeList != null)
+                                {
+                                    foreach (var item in Model.Request.ReqChangeList)
+                                    {
+                                <tr>
+                                    <td>
+                                        @item.ChangedDt.ToString("d MMM yyyy HH:mm")
+                                    </td>
+                                    <td>
+                                        @item.ChangedBy
+                                    </td>
+                                    <td>
+                                        @item.FieldNm
+                                    </td>
+                                    <td>
+                                        @item.FromVal
+                                    </td>
+                                    <td>
+                                        @item.ToVal
+                                    </td>
+                                </tr>
+                                    }
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if ((Model.Request.TaskChangeList != null) && (Model.Request.TaskChangeList.Count > 0))
+        {
+            <p></p>
+            <div class="row">
+                <div class="form-group" style="display:normal">
+                    <div class="col-sm-12">
+                        <span id="TaskAmendedSpan" class="clickable amendment_span">
+                            <b>Task has been amended</b>
+                            &nbsp;
+                            <i id="TaskAmendedIcon" class="glyphicon glyphicon-chevron-up"></i>
+                        </span>
+
+                        <div id="TaskAmendedDiv" class="table-responsive admendment_table amendment_hide">
+                            <table class="table table-hover" style="width:100%; background:#fff">
+                                <thead>
+                                    <tr>
+                                        <th>Modified On</th>
+                                        <th>Modified By</th>
+                                        <th>Field Name</th>
+                                        <th>From Value</th>
+                                        <th>To Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Request.TaskChangeList != null)
+                                {
+                                    foreach (var item in Model.Request.TaskChangeList)
+                                    {
+                                <tr>
+                                    <td>
+                                        @item.ChangedDt.ToString("d MMM yyyy HH:mm")
+                                    </td>
+                                    <td>
+                                        @item.ChangedBy
+                                    </td>
+                                    <td>
+                                        @item.FieldNm
+                                    </td>
+                                    <td>
+                                        @item.FromVal
+                                    </td>
+                                    <td>
+                                        @item.ToVal
+                                    </td>
+                                </tr>
+                                    }
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if ((Model.Request.Tasks != null) && (Model.Request.Tasks.Count > 0))
+        {
+            if (Model.ViewOnly != true)
+            {
+                <div class="row mytask_buttons">
+                    <div class="form-group" style="display:normal">
+                        <div class="col-sm-12">
+                            <div class="col-lg-offset-4">
+                                <button type="button" id="btnMyTask" class="btn btn-dark">My Tasks</button>
+                                <button type="button" id="btnAllTask" class="btn btn-animate">All Tasks</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <br />
+            }
+
+            bool showCompleteAll = false;
+
+            for (int i = 0; i < Model.Request.Tasks.Count; i++)
+            {
+                string taskDivClasses = null;
+                string taskDivStyle = null;
+                if (Model.ViewOnly != true)
+                {
+                    if (Model.Request.Tasks[i].IsMyTask)
+                    {
+                        taskDivClasses = "MyTask";
+                        taskDivStyle = "display:block;";
+                    }
+                    else
+                    {
+                        taskDivClasses = "OtherTask";
+                        taskDivStyle = "display:none;";
+                    }
+                }
+                else
+                {
+                    taskDivClasses = "OtherTask";
+                    taskDivStyle = "display:block;";
+                }
+                <div class="@taskDivClasses" style="@taskDivStyle">
+                    @Html.HiddenFor(m => Model.Request.Tasks[i].TaskId)
+                    @Html.HiddenFor(m => Model.Request.Tasks[i].TaskCd)
+                    <h4>
+                        @Model.Request.Tasks[i].TaskDesc
+                        @if (Model.Request.Tasks[i].IsPending == true)
+                        {
+                            <span style="color:darkorange;font-weight:bold;">&nbsp;&nbsp;PENDING</span>
+                        }
+                        else if (Model.Request.Tasks[i].IsCompleted == true)
+                        {
+                            <span style="color:forestgreen;font-weight:bold;">&nbsp;&nbsp;COMPLETED</span>
+                        }
+                        @if (Model.Request.Tasks[i].IsActive == false)
+                        {
+                            <span style="color:red;font-weight:bold;">&nbsp;&nbsp;(This task has been CANCELLED)</span>
+                        }
+                    </h4>
+                    <div class="clearfix"></div>
+                    <div class="row" id="@Model.Request.Tasks[i].TaskCd@Model.Request.Tasks[i].TaskId">
+                        <div class="col-lg-12">
+                            <div class="well well_content task_section">
+                                @Html.Partial("Tasks/" + Model.Request.Tasks[i].TaskCd + "View", Model)
+                                <label>Agent’s Remarks</label>
+                                @if ((Model.Request.Tasks[i].IsPending) && (Model.Request.Tasks[i].IsMyTask) && (Model.ViewOnly != true))
+                                {
+                                    @Html.EditorFor(m => Model.Request.Tasks[i].Remark, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.Remark) } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(m => Model.Request.Tasks[i].Remark, new { htmlAttributes = new { @class = "form-control input_" + Model.Request.Tasks[i].TaskCd + Model.Request.Tasks[i].TaskId.ToString(), @autocomplete = "off", @readonly = "readonly", @maxlength = Onboarding.Entity.Constant.TaskAttributeLength.GetLength(Onboarding.Entity.Constant.TaskAttributeCode.Remark) } })
+                                }
+                                @if ((Model.Request.Tasks[i].ValidationError != null) && Model.Request.Tasks[i].ValidationError.HasError(Onboarding.Entity.Constant.TaskAttributeCode.Remark))
+                                {
+                                    <div>
+                                        <span class="help-block text-danger checkbox_error_message">@Model.Request.Tasks[i].ValidationError.GetErrorMessage(Onboarding.Entity.Constant.TaskAttributeCode.Remark)</span>
+                                    </div>
+                                }
+                                @if (Model.Request.Tasks[i].IsCompleted == true)
+                                {
+                                    <p style="font-size:12px; font-style:italic; margin:0; padding-top:18px;">
+                                        Task completed by @Model.Request.Tasks[i].CompletedByName on
+                                        @if (Model.Request.Tasks[i].CompletedDt != null)
+                                        {
+                                            @Model.Request.Tasks[i].CompletedDt.Value.ToString("dd MMM yyyy HH:mm")
+                                        }
+                                    </p>
+                                }
+                                @if ((Model.Request.Tasks[i].IsMyTask) && (Model.ViewOnly != true))
+                                {
+                                    <p>
+                                        @if ((Model.Request.Tasks[i].IsPending) && ((Model.Request.IsSubmitted == true) || (Model.Request.IsCancelled == true)))
+                                        {
+                                            showCompleteAll = true;
+                                            <div class="col-lg-offset-11 completebtn_@Model.Request.Tasks[i].TaskCd@Model.Request.Tasks[i].TaskId" style="display:block;">
+                                                <input type="button" value="Complete" class="btn btn-primary" onclick="complete_task('@Model.Request.Tasks[i].TaskCd', @Model.Request.Tasks[i].TaskId);" />
+                                            </div>
+                                        }
+                                        @if ((Model.Request.Tasks[i].IsCompleted) && ((Model.Request.IsSubmitted == true) || (Model.Request.IsCancelled == true)))
+                                        {
+                                            showCompleteAll = true;
+                                            <div class="col-lg-offset-11 amendbtn_@Model.Request.Tasks[i].TaskCd@Model.Request.Tasks[i].TaskId">
+                                                <button type="button" formid="@Model.Request.Tasks[i].TaskCd@Model.Request.Tasks[i].TaskId" taskcd="@Model.Request.Tasks[i].TaskCd" taskid="@Model.Request.Tasks[i].TaskId" class="btn btn-default btnAmend">Amend</button>
+                                            </div>
+                                            <div class="col-lg-offset-11 completebtn_@Model.Request.Tasks[i].TaskCd@Model.Request.Tasks[i].TaskId" style="display:none;">
+                                                <input type="button" value="Complete" class="btn btn-primary" onclick="complete_task('@Model.Request.Tasks[i].TaskCd', @Model.Request.Tasks[i].TaskId);" />
+                                            </div>
+                                        }
+                                    </p>
+                                }
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            }
+            if (Model.ViewOnly != true)
+            {
+                <div class="row">
+                    <div class="form-group" style="display:normal">
+                        <div class="col-sm-12">
+                            <div class="col-lg-offset-3">
+                                @if (showCompleteAll == true)
+                                {
+                                <button type="button" class="btn btn-default" onclick="NextRequest();">Next Request</button>
+                                <button type="button" class="btn btn-primary" onclick="CompleteAllTask();">Complete All</button>
+                                <button type="button" class="btn btn-primary" onclick="CompleteAllTaskNextRequest();">Complete All & Next Request</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        </div>
+}
+
+<script>
+
+    function complete_task(taskCd, taskId) {
+        document.getElementById('TaskCd').value = taskCd;
+        document.getElementById('TaskId').value = taskId;
+        document.getElementById('SubmitCommand').value = "CompleteTask";
+        document.getElementById('AgentRequestForm').submit();
+    }
+
+    function CompleteAllTask() {
+        document.getElementById('SubmitCommand').value = "CompleteAllTask";
+        document.getElementById('AgentRequestForm').submit();
+    }
+
+    function CompleteAllTaskNextRequest() {
+        document.getElementById('SubmitCommand').value = "CompleteAllTaskNextRequest";
+        document.getElementById('AgentRequestForm').submit();
+    }
+
+    function NextRequest() {
+        document.getElementById('SubmitCommand').value = "NextRequest";
+        document.getElementById('AgentRequestForm').submit();
+    }
+
+    $(document).ready(function () {
+
+        $(".btnAmend").click(function () {
+            var id = $(this).attr("taskid");
+            var cd = $(this).attr("taskcd");
+            $(".amendbtn_" + cd + id).hide();
+            $(".completebtn_" + cd + id).show();
+            $(".input_" + cd + id).removeAttr("readonly");
+        });
+
+        $(".nextRequest").click(function () {
+            window.location.href = "@Request.ApplicationPath.TrimEnd('/')/Agent/Dashboard";
+        });
+
+        $("#btnMyTask").click(function () {
+            $(".MyTask").show();
+            $(".OtherTask").hide();
+            $("#btnMyTask").removeClass("btn-animate").addClass("btn-dark");
+            $("#btnAllTask").removeClass("btn-dark").addClass("btn-animate");
+        });
+
+        $("#btnAllTask").click(function () {
+            $(".OtherTask").show();
+            $("#btnMyTask").removeClass("btn-dark").addClass("btn-animate");
+            $("#btnAllTask").removeClass("btn-animate").addClass("btn-dark");
+        });
+
+        $("#ReqAmendedSpan").click(function () {
+            if ($("#ReqAmendedDiv").hasClass("amendment_hide")) {
+                $("#ReqAmendedDiv").removeClass("amendment_hide").addClass("amendment_show");
+                $("#ReqAmendedIcon").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+            }
+            else {
+                $("#ReqAmendedDiv").removeClass("amendment_show").addClass("amendment_hide");
+                $("#ReqAmendedIcon").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+            }
+        });
+
+        $("#TaskAmendedSpan").click(function () {
+            if ($("#TaskAmendedDiv").hasClass("amendment_hide")) {
+                $("#TaskAmendedDiv").removeClass("amendment_hide").addClass("amendment_show");
+                $("#TaskAmendedIcon").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+            }
+            else {
+                $("#TaskAmendedDiv").removeClass("amendment_show").addClass("amendment_hide");
+                $("#TaskAmendedIcon").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+            }
+        });
+
+    });
+
+</script>

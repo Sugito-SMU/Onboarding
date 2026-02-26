@@ -1,0 +1,70 @@
+﻿@model List<Onboarding.Entity.RequestCountForHRAdmin>
+@{
+
+    ViewBag.Title = "HR Admin Dashboard";
+    Layout = "~/Views/Shared/CommonMaster.cshtml";
+}
+<style>
+    .h2_heading {
+        font-size: 20px;
+        margin: 0 0 7px 14px;
+        padding: 1em 0;
+    }
+
+    #exampleWizardForm .well {
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.02) inset;
+        margin: 10px;
+        min-height: 132px;
+        text-align: justify;
+        background: #fff;
+        text-align: center;
+        border-radius: 0;
+    }
+
+        #exampleWizardForm .well:hover {
+            background: #fff;
+        }
+
+    #exampleWizardForm a {
+        color: #76838f;
+    }
+
+    #exampleWizardForm .well h4 {
+        text-align: center;
+        text-transform: uppercase;
+        color: #5e5f5f;
+    }
+
+    #exampleWizardForm .well p span {
+        font-size: 26pt;
+        color: #5e5f5f;
+        text-align: center;
+        font-weight: 400;
+    }
+
+    #exampleWizardForm .well p {
+        display: inline-block;
+        margin: 0.5em 0 0;
+        text-align: center;
+        width: 100%;
+        padding: 1em 0;
+    }
+</style>
+<div class="">
+    @if (Model != null)
+    {
+        foreach (Onboarding.Entity.RequestCountForHRAdmin oTask in Model)
+        {
+            <a href="~/HRAdmin/RequestListForHRAdmin/@oTask.TaskStsCd">
+                <div class="well well-sm col-md-4 col-lg-3 ">
+                    <h4>@oTask.TaskStsDesc </h4>
+                    <p>   <span>@oTask.ReqCount</span> </p>
+                </div>
+            </a>
+        }
+    }
+    else
+    {
+        <div><span>No Record found</span></div>
+    }
+</div>

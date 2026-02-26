@@ -1,0 +1,18 @@
+﻿@model Onboarding.Models.AgentRequestModel
+
+<p>
+    <label>Network ID:</label>
+    @if ((Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateNTID) != null) && (Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateNTID).GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.AssignedNTID) != null))
+    {
+        string AssignedNTID = Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.CreateNTID).GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.AssignedNTID).TaskAttrbVal;
+        <span>@AssignedNTID</span>
+    }
+</p>
+<p>
+    <label>Start Date:</label>
+    @if (Model.Request.Resources.ELearnStartDate != null)
+    {
+        @Html.Raw(Model.Request.Resources.ELearnStartDate.Value.ToString("d MMM yyyy"))
+    }
+</p>
+<p><label>Requestor's Remarks:</label> @Model.Request.Resources.ELearnRemarks</p>

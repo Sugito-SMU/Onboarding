@@ -108,10 +108,14 @@
                             @Html.TextBoxFor(model => model.NetworkID, new
                             {
                                 @class = "form-control requestor_remarks textbox-input",
-                                @placeholder = "Network ID",
+                                @placeholder = "Network ID - Required",
                                 @maxlength = Onboarding.Entity.Constant.RequestFieldLength
                                     .GetLength(Onboarding.Entity.Constant.RequestField.ISISRemarks)
                             })
+                            if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.NetworkId))
+                            {
+                                <span class="help-block text-danger error_message">@Model.Request.GetErrorMessage(Onboarding.Entity.Constant.RequestField.NetworkId)</span>
+                            }
                         }
                     </div>
                 </div>

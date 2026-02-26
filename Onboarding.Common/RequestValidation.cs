@@ -47,6 +47,11 @@ namespace Onboarding.Common
                 isMandatory = true;
             }
 
+            if ((fieldCode == Entity.Constant.RequestField.NetworkId) && req.Resources.IsNetworkIdMandatory)
+            {
+                isMandatory = true;
+            }
+
             if ((fieldCode == Entity.Constant.RequestField.EmplEndDt) &&
                 (req.EmploymentInfo != null) &&
                 (!Validation.IsPermStaff(req.EmploymentInfo.UserSubTypeCd)))
@@ -458,6 +463,13 @@ namespace Onboarding.Common
                  (req.Resources.IsINetSelected != true)))
             {
                 reqVal.SetError(Entity.Constant.RequestField.IsINetSelected, Entity.Constant.RequestFieldMandatoryError.IsINetSelected);
+            }
+
+            if ((IsMandatoryField(Entity.Constant.RequestField.NetworkId, req, isBulkRequest)) &&
+                 ((req.Resources == null) ||
+                 ( string.IsNullOrEmpty(req.Resources.NetworkID))))
+            {
+                reqVal.SetError(Entity.Constant.RequestField.NetworkId, Entity.Constant.RequestFieldMandatoryError.NetworkId);
             }
 
             if ((IsMandatoryField(Entity.Constant.RequestField.IsOasisSelected, req, isBulkRequest)) &&

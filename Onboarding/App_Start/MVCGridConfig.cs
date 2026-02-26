@@ -715,6 +715,180 @@ namespace Onboarding.App_Start
 
         }
 
+        public static void RegisterRequestListForHRAdminGrid()
+        {
+            // add your Grid definitions here, using the MVCGridDefinitionTable.Add method
+            MVCGridDefinitionTable.Add("HRAdminGrid", new MVCGridBuilder<RequestListForAgentRow>()
+               .WithAdditionalSetting(MVCGrid.Rendering.BootstrapRenderingEngine.SettingNameTableClass, "table table-bordered")
+                .WithAuthorizationType(AuthorizationType.AllowAnonymous)
+                 .WithSorting(sorting: true, defaultSortColumn: "EmplStartDt", defaultSortDirection: SortDirection.Asc)
+                 .WithPaging(paging: true, itemsPerPage: 10, allowChangePageSize: true, maxItemsPerPage: 100)
+                 .WithPageParameterNames("StatusCode")
+                 .WithRowCssClassExpression(p => p.IsUrgent.Value ? "urgent_row" : "")
+                 .AddColumns(cols =>
+                 {
+                     cols.Add("ReqId").WithHeaderText("Req Id")
+                         .WithVisibility(true, true).WithSortColumnData("ReqId")
+                         .WithValueExpression(p => p.ReqId.ToString()).WithSorting(true)
+                         .WithValueTemplate("", false)
+                         .WithValueExpression(p => string.Format("<a href='../../HRAdmin/HRAdminRequest/{0}'>{0}</a>", p.ReqId))
+                         .WithSortColumnData("ReqId").WithSorting(true);
+                     cols.Add("ReqTypeDesc").WithHeaderText("Request Type")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.ReqTypeDesc)
+                         .WithSortColumnData("ReqTypeDesc")
+                         .WithSorting(true);
+                     cols.Add("FirstName").WithHeaderText("First Name")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.FirstName)
+                         .WithSorting(true);
+                     cols.Add("LastName").WithHeaderText("Last Name")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.LastName)
+                         .WithSorting(true);
+                     cols.Add("UserTypeDesc").WithHeaderText("Staff Type")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.UserTypeDesc)
+                         .WithSorting(true);
+                     cols.Add("UserSubTypeDesc").WithHeaderText("Staff Subtype")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.UserSubTypeDesc)
+                         .WithSorting(true);
+                     cols.Add("EmplStartDt").WithHeaderText("Start Date")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.EmplStartDt.Value.ToString("d MMM yyyy"))
+                         .WithSorting(true);
+                     cols.Add("CostCtrDesc").WithHeaderText("Cost Centre")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.CostCtrDesc)
+                         .WithSorting(true);
+                     cols.Add("ReqStsDesc").WithHeaderText("Request Status")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.ReqStsDesc)
+                         .WithSorting(true);
+                     cols.Add("RequestorName").WithHeaderText("Requested By")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.RequestorName)
+                         .WithSorting(true);
+                     cols.Add("RequestDt").WithHeaderText("Request Date")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.RequestDt.HasValue ? p.RequestDt.Value.ToString("d MMM yyyy") : string.Empty)
+                         .WithSorting(true);
+                     cols.Add("IsUrgent").WithHeaderText("Urgency")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.IsUrgent.Value ? "Urgent" : "")
+                         .WithSorting(true);
+                     cols.Add("Url").WithVisibility(false)
+                         .WithValueExpression((p, c) => c.UrlHelper.Action("detail", "demo", new { id = p.ReqId }));
+                 })
+                 .WithRetrieveDataMethod((context) =>
+                 {
+                     // Query your data here. Obey Ordering, paging and filtering paramters given in the context.QueryOptions.        
+                     // Use Entity Framwork, a module from your IoC Container, or any other method.         
+                     // Return QueryResult object containing                             IEnumerable<YouModelItem>  
+                     var options = context.QueryOptions;
+
+                     var dd = Common.Security.Sanitize(options.GetPageParameterString("StatusCode"));
+
+                     WebAPIManager.WebAPIManager api = new WebAPIManager.WebAPIManager();
+                     Entity.RequestListForAgent oRequestListForAgent = api.GetRequestListForHRAdmin(dd, Helper.Utility.GetCurrentUserId());
+                     if (oRequestListForAgent == null)
+                     {
+                         oRequestListForAgent = new RequestListForAgent();
+                         oRequestListForAgent.Rows = new List<RequestListForAgentRow>();
+                     }
+                     else
+                     {
+                         if (!String.IsNullOrWhiteSpace(options.SortColumnName))
+                         {
+                             switch (options.SortColumnName.ToLower())
+                             {
+
+                                 case "reqid":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.ReqId).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.ReqId).ToList();
+                                     break;
+                                 case "reqtypedesc":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.ReqTypeDesc).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.ReqTypeDesc).ToList();
+                                     break;
+                                 case "firstname":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.FirstName).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.FirstName).ToList();
+                                     break;
+                                 case "lastname":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.LastName).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.LastName).ToList();
+                                     break;
+                                 case "usertypedesc":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.UserTypeDesc).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.UserTypeDesc).ToList();
+                                     break;
+                                 case "usersubtypedesc":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.UserSubTypeDesc).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.UserSubTypeDesc).ToList();
+                                     break;
+                                 case "emplstartdt":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.EmplStartDt).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.EmplStartDt).ToList();
+                                     break;
+                                 case "costctrdesc":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.CostCtrDesc).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.CostCtrDesc).ToList();
+                                     break;
+                                 case "reqstsdesc":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.ReqStsDesc).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.ReqStsDesc).ToList();
+                                     break;
+                                 case "requestorname":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.RequestorName).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.RequestorName).ToList();
+                                     break;
+                                 case "requestdt":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.RequestDt).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.RequestDt).ToList();
+                                     break;
+                                 case "isurgent":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.IsUrgent).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.IsUrgent).ToList();
+                                     break;
+                             }
+                         }
+                     }
+                     return new QueryResult<RequestListForAgentRow>()
+                     {
+                         Items = oRequestListForAgent.Rows.Skip(options.PageIndex.Value * options.ItemsPerPage.Value).Take(options.ItemsPerPage.Value),
+                         TotalRecords = oRequestListForAgent.Rows.Count // if paging is enabled, return the total number of records of all pages        
+                     };
+                 })
+             );
+
+        }
+
         public static void RegisterRequestListForAgentGridCompleted()
         {
             // add your Grid definitions here, using the MVCGridDefinitionTable.Add method
@@ -788,6 +962,170 @@ namespace Onboarding.App_Start
 
                      WebAPIManager.WebAPIManager api = new WebAPIManager.WebAPIManager();
                      Entity.RequestListForAgent oRequestListForAgent = api.GetRequestListForAgent(dd, Helper.Utility.GetCurrentUserId());
+                     if (oRequestListForAgent == null)
+                     {
+                         oRequestListForAgent = new RequestListForAgent();
+                         oRequestListForAgent.Rows = new List<RequestListForAgentRow>();
+                     }
+                     else
+                     {
+                         if (!String.IsNullOrWhiteSpace(options.SortColumnName))
+                         {
+                             switch (options.SortColumnName.ToLower())
+                             {
+
+                                 case "reqid":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.ReqId).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.ReqId).ToList();
+                                     break;
+                                 case "reqtypedesc":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.ReqTypeDesc).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.ReqTypeDesc).ToList();
+                                     break;
+                                 case "firstname":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.FirstName).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.FirstName).ToList();
+                                     break;
+                                 case "lastname":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.LastName).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.LastName).ToList();
+                                     break;
+                                 case "usertypedesc":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.UserTypeDesc).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.UserTypeDesc).ToList();
+                                     break;
+                                 case "usersubtypedesc":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.UserSubTypeDesc).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.UserSubTypeDesc).ToList();
+                                     break;
+                                 case "emplstartdt":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.EmplStartDt).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.EmplStartDt).ToList();
+                                     break;
+                                 case "costctrdesc":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.CostCtrDesc).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.CostCtrDesc).ToList();
+                                     break;
+                                 case "reqstsdesc":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.ReqStsDesc).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.ReqStsDesc).ToList();
+                                     break;
+                                 case "requestorname":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.RequestorName).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.RequestorName).ToList();
+                                     break;
+                                 case "requestdt":
+                                     if (options.SortDirection == SortDirection.Asc)
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderBy(p => p.RequestDt).ToList();
+                                     else
+                                         oRequestListForAgent.Rows = oRequestListForAgent.Rows.OrderByDescending(p => p.RequestDt).ToList();
+                                     break;
+                             }
+                         }
+                     }
+                     return new QueryResult<RequestListForAgentRow>()
+                     {
+                         Items = oRequestListForAgent.Rows.Skip(options.PageIndex.Value * options.ItemsPerPage.Value).Take(options.ItemsPerPage.Value),
+                         TotalRecords = oRequestListForAgent.Rows.Count // if paging is enabled, return the total number of records of all pages        
+                     };
+                 })
+             );
+
+        }
+
+        public static void RegisterRequestListForHRAdminGridCompleted()
+        {
+            // add your Grid definitions here, using the MVCGridDefinitionTable.Add method
+            MVCGridDefinitionTable.Add("HRAdminGridCompleted", new MVCGridBuilder<RequestListForAgentRow>()
+               .WithAdditionalSetting(MVCGrid.Rendering.BootstrapRenderingEngine.SettingNameTableClass, "table table-bordered")
+                .WithAuthorizationType(AuthorizationType.AllowAnonymous)
+                 .WithSorting(sorting: true, defaultSortColumn: "EmplStartDt", defaultSortDirection: SortDirection.Asc)
+                 .WithPaging(paging: true, itemsPerPage: 10, allowChangePageSize: true, maxItemsPerPage: 100)
+                 .WithPageParameterNames("StatusCode")
+                 .WithRowCssClassExpression(p => p.IsUrgent.Value ? "urgent_row" : "")
+                 .AddColumns(cols =>
+                 {
+                     cols.Add("ReqId").WithHeaderText("Req Id")
+                         .WithVisibility(true, true).WithSortColumnData("ReqId")
+                         .WithValueExpression(p => p.ReqId.ToString()).WithSorting(true)
+                         .WithValueTemplate("", false)
+                         .WithValueExpression(p => string.Format("<a href='../../HRAdmin/HRAdminRequest/{0}'>{0}</a>", p.ReqId))
+                         .WithSortColumnData("ReqId").WithSorting(true);
+                     cols.Add("ReqTypeDesc").WithHeaderText("Request Type")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.ReqTypeDesc)
+                         .WithSortColumnData("ReqTypeDesc")
+                         .WithSorting(true);
+                     cols.Add("FirstName").WithHeaderText("First Name")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.FirstName)
+                         .WithSorting(true);
+                     cols.Add("LastName").WithHeaderText("Last Name")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.LastName)
+                         .WithSorting(true);
+                     cols.Add("UserTypeDesc").WithHeaderText("Staff Type")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.UserTypeDesc)
+                         .WithSorting(true);
+                     cols.Add("UserSubTypeDesc").WithHeaderText("Staff Subtype")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.UserSubTypeDesc)
+                         .WithSorting(true);
+                     cols.Add("EmplStartDt").WithHeaderText("Start Date")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.EmplStartDt.Value.ToString("d MMM yyyy"))
+                         .WithSorting(true);
+                     cols.Add("CostCtrDesc").WithHeaderText("Cost Centre")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.CostCtrDesc)
+                         .WithSorting(true);
+                     cols.Add("ReqStsDesc").WithHeaderText("Request Status")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.ReqStsDesc)
+                         .WithSorting(true);
+                     cols.Add("RequestorName").WithHeaderText("Requested By")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.RequestorName)
+                         .WithSorting(true);
+                     cols.Add("RequestDt").WithHeaderText("Request Date")
+                         .WithVisibility(true, true)
+                         .WithValueExpression(p => p.RequestDt.HasValue ? p.RequestDt.Value.ToString("d MMM yyyy") : string.Empty)
+                         .WithSorting(true);
+                     cols.Add("Url").WithVisibility(false)
+                         .WithValueExpression((p, c) => c.UrlHelper.Action("detail", "demo", new { id = p.ReqId }));
+                 })
+                 .WithRetrieveDataMethod((context) =>
+                 {
+                     // Query your data here. Obey Ordering, paging and filtering paramters given in the context.QueryOptions.        
+                     // Use Entity Framwork, a module from your IoC Container, or any other method.         
+                     // Return QueryResult object containing                             IEnumerable<YouModelItem>  
+                     var options = context.QueryOptions;
+
+                     var dd = Common.Security.Sanitize(options.GetPageParameterString("StatusCode"));
+
+                     WebAPIManager.WebAPIManager api = new WebAPIManager.WebAPIManager();
+                     Entity.RequestListForAgent oRequestListForAgent = api.GetRequestListForHRAdmin(dd, Helper.Utility.GetCurrentUserId());
                      if (oRequestListForAgent == null)
                      {
                          oRequestListForAgent = new RequestListForAgent();

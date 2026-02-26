@@ -1,0 +1,10 @@
+﻿@model Onboarding.Models.AgentRequestModel
+
+<p>
+    <label>Full Assigned Number:</label>
+    @if ((Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.ConfigurePhone) != null) && (Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.ConfigurePhone).GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.AssignedPhoneExt) != null))
+    {
+        string AssignedPhoneExt = Model.Request.GetTask(Onboarding.Entity.Constant.TaskCode.ConfigurePhone).GetTaskAttribute(Onboarding.Entity.Constant.TaskAttributeCode.AssignedPhoneExt).TaskAttrbVal;
+        <span>   @AssignedPhoneExt</span>
+    }
+</p>

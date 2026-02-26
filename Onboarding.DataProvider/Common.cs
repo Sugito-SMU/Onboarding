@@ -66,6 +66,14 @@ namespace Onboarding.DataProvider
                 return false;
             }
         }
-
+        public static bool IsSchoolAdmin(string userId)
+        {
+            bool result = false;
+            UserProfileProvider mgr = new UserProfileProvider();
+            var user = mgr.GetUserProfile(userId);
+            if (user != null && user.SystemRoles.Count(x => x.SysRoleCd == Entity.Constant.SystemRole.SchoolAmin) > 0)
+            { result = true; }
+            return result;
+        }
     }
 }

@@ -24,6 +24,7 @@ namespace Onboarding.Entity
 
         public bool? IsNetworkIDSelected { get; set; }
         public string NetworkID { get; set; }
+        public bool IsNetworkIdMandatory { get; set; } = false;
 
         public string NetworkIDRemarks { get; set; }
 
