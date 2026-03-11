@@ -24,6 +24,7 @@ namespace Onboarding.Entity.Constant
         public static string ELearnRemarks = string.Format("eLearn Remarks cannot be more than {0} characters", RequestFieldLength.GetLength(RequestField.ELearnRemarks));
         public static string MtgRoomDetails = string.Format("Additional Meeting Room Booking Details cannot be more than {0} characters", RequestFieldLength.GetLength(RequestField.MtgRoomDetails));
         public static string EmailDLDetails = string.Format("Email Distribution List Details cannot be more than {0} characters", RequestFieldLength.GetLength(RequestField.EmailDLDetails));
+        public static string NetworkIdDetails = string.Format("Network Id cannot be more than {0} characters", RequestFieldLength.GetLength(RequestField.NetworkId));
 
     }
 }

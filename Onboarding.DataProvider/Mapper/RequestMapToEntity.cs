@@ -148,6 +148,7 @@ namespace Onboarding.DataProvider.Mapper
                 reqRes.IsNextwebSelected = MapReqSysAccAttrbBool(Entity.Constant.RequestAttributeCode.IsNextwebSelected, dbReq, obCtx);
                 reqRes.IsEmailDLSelected = MapReqSysAccAttrbBool(Entity.Constant.RequestAttributeCode.IsEmailDLSelected, dbReq, obCtx);
                 reqRes.EmailDLDetails = MapReqSysAccAttrbString(Entity.Constant.RequestAttributeCode.EmailDLDetails, dbReq, obCtx);
+                reqRes.NetworkID = MapReqSysAccAttrbString(Entity.Constant.RequestAttributeCode.NetworkID, dbReq, obCtx);
             }
         }
 

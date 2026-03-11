@@ -607,6 +607,11 @@ namespace Onboarding.Common
                 reqVal.SetError(Entity.Constant.RequestField.EmailDLDetails, Entity.Constant.RequestFieldLengthError.EmailDLDetails);
             }
 
+            if ((req.Resources != null) && (!string.IsNullOrWhiteSpace(req.Resources.NetworkID)) &&
+                (req.Resources.NetworkID.Length > Entity.Constant.RequestFieldLength.GetLength(Entity.Constant.TaskAttributeCode.AssignedNTID)))
+            {
+                reqVal.SetError(Entity.Constant.RequestField.NetworkId, Entity.Constant.RequestFieldLengthError.NetworkIdDetails);
+            }
             #endregion
 
             return reqVal;

@@ -138,6 +138,7 @@ namespace Onboarding.Controllers
             }
             else if (FormCommand == "Amend")
             {
+                sysAccess.IsHRAdmin = Helper.Utility.HasRole(Entity.Constant.SystemRole.HRAdmin) || Helper.Utility.HasRole(Entity.Constant.SystemRole.SuperUser);
                 Session["RequestViewMode"] = false;
                 ModelState.Clear();
                 BindEntityToModel(request, sysAccess);
@@ -245,6 +246,7 @@ namespace Onboarding.Controllers
 
             request.Resources.IsEmailDLSelected = sysAccess.IsEmailDLSelected;
             request.Resources.EmailDLDetails = Common.Security.Sanitize(sysAccess.EmailDLDetails);
+            request.Resources.NetworkID = sysAccess.NetworkID;
 
             //Disabled check-boxes will assign false value to the model, 
             // hence the mandatory default value that is previously set is reset to false.
@@ -295,6 +297,10 @@ namespace Onboarding.Controllers
                 if (request.Resources.IsEmailDLSelected != null)
                     sysAccess.IsEmailDLSelected = request.Resources.IsEmailDLSelected.Value;
                 sysAccess.EmailDLDetails = request.Resources.EmailDLDetails;
+                if (request.Resources.NetworkID != null)
+                {
+                    sysAccess.NetworkID = request.Resources.NetworkID;
+                }
             }
 
             if (request.Attachment != null)

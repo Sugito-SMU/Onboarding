@@ -92,7 +92,7 @@
 
             <div class="row">
                 <div class="form-group">
-                    <div class="col-xs-12 col-sm-6 col-md-2">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" id="chkNetworkId" checked="checked" disabled>
@@ -102,7 +102,7 @@
                         </div>
 
                     </div>
-                    <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="col-md-6">
                         @if (Model.IsHRAdmin)
                         {
                             @Html.TextBoxFor(model => model.NetworkID, new
@@ -110,7 +110,7 @@
                                 @class = "form-control requestor_remarks textbox-input",
                                 @placeholder = "Network ID - Required",
                                 @maxlength = Onboarding.Entity.Constant.RequestFieldLength
-                                    .GetLength(Onboarding.Entity.Constant.RequestField.ISISRemarks)
+                                    .GetLength(Onboarding.Entity.Constant.RequestField.NetworkId)
                             })
                             if (Model.Request.HasError(Onboarding.Entity.Constant.RequestField.NetworkId))
                             {

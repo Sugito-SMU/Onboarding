@@ -216,6 +216,7 @@ namespace Onboarding.DataProvider.Mapper
                 MapReqSysAccAttrb(reqRes.IsNextwebSelected, Entity.Constant.RequestAttributeCode.IsNextwebSelected, userId, sqlDateTime, dbReq, obCtx);
                 MapReqSysAccAttrb(reqRes.IsEmailDLSelected, Entity.Constant.RequestAttributeCode.IsEmailDLSelected, userId, sqlDateTime, dbReq, obCtx);
                 MapReqSysAccAttrb(reqRes.EmailDLDetails, Entity.Constant.RequestAttributeCode.EmailDLDetails, userId, sqlDateTime, dbReq, obCtx);
+                MapReqSysAccAttrb(reqRes.NetworkID, Entity.Constant.RequestAttributeCode.NetworkID, userId, sqlDateTime, dbReq, obCtx);
             }
         }
 

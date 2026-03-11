@@ -23,6 +23,8 @@ namespace Onboarding.Entity.Constant
                     return 64;
                 case RequestField.MobileNo:
                     return 20;
+                case RequestField.NetworkId:
+                    return 12;
                 default:
                     return 600;
             }
