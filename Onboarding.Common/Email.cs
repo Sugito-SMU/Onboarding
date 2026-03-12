@@ -142,5 +142,52 @@ namespace Onboarding.Common
             SendEmail(to, null, null, subject, body);
         }
 
+        public static void SendEmailForNetworkIdUpdate(string employeeName, int employeeId, string requestedBy, string taskUrl)
+        {
+            string to = ConfigurationManager.AppSettings["HRAdminEmail"];
+            string subject = ConfigurationManager.AppSettings["NetworkIdUpdateSubject"];
+
+            if (string.IsNullOrWhiteSpace(to))
+            {
+                return;
+            }
+            string body = string.Format(@"
+                <html>
+                <body>
+                <p>A new task requires HR Admin action to update the Network ID.</p>
+
+                <table cellpadding='5' cellspacing='0' border='1'>
+                    <tr>
+                        <td style='text-align:right;font-weight:bold'>Employee Name:</td>
+                        <td>{0}</td>
+                    </tr>
+                    <tr>
+                        <td style='text-align:right;font-weight:bold'>Employee ID:</td>
+                        <td>{1}</td>
+                    </tr>
+                    <tr>
+                        <td style='text-align:right;font-weight:bold'>Requested By:</td>
+                        <td>{4}</td>
+                    </tr>
+                    <tr>
+                        <td style='text-align:right;font-weight:bold'>Task Link:</td>
+                        <td><a href='{5}'>Open Request</a></td>
+                    </tr>
+                </table>
+
+                <br/>
+                <p>Please click the link above to review and complete the request.</p>
+
+                </body>
+                </html>",
+                employeeName,
+                employeeId,
+                requestedBy,
+                taskUrl
+            );
+
+            SendEmail(to, null, null, subject, body);
+        }
+
     }
 }

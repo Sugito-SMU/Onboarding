@@ -114,7 +114,12 @@ namespace Onboarding.Controllers
                 Request req = api.SaveRequest(request, Helper.Utility.GetCurrentUserId());
                 Session["Request"] = req;
                 BindEntityToModel(req, sysAccess);
-
+                if (string.IsNullOrEmpty(request.Resources.NetworkID) && Helper.Utility.HasRole(Entity.Constant.SystemRole.SchoolAmin))
+                {
+                    string url = ConfigurationManager.AppSettings["RedirectURL"] + "HRAdmin/HRAdminRequest/" + req.ReqId;
+                    Common.Email.SendEmailForNetworkIdUpdate(req.FirstName, req.ReqId, request.CreatedBy, url);
+                }
+                
                 if (hasAttachment)
                 {
                     SaveAttachmentFile(sysAccess.AttachmentFile, req.Attachment);
