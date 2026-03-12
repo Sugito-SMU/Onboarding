@@ -69,6 +69,7 @@
     <Compile Include="PatronOnbdIntfRpt.cs" />
     <Compile Include="RequestAttributeValueMap.cs" />
     <Compile Include="RequestCountForHRAdmin.cs" />
+    <Compile Include="TaskAgent.cs" />
     <Compile Include="TaskValidationError.cs" />
     <Compile Include="RequestValidation.cs" />
     <Compile Include="OutstandingRequestAlert.cs" />

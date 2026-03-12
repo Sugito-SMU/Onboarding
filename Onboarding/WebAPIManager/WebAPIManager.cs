@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Onboarding.Common;
 using Onboarding.Entity;
 using Onboarding.Models;
-using Onboarding.Common;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -1090,6 +1091,44 @@ namespace Onboarding.WebAPIManager
                     var responseData = response.Content.ReadAsStringAsync().Result;
                     var requestObject = JsonConvert.DeserializeObject<UserProfile>(responseData);
                     return requestObject;
+                }
+                else
+                {
+                    HtmlHelpers.HandleApiResponse(response);
+                    return null;
+                }
+            }
+        }
+
+        public string GetHRAdminEmails()
+        {
+            var handler = new HttpClientHandler
+            {
+                UseDefaultCredentials = true
+            };
+
+            if (ConfigurationManager.AppSettings["Debug_User"] != null && ConfigurationManager.AppSettings["Debug_User"].ToString().Length > 0)
+            {
+                handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            }
+
+            using (HttpClient client = new HttpClient(handler))
+            {
+                if (ConfigurationManager.AppSettings["Debug_User"] != null && ConfigurationManager.AppSettings["Debug_User"].ToString().Length > 0)
+                {
+                    Common.Logger.LogInfo($"WindowsIdentity.GetCurrent().Name: {WindowsIdentity.GetCurrent().Name}");
+                }
+
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["WebAPIUri"]);
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync("api/HRAdminEmail/" + Entity.Constant.TaskCode.CreateNTID + "/").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseData = response.Content.ReadAsStringAsync().Result;
+                    var requestObject = JObject.Parse(responseData);
+                    return requestObject["emails"].ToString();
                 }
                 else
                 {

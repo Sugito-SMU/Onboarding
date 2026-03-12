@@ -45,8 +45,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -67,6 +67,7 @@
     <Compile Include="CostCentreProvider.cs" />
     <Compile Include="EmailAlertProvider.cs" />
     <Compile Include="Mapper\TaskFlowMapToEntity.cs" />
+    <Compile Include="Mapper\TastAgentMapToEntity.cs" />
     <Compile Include="Model\OnboardingModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -242,6 +243,7 @@
     <Compile Include="GenderProvider.cs" />
     <Compile Include="RequestAttrributeCodeProvider.cs" />
     <Compile Include="GeneralReportProvider.cs" />
+    <Compile Include="TaskAgentProvider.cs" />
     <Compile Include="TaskFlowProvider.cs" />
     <Compile Include="TaskProvider.cs" />
     <Compile Include="AgentProvider.cs" />

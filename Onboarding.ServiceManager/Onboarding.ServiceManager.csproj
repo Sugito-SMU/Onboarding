@@ -66,6 +66,7 @@
     <Compile Include="GenderManager.cs" />
     <Compile Include="BulkRequestManager.cs" />
     <Compile Include="NotificationManager.cs" />
+    <Compile Include="TaskAgentManager.cs" />
     <Compile Include="TaskWorkflowManager.cs" />
     <Compile Include="TaskManager.cs" />
     <Compile Include="UserSubTypeManager.cs" />

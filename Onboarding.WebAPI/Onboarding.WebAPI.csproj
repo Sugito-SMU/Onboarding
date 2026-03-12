@@ -127,6 +127,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BulkRequestController.cs" />
     <Compile Include="Controllers\RequestAttachmentController.cs" />
+    <Compile Include="Controllers\HRAdminEmailController.cs" />
     <Compile Include="Controllers\RequestCountForHRAdminController.cs" />
     <Compile Include="Controllers\RequestCountForAgentController.cs" />
     <Compile Include="Controllers\RequestListForHRAdminController.cs" />

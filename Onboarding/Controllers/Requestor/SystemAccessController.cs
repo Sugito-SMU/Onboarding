@@ -117,7 +117,7 @@ namespace Onboarding.Controllers
                 if (string.IsNullOrEmpty(request.Resources.NetworkID) && Helper.Utility.HasRole(Entity.Constant.SystemRole.SchoolAmin))
                 {
                     string url = ConfigurationManager.AppSettings["RedirectURL"] + "HRAdmin/HRAdminRequest/" + req.ReqId;
-                    Common.Email.SendEmailForNetworkIdUpdate(req.FirstName, req.ReqId, request.CreatedBy, url);
+                    SendEmailForNetworkIdUpdate(req.FirstName, req.ReqId, request.CreatedBy, url);
                 }
                 
                 if (hasAttachment)
@@ -407,6 +407,64 @@ namespace Onboarding.Controllers
                     System.IO.File.Delete(filePath);
                 }
             }
+        }
+
+        private void SendEmailForNetworkIdUpdate(string employeeName, int employeeId, string requestedBy, string taskUrl)
+        {
+            string toEmails = ConfigurationManager.AppSettings["HRAdminEmail"];
+            string subject = ConfigurationManager.AppSettings["NetworkIdUpdateSubject"];
+
+            if (string.IsNullOrWhiteSpace(subject))
+            {
+                subject = "Action Required: Network ID Update Request";
+            }
+            if (toEmails == null)
+            {
+                WebAPIManager.WebAPIManager api = new WebAPIManager.WebAPIManager();
+                 toEmails = api.GetHRAdminEmails();
+            }
+
+            if (toEmails == "")
+            {
+                return;
+            }
+            string body = string.Format(@"
+                <html>
+                <body>
+                <p>A new task requires HR Admin action to update the Network ID.</p>
+
+                <table cellpadding='5' cellspacing='0' border='1'>
+                    <tr>
+                        <td style='text-align:right;font-weight:bold'>Employee Name:</td>
+                        <td>{0}</td>
+                    </tr>
+                    <tr>
+                        <td style='text-align:right;font-weight:bold'>Employee ID:</td>
+                        <td>{1}</td>
+                    </tr>
+                    <tr>
+                        <td style='text-align:right;font-weight:bold'>Requested By:</td>
+                        <td>{2}</td>
+                    </tr>
+                    <tr>
+                        <td style='text-align:right;font-weight:bold'>Task Link:</td>
+                        <td><a href='{3}'>Open Request</a></td>
+                    </tr>
+                </table>
+
+                <br/>
+                <p>Please click the link above to review and complete the request.</p>
+
+                </body>
+                </html>",
+                employeeName,
+                employeeId,
+                requestedBy,
+                taskUrl
+            );
+
+            Common.Email.SendEmail(toEmails, null, null, subject, body);
+
         }
     }
 }
